@@ -47,7 +47,7 @@ class _ReusableCardState extends State<ReusableCard> {
       height: 70.0,
       padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.lightBlue,
         //color: colour,
         borderRadius: BorderRadius.circular(10.0),
       ),

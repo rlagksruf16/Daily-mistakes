@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
 
-class appBar extends StatelessWidget {
+
+class BottomMenuAppBar extends StatefulWidget {
+  @override
+  _BottomMenuAppBarState createState() => _BottomMenuAppBarState();
+}
+
+class _BottomMenuAppBarState extends State<BottomMenuAppBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('앱바'),
-      ),
+      // appBar: AppBar(title: const Text('Bottom App Bar')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
         onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-        elevation: 2.0,
       ),
       bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 4.0,
         child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.show_chart, size: 30.0, color: Colors.grey),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
+              onPressed: () {},
+            ),
+          ],
         ),
-        // NotchedShape: CircularNotchedRectangle(),
-        color: Colors.blueGrey,
       ),
     );
   }
