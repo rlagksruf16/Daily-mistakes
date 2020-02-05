@@ -20,9 +20,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  bool showSpinner = false;
-  String email;
-  String password;
   Colours selectedButton = Colours.white;
 
   @override
@@ -30,7 +27,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        // inAsyncCall: showSpinner,
         padding: EdgeInsets.only(top: 100.0),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -45,7 +41,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  email = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(hintText: '실수 입력'),
               ),
