@@ -61,6 +61,27 @@ class _MainPageState extends State<MainPage> {
                   colour: CardColour,
                 ),
               ),
+              Container(
+                child: ReusableCard(
+                  colour: CardColour,
+                ),
+              ),
+              Container(
+                child: ReusableCard(
+                  colour: CardColour,
+                ),
+              ),
+              Container(
+                child: ReusableCard(
+                  colour: CardColour,
+                ),
+              ),
+              Container(
+                child: ReusableCard(
+                  colour: CardColour,
+                ),
+              ),
+              
             ],      
           ),
         ),
