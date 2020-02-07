@@ -26,6 +26,7 @@ class _MainPageState extends State<MainPage> {
       body: Container(
         child: SafeArea(
           child: Column(
+            //쿠퍼티노 디자인 쇼핑리스트 참고하기
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
