@@ -32,23 +32,14 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.only(left: 10.0),
                 margin: EdgeInsets.all(10.0),
                 child: Text(
-                  
                   '실수리스트',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 25.0,
+                    fontSize: 30.0,
+                    fontFamily: 'DoHyeon',
+                    fontWeight: FontWeight.bold,
                     ),
                   textAlign: TextAlign.left,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
                 ),
               ),
               Container(

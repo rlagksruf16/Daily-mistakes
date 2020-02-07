@@ -16,7 +16,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-
 flutter:
   uses-material-design: true
+  fonts:
+    - family: DoHyeon
+      fonts:
+        - asset: fonts/DoHyeon-Regular.ttf
