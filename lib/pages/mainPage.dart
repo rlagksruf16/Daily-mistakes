@@ -26,29 +26,21 @@ class _MainPageState extends State<MainPage> {
       body: Container(
         child: SafeArea(
           child: Column(
+            //쿠퍼티노 디자인 쇼핑리스트 참고하기
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(left: 10.0),
                 margin: EdgeInsets.all(10.0),
                 child: Text(
-                  
                   '실수리스트',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 25.0,
+                    fontSize: 30.0,
+                    fontFamily: 'DoHyeon',
+                    fontWeight: FontWeight.bold,
                     ),
                   textAlign: TextAlign.left,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
                 ),
               ),
               Container(
