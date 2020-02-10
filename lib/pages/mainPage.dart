@@ -1,3 +1,4 @@
+import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/reusable_card.dart';
 import 'package:daily_mistakes/pages/appBar.dart';
@@ -81,7 +82,9 @@ class _MainPageState extends State<MainPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RegistrationScreen.id);
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
