@@ -12,6 +12,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.4.0
   rflutter_alert: ^1.0.3
+  table_calendar: ^2.2.2
+
 
 dev_dependencies:
   flutter_test:
