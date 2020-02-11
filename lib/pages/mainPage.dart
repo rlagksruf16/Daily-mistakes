@@ -1,3 +1,4 @@
+import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/reusable_card.dart';
@@ -110,7 +111,9 @@ class _MainPageState extends State<MainPage> {
             ),
             IconButton(
               icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, CalendarPage.id);
+              },
             ),
           ],
         ),
