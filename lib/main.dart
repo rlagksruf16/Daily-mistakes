@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/mainPage.dart';
 import 'pages/mistakeRegisterPage.dart';
+import 'pages/overcomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         MainPage.id: (context) => MainPage(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
+        OvercomePage.id : (context) => OvercomePage(),
       },
     );
   }
