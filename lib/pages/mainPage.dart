@@ -2,15 +2,12 @@ import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/reusable_card.dart';
 import 'package:daily_mistakes/pages/appBar.dart';
+import 'package:daily_mistakes/pages/overcomePage.dart';
 
 const bottomContainerHeight = 80.0;
-const CardColour = Colors.grey;
+const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 
-enum Gender{
-  male,
-  female,
-}
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
@@ -19,7 +16,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Gender selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +23,37 @@ class _MainPageState extends State<MainPage> {
       body: Container(
         child: SafeArea(
           child: Column(
-            //쿠퍼티노 디자인 쇼핑리스트 참고하기
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 10.0),
-                margin: EdgeInsets.all(10.0),
-                child: Text(
-                  '실수리스트',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30.0,
-                    fontFamily: 'DoHyeon',
-                    fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 20.0),
+                    margin: EdgeInsets.all(10.0),
+                    child: Text(
+                      '실수리스트',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                        fontFamily: 'DoHyeon',
+                        fontWeight: FontWeight.bold,
+                        ),
+                      textAlign: TextAlign.left,
                     ),
-                  textAlign: TextAlign.left,
-                ),
+                  ),
+                  Container(
+                    child: FlatButton(
+                      child: Icon(
+                        Icons.list,
+                        size: 30.0,
+                        ),
+                      onPressed: (){
+                        Navigator.pushNamed(context, OvercomePage.id);
+                      },
+                    ),                    
+                  ),
+                ],
               ),
               Container(
                 child: ReusableCard(

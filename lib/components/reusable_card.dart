@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ReusableCard extends StatefulWidget {
+
+class ReusableCard extends StatelessWidget {
   ReusableCard({@required this.colour});
   final Color colour;
 
-  @override
-  _ReusableCardState createState() => _ReusableCardState();
-}
-
-class _ReusableCardState extends State<ReusableCard> {
   static const mainTextStyle = TextStyle(
     fontSize: 20.0,
     fontFamily: 'DoHyeon',
@@ -36,11 +32,7 @@ class _ReusableCardState extends State<ReusableCard> {
             ),
           ),
           RoundIconButton(
-            onPressed:(){
-              setState(() {
-                //count++;
-              });
-            }
+            onPressed: (){} //count++
           ),
         ],
       ),
@@ -59,8 +51,7 @@ class _ReusableCardState extends State<ReusableCard> {
             ),
           ),
         ],
-        color: Colors.lightBlue,
-        //color: colour,
+        color: colour,
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
