@@ -65,11 +65,17 @@ class _CalendarPageState extends State<CalendarPage> {
       // TableCalendar(calendarController: _calendarController,),
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.home),
-        onPressed: () {
-          Navigator.pushNamed(context, MainPage.id);
-        },
+      floatingActionButton: Container(
+        height: 75.0,
+        width: 75.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            child: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushNamed(context, MainPage.id);
+            },
+          ),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
@@ -94,3 +100,5 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 }
+
+
