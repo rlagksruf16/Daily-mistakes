@@ -2,6 +2,7 @@ import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'calendarPage.dart';
 
+/*
 enum Colours {
   pink,
   red,
@@ -13,23 +14,25 @@ enum Colours {
   purple,
   white,
 }
+*/
 
-Colours selectedButton = Colours.white;
+//Colours selectedButton = Colours.white;
 String mistakeAlert;
+Color mistakeColor;
 
-class RegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends StatelessWidget {
   static const String id = 'registration_screen';
 
-  @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
-}
+  
+  final Function addMistakeCallback;
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
-  String mistakeName;
-  String mistakeColor;
+  RegistrationScreen(this.addMistakeCallback);
 
   @override
   Widget build(BuildContext context) {
+    String mistakeName;
+    
+    
     return Scaffold(
       body: Container(
         child: SafeArea(
@@ -112,88 +115,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Row(
                       children: <Widget>[
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.pink;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.pink
-                              ? Colors.pink[50]
-                              : Colors.pink,
+                          buttonColor: Colors.pink
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.red;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.red
-                              ? Colors.red[50]
-                              : Colors.red,
+                          buttonColor: Colors.red
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.orange;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.orange
-                              ? Colors.orange[50]
-                              : Colors.orange,
+                          buttonColor:Colors.orange,
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.yellow;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.yellow
-                              ? Colors.yellow[50]
-                              : Colors.yellow,
+                          buttonColor: Colors.yellow,
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.green;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.green
-                              ? Colors.green[50]
-                              : Colors.green,
+                          buttonColor: Colors.green,
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.lightblue;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.lightblue
-                              ? Colors.lightBlue[50]
-                              : Colors.lightBlue,
+                          buttonColor: Colors.lightBlue,
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.blue;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.blue
-                              ? Colors.blueAccent[50]
-                              : Colors.blueAccent,
+                          buttonColor: Colors.blueAccent,
                         ),
                         ColorButton(
-                          onPress: () {
-                            setState(() {
-                              selectedButton = Colours.purple;
-                            });
-                          },
-                          buttonColor: selectedButton == Colours.purple
-                              ? Colors.purple[50]
-                              : Colors.purple,
+                          buttonColor: Colors.purple,
                         ),
                       ],
                     )
@@ -206,10 +153,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   title: '실수 등록',
                   colour: Colors.grey[350],
                   onPressed: () {
-                    mistakeColor = selectedButton.toString();
-                    print(mistakeName); //print부분 다 지워도 됨.
-                    print(mistakeAlert);
-                    print(mistakeColor);
+                    //mistakeColor = selectedButton.toString();
+                    //print(mistakeName); //print부분 다 지워도 됨.
+                    //print(mistakeAlert);
+                    //print(mistakeColor);
+                    addMistakeCallback(mistakeName);
                   },
                 ),
               ),
@@ -331,25 +279,36 @@ class RoundedButton extends StatelessWidget {
   }
 }
 
-class ColorButton extends StatelessWidget {
+class ColorButton extends StatefulWidget {
   ColorButton({
-    @required this.onPress,
     @required this.buttonColor,
   });
 
-  final Function onPress;
   final Color buttonColor;
 
   @override
+  _ColorButtonState createState() => _ColorButtonState();
+}
+
+class _ColorButtonState extends State<ColorButton> {
+  bool tappedButton = false;
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress,
+      onTap: (){
+        setState(() {
+          tappedButton = true;
+          mistakeColor = widget.buttonColor;
+        });
+      },
+      //onPress,
+      
       child: Container(
         width: 60.0,
         height: 60.0,
         margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: buttonColor,
+          color: tappedButton == false? widget.buttonColor : widget.buttonColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
