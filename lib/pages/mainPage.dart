@@ -103,17 +103,17 @@ class _MainPageState extends State<MainPage> {
           child: FloatingActionButton(
             child: const Icon(Icons.add),
             onPressed: () {
-              showModalBottomSheet(context: context, builder: (context) => RegistrationScreen((mistakeName){
+              //showModalBottomSheet(context: context, builder: (context) => RegistrationScreen((mistakeName){
                 /*
                 setState(() {
                   mistakes.add(Mistake(name: mistakeName, colour: mistakeColor, alertPeriod: mistakeAlert));
                 });
                 */
-                Navigator.pop(context);
-              }));
+                //Navigator.pop(context);
+             //}));
               
             
-              //Navigator.pushNamed(context, RegistrationScreen.id);
+              Navigator.pushNamed(context, RegistrationScreen.id);
             },
           ),
         ),

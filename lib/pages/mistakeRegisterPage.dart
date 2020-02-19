@@ -1,6 +1,8 @@
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'calendarPage.dart';
+import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/models/mistake_data.dart';
 
 /*
 enum Colours {
@@ -20,13 +22,21 @@ enum Colours {
 String mistakeAlert;
 Color mistakeColor;
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
 
-  
+  /*
   final Function addMistakeCallback;
 
   RegistrationScreen(this.addMistakeCallback);
+  */
+
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  List<Mistake> mistakes=[ Mistake(name: 'first mistake', colour: Colors.red, alertPeriod: '하루에 3번')];
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +164,14 @@ class RegistrationScreen extends StatelessWidget {
                   colour: Colors.grey[350],
                   onPressed: () {
                     //mistakeColor = selectedButton.toString();
-                    //print(mistakeName); //print부분 다 지워도 됨.
-                    //print(mistakeAlert);
-                    //print(mistakeColor);
-                    addMistakeCallback(mistakeName);
+                    print(mistakeName); //print부분 다 지워도 됨.
+                    print(mistakeAlert);
+                    print(mistakeColor);
+                    //widget.addMistakeCallback(mistakeName);
+                    setState(() {
+                      mistakes.add(Mistake(name: mistakeName, colour: mistakeColor, alertPeriod: mistakeAlert));
+                    });
+                    Navigator.pop(context);
                   },
                 ),
               ),
@@ -291,13 +305,13 @@ class ColorButton extends StatefulWidget {
 }
 
 class _ColorButtonState extends State<ColorButton> {
-  bool tappedButton = false;
+  bool selectedButton = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         setState(() {
-          tappedButton = true;
+          selectedButton = selectedButton == false? true : false;
           mistakeColor = widget.buttonColor;
         });
       },
@@ -308,7 +322,7 @@ class _ColorButtonState extends State<ColorButton> {
         height: 60.0,
         margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: tappedButton == false? widget.buttonColor : widget.buttonColor.withOpacity(0.5),
+          color: selectedButton == false? widget.buttonColor : widget.buttonColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),

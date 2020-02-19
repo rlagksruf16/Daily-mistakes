@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 
-class TaskData extends ChangeNotifier{
+class MistakeData extends ChangeNotifier{
 
   List<Mistake> mistakes = [
     Mistake(name: 'first mistake', colour: Colors.red, alertPeriod: '하루에 3번'),
