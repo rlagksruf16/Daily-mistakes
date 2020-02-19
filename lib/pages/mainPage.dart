@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/reusable_card.dart';
 import 'package:daily_mistakes/pages/appBar.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/models/mistake_data.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 
+List<Mistake> mistakes;
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
@@ -99,6 +103,16 @@ class _MainPageState extends State<MainPage> {
           child: FloatingActionButton(
             child: const Icon(Icons.add),
             onPressed: () {
+              //showModalBottomSheet(context: context, builder: (context) => RegistrationScreen((mistakeName){
+                /*
+                setState(() {
+                  mistakes.add(Mistake(name: mistakeName, colour: mistakeColor, alertPeriod: mistakeAlert));
+                });
+                */
+                //Navigator.pop(context);
+             //}));
+              
+            
               Navigator.pushNamed(context, RegistrationScreen.id);
             },
           ),
