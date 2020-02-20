@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
-class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour});
+class MistakeCard extends StatelessWidget {
+  MistakeCard({@required this.mistakeName, @required this.colour, @required this.count, this.countCallBack});
+
+  final String mistakeName;
   final Color colour;
+  final int count;
+  final Function countCallBack;
 
   static const mainTextStyle = TextStyle(
-    fontSize: 20.0,
+    fontSize: 25.0,
     fontFamily: 'DoHyeon',
   );
 
@@ -20,24 +24,24 @@ class ReusableCard extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Text(
-              '20',
+              '$count',
               style: mainTextStyle,
             ),
           ),
           Expanded(
             flex: 9,
             child: Text(
-              '새벽 4시에 잤다.',
+              mistakeName,
               style: mainTextStyle,
             ),
           ),
           RoundIconButton(
-            onPressed: (){} //count++
+            onPressed: countCallBack, //count++
           ),
         ],
       ),
       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      height: 70.0,
+      height: 90.0,
       padding: EdgeInsets.fromLTRB(20, 20, 15, 20),
       decoration: BoxDecoration(
         boxShadow: [

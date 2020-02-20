@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/components/reusable_card.dart';
+import 'package:daily_mistakes/components/mistake_card.dart';
 
 const CardColour = Colors.white;
 
@@ -40,37 +40,19 @@ class _OvercomePageState extends State<OvercomePage> {
                     
                   ],
                 ),
+                /*
                 Container(
-                  child: ReusableCard(
+                  child: MistakeCard(
                     colour: CardColour,
                   ),
                 ),
                 Container(
-                  child: ReusableCard(
-                    colour: CardColour,
-                  ),
-                ),
-                Container(
-                  child: ReusableCard(
-                    colour: CardColour,
-                  ),
-                ),
-                Container(
-                  child: ReusableCard(
-                    colour: CardColour,
-                  ),
-                ),
-                Container(
-                  child: ReusableCard(
-                    colour: CardColour,
-                  ),
-                ),
-                Container(
-                  child: ReusableCard(
+                  child: MistakeCard(
                     colour: CardColour,
                   ),
                 ),
                 
+                */
               ],      
             ),
           ),
