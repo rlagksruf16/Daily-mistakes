@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 
-
+const Color coreColor = Color(0xFF03A9F4);
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
+  static const Color transparent = Color(0x00000000);
 
+  static const Color coreColor = Color(0xFF03A9F4);
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -56,7 +58,32 @@ class _CalendarPageState extends State<CalendarPage> {
                   ),
                 ],
               ),
-              TableCalendar(calendarController: _calendarController,),
+              TableCalendar(
+                calendarController: _calendarController,
+                calendarStyle: CalendarStyle(
+                  todayStyle: TextStyle(
+                    color: Colors.red,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  todayColor: Colors.transparent,
+                  selectedColor: Colors.black,
+                  selectedStyle: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  ),
+                ),
+                headerStyle: HeaderStyle(
+                  formatButtonDecoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  formatButtonShowsNext: false,
+                ),
+                onDaySelected: (date, events) {
+                  print(date.toIso8601String());
+                },
+              ),
             ],
           ),
         ),
