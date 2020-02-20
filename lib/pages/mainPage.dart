@@ -1,21 +1,23 @@
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/components/reusable_card.dart';
+import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/pages/appBar.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
-import 'package:provider/provider.dart';
 import 'package:daily_mistakes/models/mistake.dart';
-import 'package:daily_mistakes/models/mistake_data.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 
-List<Mistake> mistakes;
+List<Mistake> mistakes = [
+  Mistake(name: 'first mistake', colour: Colors.red, alertPeriod: '하루에 3번'),
+  Mistake(name: 'second mistake', colour: Colors.purple, alertPeriod: '하루에 5번'),
+];
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -60,34 +62,21 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
-                ),
-              ),
-              Container(
-                child: ReusableCard(
-                  colour: CardColour,
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index){
+                    return MistakeCard(
+                      mistakeName: mistakes[index].name,
+                      colour: mistakes[index].colour,
+                      count: mistakes[index].count,
+                      countCallBack: (){
+                        setState(() {
+                          mistakes[index].countUp();
+                        });
+                      }
+                    );
+                  },
+                  itemCount: mistakes.length,
                 ),
               ),
               
@@ -103,17 +92,13 @@ class _MainPageState extends State<MainPage> {
           child: FloatingActionButton(
             child: const Icon(Icons.add),
             onPressed: () {
-              //showModalBottomSheet(context: context, builder: (context) => RegistrationScreen((mistakeName){
-                /*
-                setState(() {
-                  mistakes.add(Mistake(name: mistakeName, colour: mistakeColor, alertPeriod: mistakeAlert));
-                });
-                */
-                //Navigator.pop(context);
-             //}));
-              
-            
-              Navigator.pushNamed(context, RegistrationScreen.id);
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context)=>RegistrationScreen((newMistake){
+                  setState(() {
+                    mistakes.add(newMistake);
+                  });
+                })
+              ));
             },
           ),
         ),
