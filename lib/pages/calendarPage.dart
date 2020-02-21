@@ -63,13 +63,13 @@ class _CalendarPageState extends State<CalendarPage> {
                 calendarStyle: CalendarStyle(
                   todayStyle: TextStyle(
                     color: Colors.red,
-                    fontSize: 18.0,
+                    fontSize: 19.0,
                     fontWeight: FontWeight.bold,
                   ),
                   todayColor: Colors.transparent,
                   selectedColor: Colors.black,
                   selectedStyle: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 19.0,
                     color: Colors.white,
                   ),
                 ),
