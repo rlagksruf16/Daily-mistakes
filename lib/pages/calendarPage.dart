@@ -21,10 +21,19 @@ class _CalendarPageState extends State<CalendarPage> {
 
   CalendarController _calendarController;
 
+  Map<DateTime, List<dynamic>> _events;
+  TextEditingController _eventController;
+  List<dynamic> _selectedEvents;
+
+
+
   @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
+    _eventController = TextEditingController();
+    _events = {};
+    _selectedEvents = [];
   }
 
   @override
@@ -61,6 +70,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 ],
               ),
               TableCalendar(
+                events: _events,
                 calendarController: _calendarController,
                 calendarStyle: CalendarStyle(
                   todayStyle: TextStyle(
@@ -83,9 +93,14 @@ class _CalendarPageState extends State<CalendarPage> {
                   formatButtonShowsNext: false,
                 ),
                 onDaySelected: (date, events) {
-                  print(date.toIso8601String());
+                  setState(() {
+                    _selectedEvents = events;
+                  });
                 },
               ),
+              ... _selectedEvents.map((events) => ListTile(
+                title: Text(events),
+              )),
             ],
           ),
         ),
@@ -95,12 +110,42 @@ class _CalendarPageState extends State<CalendarPage> {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomActionButton(
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, MainPage.id);
+          _showAddDialog();
         },
       ),
       bottomNavigationBar: CustomAppBar(),
+    );
+  }
+
+  _showAddDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextField(
+          controller: _eventController,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('저장'),
+            onPressed: (){
+              if(_eventController.text.isEmpty) return;
+              setState(() {
+                if(_events[_calendarController.selectedDay] != null) {
+                  _events[_calendarController.selectedDay].add(_eventController.text);
+                }
+                else {
+                  _events[_calendarController.selectedDay] = [_eventController.text];
+                }
+                _eventController.clear();
+                Navigator.pop(context);
+              });
+              
+            },
+          )
+        ],
+      )
     );
   }
 }
