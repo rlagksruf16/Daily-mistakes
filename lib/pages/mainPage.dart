@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
                   Container(
                     child: FlatButton(
                       child: Icon(
-                        Icons.list,
+                        Icons.delete,
                         size: 30.0,
                         ),
                       onPressed: (){
