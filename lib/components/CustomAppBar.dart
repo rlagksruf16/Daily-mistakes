@@ -6,13 +6,14 @@ import 'package:daily_mistakes/pages/statisticPage.dart';
 class CustomAppBar extends StatelessWidget {
   @override
 
+// 리팩토링 할 때 참고 http://bizz84.github.io/2018/09/13/BottomBar-Navigation-with-FAB.html
 
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 4.0,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
