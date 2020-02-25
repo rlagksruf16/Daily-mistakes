@@ -1,18 +1,21 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:pie_chart/pie_chart.dart' as pie;
 import 'package:daily_mistakes/pages/mainPage.dart';
-import 'package:daily_mistakes/pages/calendarPage.dart';
+import 'package:daily_mistakes/components/CustomActionButton.dart';
+import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'dart:async';
 import 'dart:math';
 
-class StaticPage extends StatefulWidget {
+class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
 
   @override
-  _StaticPageState createState() => _StaticPageState();
+  _StatisticPageState createState() => _StatisticPageState();
 }
 
-class _StaticPageState extends State<StaticPage> {
+class _StatisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +46,13 @@ class _StaticPageState extends State<StaticPage> {
               Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    child: Text(
-                      '일주일 동안의 실수 빈도',
-                      style: TextStyle(
-                        fontFamily: 'DoHyeon',
-                        fontSize: 15.0,
-                      ),
-                    ),
+                    margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: MistakesChart(),
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    child: BarChartSample1(),
-                  )
+                    child: BestMistakesChart(),
+                  ),
                 ],
               )
             ],
@@ -63,43 +60,18 @@ class _StaticPageState extends State<StaticPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        height: 75.0,
-        width: 75.0,
-        child: FittedBox(
-          child: FloatingActionButton(
-            child: const Icon(Icons.home),
-            onPressed: () {
-              Navigator.pushNamed(context, MainPage.id);
-            },
-          ),
-        ),
+      floatingActionButton: CustomActionButton(
+        icon: Icon(Icons.home),
+        onPressed: () {
+          Navigator.pushNamed(context, MainPage.id);
+        },
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.show_chart, size: 30.0, color: Colors.grey),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
-              onPressed: () {
-                Navigator.pushNamed(context, CalendarPage.id);
-              },
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: CustomAppBar(),
     );
   }
 }
 
-class BarChartSample1 extends StatefulWidget {
+class MistakesChart extends StatefulWidget {
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
@@ -110,16 +82,41 @@ class BarChartSample1 extends StatefulWidget {
   ];
 
   @override
-  State<StatefulWidget> createState() => BarChartSample1State();
+  State<StatefulWidget> createState() => MistakesChartState();
 }
 
-class BarChartSample1State extends State<BarChartSample1> {
-  final Color barBackgroundColor = const Color(0xff72d8bf);
+class MistakesChartState extends State<MistakesChart> {
+  final Color barBackgroundColor = Colors.blueGrey[200];
   final Duration animDuration = Duration(milliseconds: 250);
 
   int touchedIndex;
-
   bool isPlaying = false;
+
+  static DateTime date = DateTime.now();
+  int nowWeekday = date.weekday;
+  DateTime nowWeek;
+  int overday = 0;
+  DateTime durationweek;
+
+  @override
+  void initState() {
+    super.initState();
+    checkMonday();
+  }
+
+  void checkMonday() {
+    if (nowWeekday == 1) {
+      nowWeek = DateTime.now();
+    } else {
+      while (nowWeekday != 1) {
+        nowWeekday = date.weekday;
+        nowWeekday--;
+        overday++;
+        nowWeek = DateTime(date.year, date.month, date.day - overday);
+      }
+    }
+    durationweek = DateTime(nowWeek.year, nowWeek.month, nowWeek.day + 6);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +124,8 @@ class BarChartSample1State extends State<BarChartSample1> {
       aspectRatio: 1,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: const Color(0xff81e5cd),
+        color: Colors.blueGrey,
+        elevation: 10,
         child: Stack(
           children: <Widget>[
             Padding(
@@ -138,20 +136,22 @@ class BarChartSample1State extends State<BarChartSample1> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    '실수 통계',
+                    '일주일 간 실수 통계',
                     style: TextStyle(
-                        color: const Color(0xff0f4a3c),
-                        fontFamily: 'DoHyeon',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontFamily: 'DoHyeon',
+                      fontSize: 24,
+                    ),
                   ),
                   const SizedBox(
                     height: 4,
                   ),
                   Text(
-                    '2020_02_16 ~ 2020_02_22',
+                    formatDate(nowWeek, [yyyy, '_', mm, '_', dd]) +
+                        ' ~ ' +
+                        formatDate(durationweek, [yyyy, '_', mm, '_', dd]),
                     style: TextStyle(
-                        color: const Color(0xff379982),
+                        color: Colors.white70,
                         fontFamily: 'DoHyeon',
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
@@ -207,7 +207,7 @@ class BarChartSample1State extends State<BarChartSample1> {
     double y, {
     bool isTouched = false,
     Color barColor = Colors.white,
-    double width = 22,
+    double width = 23,
     List<int> showTooltips = const [],
   }) {
     return BarChartGroupData(
@@ -230,6 +230,7 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
         switch (i) {
+          //요일 별 횟수 저장. x는 요일 인덱스, y는 실수 횟수
           case 0:
             return makeGroupData(0, 5, isTouched: i == touchedIndex);
           case 1:
@@ -252,6 +253,7 @@ class BarChartSample1State extends State<BarChartSample1> {
   BarChartData mainBarData() {
     return BarChartData(
       barTouchData: BarTouchData(
+        //손으로 눌렀을 때 반응
         touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: Colors.blueGrey,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
@@ -284,6 +286,7 @@ class BarChartSample1State extends State<BarChartSample1> {
                   TextStyle(color: Colors.yellow, fontFamily: 'DoHyeon'));
             }),
         touchCallback: (barTouchResponse) {
+          //손댔는지 확인
           setState(() {
             if (barTouchResponse.spot != null &&
                 barTouchResponse.touchInput is! FlPanEnd &&
@@ -330,14 +333,15 @@ class BarChartSample1State extends State<BarChartSample1> {
       borderData: FlBorderData(
         show: false,
       ),
-      barGroups: showingGroups(),
+      barGroups: showingGroups(), //저장해논 요일 별 데이터들
     );
   }
 
-  BarChartData randomData() {
+  BarChartData randomData() { //요일 별 어떤 실수를 한 건지 색으로 표현
+    //재생 버튼 눌렀을 때
     return BarChartData(
       barTouchData: const BarTouchData(
-        enabled: false,
+        enabled: false, //손댔을 때 반응 없음
       ),
       titlesData: FlTitlesData(
         show: true,
@@ -377,10 +381,10 @@ class BarChartSample1State extends State<BarChartSample1> {
       barGroups: List.generate(7, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
+            return makeGroupData(0, 15,
                 barColor: widget.availableColors[
                     Random().nextInt(widget.availableColors.length)]);
-            // return makeGroupdData(0, 9, barColor: widget.availableColors[]);
+
           case 1:
             return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
                 barColor: widget.availableColors[
@@ -418,5 +422,65 @@ class BarChartSample1State extends State<BarChartSample1> {
     if (isPlaying) {
       refreshState();
     }
+  }
+}
+
+class BestMistakesChart extends StatefulWidget {
+  @override
+  _BestMistakesChartState createState() => _BestMistakesChartState();
+}
+
+class _BestMistakesChartState extends State<BestMistakesChart> {
+  Map<String, double> dataMap = Map();
+  List<Color> colorList = [
+    Colors.red[300],
+    Colors.green[300],
+    Colors.lightBlue,
+    Colors.yellow[300],
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    dataMap.putIfAbsent("First", () => 5);
+    dataMap.putIfAbsent("Second", () => 3);
+    dataMap.putIfAbsent("Third", () => 2);
+    dataMap.putIfAbsent("Four", () => 2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        color: Colors.blueGrey,
+        elevation: 10,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: pie.PieChart(
+              dataMap: dataMap,
+              animationDuration: Duration(milliseconds: 800),
+              chartLegendSpacing: 42.0,
+              chartRadius: MediaQuery.of(context).size.width / 2.7,
+              showChartValuesInPercentage: true,
+              showChartValues: true,
+              showChartValuesOutside: false,
+              chartValueBackgroundColor: Colors.grey[200],
+              colorList: colorList,
+              showLegends: true,
+              legendPosition: pie.LegendPosition.right,
+              decimalPlaces: 1,
+              showChartValueLabel: true,
+              initialAngle: 0,
+              chartValueStyle: pie.defaultChartValueStyle.copyWith(
+                color: Colors.blueGrey[900].withOpacity(0.9),
+              ),
+              chartType: pie.ChartType.ring,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

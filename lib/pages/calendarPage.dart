@@ -2,12 +2,16 @@ import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
+import 'package:daily_mistakes/components/CustomActionButton.dart';
+import 'package:daily_mistakes/components/CustomAppBar.dart';
 
-
+const Color coreColor = Color(0xFF03A9F4);
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
+  static const Color transparent = Color(0x00000000);
 
+  static const Color coreColor = Color(0xFF03A9F4);
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -17,10 +21,19 @@ class _CalendarPageState extends State<CalendarPage> {
 
   CalendarController _calendarController;
 
+  Map<DateTime, List<dynamic>> _events;
+  TextEditingController _eventController;
+  List<dynamic> _selectedEvents;
+
+
+
   @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
+    _eventController = TextEditingController();
+    _events = {};
+    _selectedEvents = [];
   }
 
   @override
@@ -56,7 +69,38 @@ class _CalendarPageState extends State<CalendarPage> {
                   ),
                 ],
               ),
-              TableCalendar(calendarController: _calendarController,),
+              TableCalendar(
+                events: _events,
+                calendarController: _calendarController,
+                calendarStyle: CalendarStyle(
+                  todayStyle: TextStyle(
+                    color: Colors.red,
+                    fontSize: 19.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  todayColor: Colors.transparent,
+                  selectedColor: Colors.black,
+                  selectedStyle: TextStyle(
+                    fontSize: 19.0,
+                    color: Colors.white,
+                  ),
+                ),
+                headerStyle: HeaderStyle(
+                  formatButtonDecoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  formatButtonShowsNext: false,
+                ),
+                onDaySelected: (date, events) {
+                  setState(() {
+                    _selectedEvents = events;
+                  });
+                },
+              ),
+              ... _selectedEvents.map((events) => ListTile(
+                title: Text(events),
+              )),
             ],
           ),
         ),
@@ -65,38 +109,43 @@ class _CalendarPageState extends State<CalendarPage> {
       // TableCalendar(calendarController: _calendarController,),
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        height: 75.0,
-        width: 75.0,
-        child: FittedBox(
-          child: FloatingActionButton(
-            child: const Icon(Icons.home),
-            onPressed: () {
-              Navigator.pushNamed(context, MainPage.id);
+      floatingActionButton: CustomActionButton(
+        icon: Icon(Icons.add),
+        onPressed: () {
+          _showAddDialog();
+        },
+      ),
+      bottomNavigationBar: CustomAppBar(),
+    );
+  }
+
+  _showAddDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextField(
+          controller: _eventController,
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('저장'),
+            onPressed: (){
+              if(_eventController.text.isEmpty) return;
+              setState(() {
+                if(_events[_calendarController.selectedDay] != null) {
+                  _events[_calendarController.selectedDay].add(_eventController.text);
+                }
+                else {
+                  _events[_calendarController.selectedDay] = [_eventController.text];
+                }
+                _eventController.clear();
+                Navigator.pop(context);
+              });
+              
             },
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.show_chart, size: 30.0, color: Colors.grey),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
-              onPressed: () {
-                Navigator.pushNamed(context, CalendarPage.id);
-              },
-            ),
-          ],
-        ),
-      ),
+          )
+        ],
+      )
     );
   }
 }
