@@ -1,5 +1,6 @@
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
+import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/reusable_card.dart';
 import 'package:daily_mistakes/pages/appBar.dart';
@@ -127,7 +128,9 @@ class _MainPageState extends State<MainPage> {
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.show_chart, size: 30.0, color: Colors.grey),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, StaticPage.id);
+              },
             ),
             IconButton(
               icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
