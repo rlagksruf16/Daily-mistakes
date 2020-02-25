@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.show_chart, size: 30.0, color: Colors.grey),
             onPressed: () {
-              // Navigator.pushNamed(context, StatisticPage.id);
+              Navigator.pushNamed(context, StatisticPage.id);
             },
           ),
           Container(
