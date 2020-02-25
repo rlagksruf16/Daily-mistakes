@@ -31,10 +31,12 @@ class CustomAppBar extends StatelessWidget {
             width: 90.0,
           ),
           IconButton(
-            icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
+            
             onPressed: () {
               Navigator.pushNamed(context, CalendarPage.id);
+
             },
+            icon: Icon(Icons.calendar_today, size: 30.0, color: Colors.grey),
           ),
           IconButton(
             icon: Icon(Icons.delete, size: 30.0, color: Colors.grey),
