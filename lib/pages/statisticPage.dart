@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 
 
-class statisticPage extends StatefulWidget {
+class StatisticPage extends StatefulWidget {
+  static const String id = 'statistic_Page';
+
   @override
-  _statisticPageState createState() => _statisticPageState();
+  _StatisticPageState createState() => _StatisticPageState();
 }
 
-class _statisticPageState extends State<statisticPage> {
+class _statisticPageState extends State<StatisticPage> {
   @override
   Widget build(BuildContext context) {
     return Container(

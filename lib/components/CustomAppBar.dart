@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
+import 'package:daily_mistakes/pages/settingPage.dart';
 
 class CustomAppBar extends StatelessWidget {
 
@@ -22,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.settings, size: 30.0, color: Colors.grey),
               onPressed: () {
-
+                Navigator.pushNamed(context, SettingPage.id);
               },
             ),
             IconButton(
