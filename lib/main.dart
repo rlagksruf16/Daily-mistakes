@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         // RegistrationScreen.id: (context) => RegistrationScreen(),
         OvercomePage.id: (context) => OvercomePage(),
         CalendarPage.id: (context) => CalendarPage(),
-        //StatisticPage.id: (context) => StatisticPage(),
+        StatisticPage.id: (context) => StatisticPage(),
         SettingPage.id: (context) => SettingPage(),
 
         
