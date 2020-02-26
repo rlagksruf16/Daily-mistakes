@@ -12,11 +12,12 @@ dependencies:
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.4.0
   rflutter_alert: ^1.0.3
+  fl_chart: ^0.8.1
   table_calendar: ^2.2.2
   provider: ^3.0.0+1
-  fl_chart: ^0.8.1
   date_format: ^1.0.8
   pie_chart: ^3.1.1
+  async: ^2.4.0
 
 
 dev_dependencies:
