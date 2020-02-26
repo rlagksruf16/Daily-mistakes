@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
   int currentTab = 0;
   final List<Widget> screens = [
     SettingPage(),
-    StatisticPage(),
+    //StatisticPage(),
     CalendarPage(),
     OvercomePage(),
   ];
@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Color.fromRGBO(255, 255, 246, 1),
       body: Container(
         child: SafeArea(
           child: Column(
