@@ -33,16 +33,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     minWidth: 10,
                     onPressed: () {
                       setState(() {
-                        currentScreen = SettingPage(); // if user taps on this dashboard tab will be active
+                        currentScreen = MainPage(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
-                      Navigator.pushNamed(context, SettingPage.id);
+                      Navigator.pushNamed(context, MainPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
-                          Icons.settings,
+                          Icons.home,
                           color: currentTab == 0 ? Colors.blue : Colors.grey,
                         ),
                         Text(
