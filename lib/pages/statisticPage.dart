@@ -4,6 +4,7 @@ import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 
 class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
@@ -59,9 +60,15 @@ class _StatisticPageState extends State<StatisticPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomActionButton(
-        icon: Icon(Icons.home),
+        icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, MainPage.id);
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context)=>RegistrationScreen((newMistake){
+              setState(() {
+                mistakes.add(newMistake);
+              });
+            })
+          ));
         },
       ),
       bottomNavigationBar: CustomAppBar(),

@@ -15,23 +15,26 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+  
+  double barWidth = 70;
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 8,
         child: Container(
-          height: 50,
+          height: 45,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   MaterialButton(
 
-                    minWidth: 10,
+                    minWidth: barWidth,
                     onPressed: () {
                       setState(() {
                         currentScreen = MainPage(); // if user taps on this dashboard tab will be active
@@ -47,7 +50,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           color: currentTab == 0 ? mainColor : nonColor,
                         ),
                         Text(
-                          'Setting',
+                          '홈',
                           style: TextStyle(
                             color: currentTab == 0 ? mainColor : nonColor,
                           ),
@@ -56,7 +59,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 20,
+                    minWidth: barWidth,
                     onPressed: () {
                       setState(() {
                         currentScreen = StatisticPage(); // if user taps on this dashboard tab will be active
@@ -72,7 +75,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           color: currentTab == 1 ? mainColor : nonColor,
                         ),
                         Text(
-                          'Setting',
+                          '차트',
                           style: TextStyle(
                             color: currentTab == 1 ? mainColor : nonColor,
                           ),
@@ -83,17 +86,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ],
               ),
 
-              // Right Tab bar icons
-              // Container(
-              //   EdgeInsetsGeometry
-              //   height: 0,
-              //   width: 50.0,
-              // ),
+              Container(
+                height: 0,
+                width: 50.0,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   MaterialButton(
-                    minWidth: 20,
+                    minWidth: barWidth,
                     onPressed: () {
                       setState(() {
                         currentScreen = CalendarPage(); // if user taps on this dashboard tab will be active
@@ -109,7 +110,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           color: currentTab == 2 ? mainColor : nonColor,
                         ),
                         Text(
-                          'Setting',
+                          '달력',
                           style: TextStyle(
                             color: currentTab == 2 ? mainColor : nonColor,
                           ),
@@ -118,7 +119,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 20,
+                    minWidth: barWidth,
                     onPressed: () {
                       setState(() {
                         currentScreen = OvercomePage(); // if user taps on this dashboard tab will be active
@@ -134,7 +135,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           color: currentTab == 3 ? mainColor : nonColor,
                         ),
                         Text(
-                          'Setting',
+                          '제거',
                           style: TextStyle(
                             color: currentTab == 3 ? mainColor : nonColor,
                           ),
