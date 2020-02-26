@@ -1,5 +1,3 @@
-
-import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
