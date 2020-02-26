@@ -15,3 +15,4 @@ class _statisticPageState extends State<statisticPage> {
     );
   }
 }
+
