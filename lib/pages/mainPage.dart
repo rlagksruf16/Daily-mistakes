@@ -12,6 +12,8 @@ import 'package:daily_mistakes/models/mistake.dart';
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
+int currentTab = 0;
+Widget currentScreen = MainPage();
 
 List<Mistake> mistakes = [
   Mistake(name: 'first mistake', colour: Colors.red, alertPeriod: '하루에 3번'),
@@ -27,13 +29,16 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  int currentTab = 0;
+  // int currentTab = 0; // to keep track of active tab index
   final List<Widget> screens = [
-    SettingPage(),
-    //StatisticPage(),
     CalendarPage(),
+    SettingPage(),
+    StatisticPage(),
     OvercomePage(),
-  ];
+    MainPage(),
+  ]; // to store nested tabs
+  final PageStorageBucket bucket = PageStorageBucket();
+  
 
   @override
   Widget build(BuildContext context) {
