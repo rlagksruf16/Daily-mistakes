@@ -5,7 +5,7 @@ import 'package:pie_chart/pie_chart.dart' as pie;
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
-import 'dart:async';
+// import 'dart:async';
 import 'dart:math';
 
 class StatisticPage extends StatefulWidget {
@@ -187,9 +187,9 @@ class MistakesChartState extends State<MistakesChart> {
                   onPressed: () {
                     setState(() {
                       isPlaying = !isPlaying;
-                      if (isPlaying) {
-                        refreshState();
-                      }
+                      // if (isPlaying) {
+                      //   refreshState();
+                      // }
                     });
                   },
                 ),
@@ -416,13 +416,13 @@ class MistakesChartState extends State<MistakesChart> {
     );
   }
 
-  Future<dynamic> refreshState() async {
-    setState(() {});
-    await Future<dynamic>.delayed(animDuration + Duration(milliseconds: 50));
-    if (isPlaying) {
-      refreshState();
-    }
-  }
+  // Future<dynamic> refreshState() async {
+  //   setState(() {});
+  //   await Future<dynamic>.delayed(animDuration + Duration(milliseconds: 50));
+  //   if (isPlaying) {
+  //     refreshState();
+  //   }
+  // }
 }
 
 class BestMistakesChart extends StatefulWidget {
@@ -484,3 +484,4 @@ class _BestMistakesChartState extends State<BestMistakesChart> {
     );
   }
 }
+
