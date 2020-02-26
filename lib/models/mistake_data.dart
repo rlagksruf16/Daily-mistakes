@@ -11,5 +11,4 @@ class MistakeData extends ChangeNotifier{
   int get mistakeCount{
     return mistakes.length;
   }
-
 }

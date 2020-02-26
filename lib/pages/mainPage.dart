@@ -1,3 +1,5 @@
+import 'package:daily_mistakes/pages/settingPage.dart';
+import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
@@ -24,6 +26,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  int currentTab = 0;
+  final List<Widget> screens = [
+    SettingPage(),
+    StatisticPage(),
+    CalendarPage(),
+    OvercomePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
