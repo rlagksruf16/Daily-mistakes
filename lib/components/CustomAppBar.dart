@@ -6,7 +6,8 @@ import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
 
-
+const mainColor = Color(0xFF5f80f4);
+const nonColor = Colors.grey;
 
 class CustomAppBar extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 4,
+        notchMargin: 8,
         child: Container(
           height: 50,
           child: Row(
@@ -43,12 +44,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.home,
-                          color: currentTab == 0 ? Colors.blue : Colors.grey,
+                          color: currentTab == 0 ? mainColor : nonColor,
                         ),
                         Text(
                           'Setting',
                           style: TextStyle(
-                            color: currentTab == 0 ? Colors.blue : Colors.grey,
+                            color: currentTab == 0 ? mainColor : nonColor,
                           ),
                         ),
                       ],
@@ -68,12 +69,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.show_chart,
-                          color: currentTab == 1 ? Colors.blue : Colors.grey,
+                          color: currentTab == 1 ? mainColor : nonColor,
                         ),
                         Text(
                           'Setting',
                           style: TextStyle(
-                            color: currentTab == 1 ? Colors.blue : Colors.grey,
+                            color: currentTab == 1 ? mainColor : nonColor,
                           ),
                         ),
                       ],
@@ -105,12 +106,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.calendar_today,
-                          color: currentTab == 2 ? Colors.blue : Colors.grey,
+                          color: currentTab == 2 ? mainColor : nonColor,
                         ),
                         Text(
                           'Setting',
                           style: TextStyle(
-                            color: currentTab == 2 ? Colors.blue : Colors.grey,
+                            color: currentTab == 2 ? mainColor : nonColor,
                           ),
                         ),
                       ],
@@ -130,12 +131,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.delete,
-                          color: currentTab == 3 ? Colors.blue : Colors.grey,
+                          color: currentTab == 3 ? mainColor : nonColor,
                         ),
                         Text(
                           'Setting',
                           style: TextStyle(
-                            color: currentTab == 3 ? Colors.blue : Colors.grey,
+                            color: currentTab == 3 ? mainColor : nonColor,
                           ),
                         ),
                       ],
