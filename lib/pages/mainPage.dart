@@ -30,13 +30,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   // int currentTab = 0; // to keep track of active tab index
-  final List<Widget> screens = [
-    CalendarPage(),
-    SettingPage(),
-    StatisticPage(),
-    OvercomePage(),
-    MainPage(),
-  ]; // to store nested tabs
+  // final List<Widget> screens = [
+  //   CalendarPage(),
+  //   SettingPage(),
+  //   StatisticPage(),
+  //   OvercomePage(),
+  //   MainPage(),
+  // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
   
 
@@ -69,11 +69,11 @@ class _MainPageState extends State<MainPage> {
                   Container(
                     child: FlatButton(
                       child: Icon(
-                        Icons.delete,
+                        Icons.settings,
                         size: 30.0,
                         ),
                       onPressed: (){
-                        Navigator.pushNamed(context, OvercomePage.id);
+                        Navigator.pushNamed(context, SettingPage.id);
                       },
                     ),                    
                   ),
