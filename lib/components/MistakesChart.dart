@@ -31,24 +31,29 @@ class MistakesChartState extends State<MistakesChart> {
   int overday = 0;
   DateTime durationweek;
 
-  @override
-  void initState() {
-    super.initState();
-    checkMonday();
-  }
-
   void checkMonday() {
     if (nowWeekday == 1) {
       nowWeek = DateTime.now();
-    } else {
-      while (nowWeekday != 1) {
-        nowWeekday = date.weekday;
-        nowWeekday--;
-        overday++;
-        nowWeek = DateTime(date.year, date.month, date.day - overday);
-      }
+    } else if(nowWeekday == 2){
+      nowWeek = DateTime(date.year, date.month, date.day - 1);
+    } else if(nowWeekday == 3){
+      nowWeek = DateTime(date.year, date.month, date.day - 2);
+    } else if(nowWeekday == 4){
+      nowWeek = DateTime(date.year, date.month, date.day - 3);
+    } else if(nowWeekday == 5){
+      nowWeek = DateTime(date.year, date.month, date.day - 4);
+    } else if(nowWeekday == 6){
+      nowWeek = DateTime(date.year, date.month, date.day - 5);
+    } else{
+      nowWeek = DateTime(date.year, date.month, date.day -6);
     }
     durationweek = DateTime(nowWeek.year, nowWeek.month, nowWeek.day + 6);
+  }
+
+  @override
+  void initState() {
+    checkMonday();
+    super.initState();
   }
 
   @override

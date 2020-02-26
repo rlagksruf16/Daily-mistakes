@@ -5,7 +5,6 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 
-
 class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
 
@@ -14,6 +13,7 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

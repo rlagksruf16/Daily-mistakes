@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
+import 'package:daily_mistakes/components/MistakesChart.dart';
 
 class CustomAppBar extends StatelessWidget {
 
