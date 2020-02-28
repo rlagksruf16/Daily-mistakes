@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +16,39 @@ const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 Widget currentScreen = MainPage();
 
-List<Mistake> mistakes = [
-  Mistake(name: 'first mistake', colour: Color(0xFFF17171), alertPeriod: '하루에 3번', countTime: DateTime.now()),
-  Mistake(name: 'second mistake', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번', countTime: DateTime.now()),
-];
+List<Mistake> mistakes = List();
+List<Mistake> overcomeMistakes = List();
+
+void startTimer(Function moveMistake) {
+  Timer timer=  new Timer.periodic(new Duration(seconds: 30), (time) {
+    for (var mistake in mistakes){
+      if (mistake.count > 0){
+        Duration difference = mistake.countTimeList[mistake.count].difference(mistake.countTimeList[mistake.count - 1]);
+        if(difference.inMinutes == 1){
+          
+          moveMistake(mistakes.indexOf(mistake));
+        }
+      }
+    }
+    print('Something');
+   
+  });
+}
+
+/*
+startTimeout([int milliseconds]) {
+  var duration = Duration(minutes: 1);
+  return new Timer(duration, handleTimeout);
+}
+
+void handleTimeout() {  // callback function
+  
+}
+*/
 
 class MainPage extends StatefulWidget {
-  static const String id = 'main_page';
 
+  static const String id = 'main_page';
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -39,9 +65,14 @@ class _MainPageState extends State<MainPage> {
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
   
-
   @override
   Widget build(BuildContext context) {
+    startTimer((int mistakeIndex){
+      setState(() {
+        overcomeMistakes.add(mistakes[mistakeIndex]);
+        mistakes.removeAt(mistakeIndex);
+      });
+    });
     return Scaffold(
       backgroundColor:  Color.fromRGBO(255, 255, 246, 1),
       body: Container(
@@ -118,5 +149,6 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: CustomAppBar(),
     );
+    
   }
 }

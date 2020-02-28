@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
+import 'package:daily_mistakes/models/mistake.dart';
 
 const CardColour = Colors.white;
+List<Mistake> overcomeMistakes = [
+  Mistake(name: 'first overcome', colour: Color(0xFFF17171), alertPeriod: '하루에 3번', countTime: DateTime.now()),
+  Mistake(name: 'second overcome', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번', countTime: DateTime.now()),
+];
 
 class OvercomePage extends StatefulWidget {
   static const String id = 'overcome_page';
@@ -40,19 +45,26 @@ class _OvercomePageState extends State<OvercomePage> {
                     
                   ],
                 ),
-                /*
-                Container(
-                  child: MistakeCard(
-                    colour: CardColour,
-                  ),
-                ),
-                Container(
-                  child: MistakeCard(
-                    colour: CardColour,
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index){
+                      return MistakeCard(
+                        mistakeName: overcomeMistakes[index].name,
+                        colour: CardColour,
+                        count: overcomeMistakes[index].count,
+                        countCallBack: (){
+                          setState(() {
+                            overcomeMistakes[index].countTime = DateTime.now();
+                            overcomeMistakes[index].countUp();
+                            print(overcomeMistakes[index].countTimeList);
+                          });
+                        }
+                      );
+                    },
+                    itemCount: overcomeMistakes.length,
                   ),
                 ),
                 
-                */
               ],      
             ),
           ),
