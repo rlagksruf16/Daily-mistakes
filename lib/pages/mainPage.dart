@@ -16,8 +16,8 @@ int currentTab = 0;
 Widget currentScreen = MainPage();
 
 List<Mistake> mistakes = [
-  Mistake(name: 'first mistake', colour: Colors.red, alertPeriod: '하루에 3번'),
-  Mistake(name: 'second mistake', colour: Colors.purple, alertPeriod: '하루에 5번'),
+  Mistake(name: 'first mistake', colour: Color(0xFFF17171), alertPeriod: '하루에 3번', countTime: DateTime.now()),
+  Mistake(name: 'second mistake', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번', countTime: DateTime.now()),
 ];
 
 class MainPage extends StatefulWidget {
@@ -88,7 +88,9 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: (){
                         setState(() {
+                          mistakes[index].countTime = DateTime.now();
                           mistakes[index].countUp();
+                          print(mistakes[index].countTimeList);
                         });
                       }
                     );

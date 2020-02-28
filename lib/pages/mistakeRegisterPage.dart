@@ -5,21 +5,7 @@ import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 
-/*
-enum Colours {
-  pink,
-  red,
-  orange,
-  yellow,
-  green,
-  lightblue,
-  blue,
-  purple,
-  white,
-}
-*/
-
-String mistakeAlert;
+String mistakeAlert = '하루에 1번';
 Color mistakeColor = Colors.white;
 String mistakeName;
 
@@ -123,72 +109,80 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Row(
                       children: <Widget>[
                         ColorButton(
+                          //pink
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.pink;
+                              mistakeColor = mistakeColor == Color(0xFFFF7187)? null: Color(0xFFFF7187);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.pink? Colors.pink[100] : Colors.pink,
+                          buttonColor: mistakeColor == Color(0xFFFF7187)? Color(0x60FF7187) : Color(0xFFFF7187),
                         ),
                         ColorButton(
+                          //red
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.red;
+                              mistakeColor = mistakeColor == Color(0xFFF17171)? null: Color(0xFFF17171);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.red? Colors.red[100] : Colors.red,
+                          buttonColor: mistakeColor == Color(0xFFF17171)? Color(0x60F17171) : Color(0xFFF17171),
                         ),
                         ColorButton(
+                          //orange
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.orange;
+                              mistakeColor = mistakeColor == Color(0xFFFD9644)? null: Color(0xFFFD9644);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.orange? Colors.orange[100] : Colors.orange,
+                          buttonColor: mistakeColor == Color(0xFFFD9644)? Color(0x60FD9644) : Color(0xFFFD9644),
                         ),
                         ColorButton(
+                          //yellow
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.yellow;
+                              mistakeColor = mistakeColor == Color(0xFFFFDF6F)? null: Color(0xFFFFDF6F);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.yellow? Colors.yellow[100] : Colors.yellow,
+                          buttonColor: mistakeColor == Color(0xFFFFDF6F)? Color(0x60FFDF6F) : Color(0xFFFFDF6F),
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         ColorButton(
+                          //green
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.green;
+                              mistakeColor = mistakeColor == Color(0xFF57C9AE)? null: Color(0xFF57C9AE);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.green? Colors.green[100] : Colors.green,
+                          buttonColor: mistakeColor == Color(0xFF57C9AE)? Color(0x6057C9AE) : Color(0xFF57C9AE),
                         ),
                         ColorButton(
+                          //lightBlue
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.lightBlue;
+                              mistakeColor = mistakeColor == Color(0xFF9CE8EE)? null: Color(0xFF9CE8EE);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.lightBlue? Colors.lightBlue[100] : Colors.lightBlue,
+                          buttonColor: mistakeColor == Color(0xFF9CE8EE)? Color(0x609CE8EE) : Color(0xFF9CE8EE),
                         ),
                         ColorButton(
+                          //blueAccent
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.blueAccent;
+                              mistakeColor = mistakeColor == Color(0xFF5D9CEC)? null: Color(0xFF5D9CEC);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.blueAccent? Colors.blueAccent[100] : Colors.blueAccent,
+                          buttonColor: mistakeColor == Color(0xFF5D9CEC)? Color(0x605D9CEC) : Color(0xFF5D9CEC),
                         ),
                         ColorButton(
+                          //purple
                           onPress: (){
                             setState(() {
-                              mistakeColor = Colors.purple;
+                              mistakeColor = mistakeColor == Color(0xFFD6BBFF)? null: Color(0xFFD6BBFF);
                             });
                           },
-                          buttonColor: mistakeColor == Colors.purple? Colors.purple[100] : Colors.purple,
+                          buttonColor: mistakeColor == Color(0xFFD6BBFF)? Color(0x60D6BBFF) : Color(0xFFD6BBFF),
                         ),
                       ],
                     )
@@ -201,15 +195,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   title: '실수 등록',
                   colour: Colors.grey[350],
                   onPressed: () {
-                    print(mistakeName); 
-                    print(mistakeAlert);
-                    print(mistakeColor);
                     var newMistake = Mistake(
                           name: mistakeName, 
                           colour: mistakeColor, 
-                          alertPeriod: mistakeAlert
+                          alertPeriod: mistakeAlert,
+                          countTime: DateTime.now(),
                         );
+                    newMistake.firstMistakeTime();
+                    print(mistakeName); 
+                    print(mistakeAlert);
+                    print(mistakeColor);
+                    print(newMistake.countTime);
                     widget.addMistakeCallback(newMistake);
+                    mistakeColor = null;
                     Navigator.pop(context);
                   },
                 ),
