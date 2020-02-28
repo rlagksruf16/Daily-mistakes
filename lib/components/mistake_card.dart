@@ -13,6 +13,7 @@ class MistakeCard extends StatelessWidget {
   static const mainTextStyle = TextStyle(
     fontSize: 25.0,
     fontFamily: 'DoHyeon',
+    color: Color(0xFFfdfdfd),
   );
 
   @override
@@ -71,7 +72,7 @@ class RoundIconButton extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return RawMaterialButton(
-      child: Icon(FontAwesomeIcons.plus,),
+      child: Icon(FontAwesomeIcons.plus, color: Color(0xFFfdfdfd),),
       onPressed: onPressed,
       
       constraints: BoxConstraints.tightFor(
