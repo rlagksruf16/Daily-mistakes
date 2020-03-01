@@ -87,10 +87,11 @@ class _CalendarPageState extends State<CalendarPage> {
                 ),
                 headerStyle: HeaderStyle(
                   formatButtonDecoration: BoxDecoration(
-                    color: Colors.lightBlue,
+                    color: Color(0xFF5f80f4),
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   formatButtonShowsNext: false,
+                  formatButtonTextStyle: TextStyle(color: Colors.white, fontSize: 15.0),
                 ),
                 onDaySelected: (date, events) {
                   setState(() {
@@ -112,7 +113,13 @@ class _CalendarPageState extends State<CalendarPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          _showAddDialog();
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context)=>RegistrationScreen((newMistake){
+              setState(() {
+                mistakes.add(newMistake);
+              });
+            })
+          ));
         },
       ),
       bottomNavigationBar: CustomAppBar(),

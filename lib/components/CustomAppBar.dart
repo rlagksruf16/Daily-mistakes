@@ -135,7 +135,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           color: currentTab == 3 ? mainColor : nonColor,
                         ),
                         Text(
-                          '제거',
+                          '극복',
                           style: TextStyle(
                             color: currentTab == 3 ? mainColor : nonColor,
                           ),
