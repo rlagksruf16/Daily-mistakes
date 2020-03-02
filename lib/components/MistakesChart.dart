@@ -1,17 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/pages/mainPage.dart';
+import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'dart:async';
 import 'dart:math';
 
+double mondayCount = 0;
+double tuesdayCount = 0;
+double wednesdayCount = 0;
+double thursdayCount = 0;
+double fridayCount = 0;
+double saturdayCount = 0;
+double sundayCount = 0;
+
+
+void todaysCount(int day){
+  if(day == 1){
+    if(sundayCount != 0){
+      mondayCount = 0;
+      tuesdayCount = 0;
+      wednesdayCount = 0;
+      thursdayCount = 0;
+      fridayCount = 0;
+      saturdayCount = 0;
+      sundayCount = 0;
+    }
+    mondayCount++;
+  }else if(day == 2){
+    tuesdayCount++;
+  }else if(day == 3){
+    wednesdayCount++;
+  }else if(day == 4){
+    thursdayCount++;
+  }else if(day == 5){
+    fridayCount++;
+  }else if(day == 6){
+    saturdayCount++;
+  }else{
+    sundayCount++;
+  }
+}
+
 class MistakesChart extends StatefulWidget {
   final List<Color> availableColors = [
-    Colors.purpleAccent,
-    Colors.yellow,
-    Colors.lightBlue,
-    Colors.orange,
-    Colors.pink,
-    Colors.redAccent,
+    Color(0xFFFF7187),
+    Color(0xFFF17171),
+    Color(0xFFFD9644),
+    Color(0xFFFFDF6F),
+    Color(0xFF57C9AE),
+    Color(0xFF9CE8EE),
+    Color(0xFF5D9CEC),
+    Color(0xFFD6BBFF),
   ];
 
   @override
@@ -45,7 +86,7 @@ class MistakesChartState extends State<MistakesChart> {
     } else if(nowWeekday == 6){
       nowWeek = DateTime(date.year, date.month, date.day - 5);
     } else{
-      nowWeek = DateTime(date.year, date.month, date.day -6);
+      nowWeek = DateTime(date.year, date.month, date.day - 6);
     }
     durationweek = DateTime(nowWeek.year, nowWeek.month, nowWeek.day + 6);
   }
@@ -53,6 +94,7 @@ class MistakesChartState extends State<MistakesChart> {
   @override
   void initState() {
     checkMonday();
+    bestMistakesChart();
     super.initState();
   }
 
@@ -170,19 +212,19 @@ class MistakesChartState extends State<MistakesChart> {
         switch (i) {
           //요일 별 횟수 저장. x는 요일 인덱스, y는 실수 횟수
           case 0:
-            return makeGroupData(0, 5, isTouched: i == touchedIndex);
+            return makeGroupData(0, mondayCount, isTouched: i == touchedIndex);
           case 1:
-            return makeGroupData(1, 7, isTouched: i == touchedIndex);
+            return makeGroupData(1, tuesdayCount, isTouched: i == touchedIndex);
           case 2:
-            return makeGroupData(2, 2, isTouched: i == touchedIndex);
+            return makeGroupData(2, wednesdayCount, isTouched: i == touchedIndex);
           case 3:
-            return makeGroupData(3, 8, isTouched: i == touchedIndex);
+            return makeGroupData(3, thursdayCount, isTouched: i == touchedIndex);
           case 4:
-            return makeGroupData(4, 9, isTouched: i == touchedIndex);
+            return makeGroupData(4, fridayCount, isTouched: i == touchedIndex);
           case 5:
-            return makeGroupData(5, 12, isTouched: i == touchedIndex);
+            return makeGroupData(5, saturdayCount, isTouched: i == touchedIndex);
           case 6:
-            return makeGroupData(6, 6, isTouched: i == touchedIndex);
+            return makeGroupData(6, sundayCount, isTouched: i == touchedIndex);
           default:
             return null;
         }

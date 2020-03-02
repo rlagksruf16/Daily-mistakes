@@ -9,29 +9,32 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/components/MistakesChart.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
+int allCount = 0;
 Widget currentScreen = MainPage();
 
 List<Mistake> mistakes = List();
+List<Mistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
 List<Mistake> overcomeMistakes = List();
+Comparator<Mistake> countComparator = (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
 void startTimer(Function moveMistake) {
-  Timer timer=  new Timer.periodic(new Duration(seconds: 30), (time) {
-    for (var mistake in mistakes){
-      if (mistake.count > 0){
-        Duration difference = mistake.countTimeList[mistake.count].difference(mistake.countTimeList[mistake.count - 1]);
-        if(difference.inMinutes == 1){
-          
+  Timer timer = new Timer.periodic(new Duration(seconds: 30), (time) {
+    for (var mistake in mistakes) {
+      if (mistake.count > 0) {
+        Duration difference = mistake.countTimeList[mistake.count]
+            .difference(mistake.countTimeList[mistake.count - 1]);
+        if (difference.inMinutes == 1) {
           moveMistake(mistakes.indexOf(mistake));
         }
       }
     }
     print('Something');
-   
   });
 }
 
@@ -47,14 +50,12 @@ void handleTimeout() {  // callback function
 */
 
 class MainPage extends StatefulWidget {
-
   static const String id = 'main_page';
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-
   // int currentTab = 0; // to keep track of active tab index
   // final List<Widget> screens = [
   //   CalendarPage(),
@@ -64,17 +65,17 @@ class _MainPageState extends State<MainPage> {
   //   MainPage(),
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
-  
+
   @override
   Widget build(BuildContext context) {
-    startTimer((int mistakeIndex){
+    startTimer((int mistakeIndex) {
       setState(() {
         overcomeMistakes.add(mistakes[mistakeIndex]);
         mistakes.removeAt(mistakeIndex);
       });
     });
     return Scaffold(
-      backgroundColor:  Color.fromRGBO(255, 255, 246, 1),
+      backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
         child: SafeArea(
           child: Column(
@@ -93,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                         fontSize: 30.0,
                         fontFamily: 'DoHyeon',
                         fontWeight: FontWeight.bold,
-                        ),
+                      ),
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -102,35 +103,35 @@ class _MainPageState extends State<MainPage> {
                       child: Icon(
                         Icons.settings,
                         size: 30.0,
-                        ),
-                      onPressed: (){
+                      ),
+                      onPressed: () {
                         Navigator.pushNamed(context, SettingPage.id);
                       },
-                    ),                    
+                    ),
                   ),
                 ],
               ),
               Expanded(
                 child: ListView.builder(
-                  itemBuilder: (context, index){
+                  itemBuilder: (context, index) {
                     return MistakeCard(
-                      mistakeName: mistakes[index].name,
-                      colour: mistakes[index].colour,
-                      count: mistakes[index].count,
-                      countCallBack: (){
-                        setState(() {
-                          mistakes[index].countTime = DateTime.now();
-                          mistakes[index].countUp();
-                          print(mistakes[index].countTimeList);
+                        mistakeName: mistakes[index].name,
+                        colour: mistakes[index].colour,
+                        count: mistakes[index].count,
+                        countCallBack: () {
+                          setState(() {
+                            mistakes[index].countTime = DateTime.now();
+                            mistakes[index].countUp();
+                            print(mistakes[index].countTimeList);
+                            todaysCount(DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                            sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                          });
                         });
-                      }
-                    );
                   },
                   itemCount: mistakes.length,
                 ),
               ),
-              
-            ],      
+            ],
           ),
         ),
       ),
@@ -138,17 +139,18 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context)=>RegistrationScreen((newMistake){
-              setState(() {
-                mistakes.add(newMistake);
-              });
-            })
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RegistrationScreen((newMistake) {
+                        setState(() {
+                          mistakes.add(newMistake);
+                          sortedMistakes.add(newMistake);
+                        });
+                      })));
         },
       ),
       bottomNavigationBar: CustomAppBar(),
     );
-    
   }
 }
