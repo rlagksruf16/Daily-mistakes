@@ -5,6 +5,35 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
+import 'package:daily_mistakes/models/mistake.dart';
+
+List<Mistake> bestMistakes = List();
+List<Color> colorList = List();
+Map<String, double> dataMap = Map();
+
+void bestMistakesChart() {
+  bestMistakes = List();
+  colorList = List();
+  dataMap = Map();
+  if (sortedMistakes.length <= 4) {
+    if (sortedMistakes.isEmpty) {
+      colorList.add(Colors.blueGrey[200]);
+      dataMap.putIfAbsent("No Data", () => 1);
+    }
+    for (var mistake in sortedMistakes) {
+      bestMistakes.add(mistake);
+      colorList.add(mistake.colour);
+    }
+  } else {
+    for (int i = 0; i < 4; i++) {
+      bestMistakes.add(sortedMistakes[i]);
+      colorList.add(sortedMistakes[i].colour);
+    }
+  }
+  bestMistakes.forEach((Mistake mistakes) {
+    print('${mistakes.name}');
+  });
+}
 
 class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
@@ -14,7 +43,6 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,13 +90,15 @@ class _StatisticPageState extends State<StatisticPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context)=>RegistrationScreen((newMistake){
-              setState(() {
-                mistakes.add(newMistake);
-              });
-            })
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RegistrationScreen((newMistake) {
+                        setState(() {
+                          mistakes.add(newMistake);
+                          sortedMistakes.add(newMistake);
+                        });
+                      })));
         },
       ),
       bottomNavigationBar: CustomAppBar(),
@@ -76,28 +106,24 @@ class _StatisticPageState extends State<StatisticPage> {
   }
 }
 
-
 class BestMistakesChart extends StatefulWidget {
   @override
   _BestMistakesChartState createState() => _BestMistakesChartState();
 }
 
 class _BestMistakesChartState extends State<BestMistakesChart> {
-  Map<String, double> dataMap = Map();
-  List<Color> colorList = [
-    Colors.red[300],
-    Colors.green[300],
-    Colors.lightBlue,
-    Colors.yellow[300],
-  ];
+  // Map<String, double> dataMap = Map();
+  //   sortedMistakes.forEach((Mistake mistakes) {
+  //   print('${mistakes.name} , ${mistakes.colour}');
+  // });
 
   @override
   void initState() {
     super.initState();
-    dataMap.putIfAbsent("First", () => 5);
-    dataMap.putIfAbsent("Second", () => 3);
-    dataMap.putIfAbsent("Third", () => 2);
-    dataMap.putIfAbsent("Four", () => 2);
+    for (int i = 0; i < bestMistakes.length; i++) {
+      dataMap.putIfAbsent(
+          "${bestMistakes[i].name}", () => bestMistakes[i].count.toDouble());
+    }
   }
 
   @override

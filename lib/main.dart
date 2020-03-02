@@ -1,4 +1,3 @@
-
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'pages/mainPage.dart';
