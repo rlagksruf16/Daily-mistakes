@@ -24,7 +24,7 @@ List<Mistake> overcomeMistakes = List();
 Comparator<Mistake> countComparator = (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
 void startTimer(Function moveMistake) {
-  Timer timer = new Timer.periodic(new Duration(seconds: 30), (time) {
+  Timer timer = new Timer.periodic(new Duration(seconds: 300), (time) {
     for (var mistake in mistakes) {
       if (mistake.count > 0) {
         Duration difference = mistake.countTimeList[mistake.count]

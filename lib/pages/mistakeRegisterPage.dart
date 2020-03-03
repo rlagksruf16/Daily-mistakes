@@ -4,9 +4,11 @@ import 'calendarPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
+import 'package:daily_mistakes/components/alertPopup.dart';
+import 'package:daily_mistakes/components/colorButton.dart';
 
 String mistakeAlert = '하루에 1번';
-Color mistakeColor = Colors.white;
+Color mistakeColor;
 String mistakeName;
 
 class RegistrationScreen extends StatefulWidget {
@@ -21,8 +23,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   title: '실수 등록',
                   colour: Colors.grey[350],
                   onPressed: () {
-                    var newMistake = Mistake(
+                    if(mistakeName == null || mistakeName == ''){
+                      alertPopup(context, 1);
+                    }
+                    else if(mistakeColor == null){
+                      alertPopup(context, 2);
+                    }
+                    else{
+                      var newMistake = Mistake(
                           name: mistakeName, 
                           colour: mistakeColor, 
                           alertPeriod: mistakeAlert,
@@ -208,7 +215,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     print(newMistake.countTime);
                     widget.addMistakeCallback(newMistake);
                     mistakeColor = null;
+                    mistakeAlert = '하루에 1번';
+                    mistakeName = null;
                     Navigator.pop(context);
+                    }
                   },
                 ),
               ),
@@ -228,6 +238,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 }
+
+
 
 class DropeddownButton extends StatefulWidget {
   // DropeddownButton({@required this.onChanged});
@@ -311,29 +323,3 @@ class RoundedButton extends StatelessWidget {
   }
 }
 
-class ColorButton extends StatelessWidget {
-  ColorButton({
-    @required this.buttonColor,
-    @required this.onPress,
-  });
-
-  final Color buttonColor;
-  final Function onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      
-      child: Container(
-        width: 60.0,
-        height: 60.0,
-        margin: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: buttonColor,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
-}
