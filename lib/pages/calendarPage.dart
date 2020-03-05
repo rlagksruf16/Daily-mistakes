@@ -4,8 +4,15 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
+import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/models/mistake.dart';
 
-const Color coreColor = Color(0xFF03A9F4);
+// 요일별로 카운트 증가한 것에 대해서 캘린더에 색깔로 표시해야함
+// 요일을 클릭했을 시에 그 요일에 해당하는 실수의 카운트 수를 보여줘야 함
+
+const Color coreColor = Color(0xFF5f80f4);
+List<Mistake> bestMistakes = List();
+
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
@@ -79,7 +86,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     fontWeight: FontWeight.bold,
                   ),
                   todayColor: Colors.transparent,
-                  selectedColor: Colors.black,
+                  selectedColor: coreColor,
                   selectedStyle: TextStyle(
                     fontSize: 19.0,
                     color: Colors.white,
@@ -96,12 +103,14 @@ class _CalendarPageState extends State<CalendarPage> {
                 onDaySelected: (date, events) {
                   setState(() {
                     _selectedEvents = events;
+                    print(date);
                   });
                 },
               ),
-              ... _selectedEvents.map((events) => ListTile(
-                title: Text(events),
-              )),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemBuilder: null,)
+              // ),
             ],
           ),
         ),
@@ -125,6 +134,28 @@ class _CalendarPageState extends State<CalendarPage> {
       bottomNavigationBar: CustomAppBar(),
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   _showAddDialog() {
     showDialog(
