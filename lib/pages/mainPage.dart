@@ -20,6 +20,16 @@ const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 int allCount = 0;
 
+var now = new DateTime.now();
+
+
+final year = now.year;
+final month = now.month;
+final day = now.day;
+final today = '$year.$month.$day';
+
+
+
 Widget currentScreen = MainPage();
 
 Mistake mistake;
@@ -100,7 +110,7 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: () {
                         setState(() {
-                          mistakes[index].countTime = DateTime.now();
+                          mistakes[index].countTime = today;
                           mistakes[index].countUp();
                           print(mistakes[index].countTimeList);
                           todaysCount(

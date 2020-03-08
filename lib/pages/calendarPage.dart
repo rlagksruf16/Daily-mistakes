@@ -6,19 +6,36 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/constants.dart';
 
-// 요일별로 카운트 증가한 것에 대해서 캘린더에 색깔로 표시해야함
-// 요일을 클릭했을 시에 그 요일에 해당하는 실수의 카운트 수를 보여줘야 함
+// 클릭추가에 따라 날짜 저장된 리스트를 불러와 비교하는 것을 만들어야 함
+// 만약 비교해서 있으면 캘린더 당일 날짜 밑에 보여주고
+// 캘린더 자체 밑에 카드 형식으로 count 수를 파악해서 몇개 증가했는지 보여주기
+// 날짜 가져오는건 성공
 
-const Color coreColor = Color(0xFF5f80f4);
-List<Mistake> bestMistakes = List();
+var now = new DateTime.now();
+
+
+final year = now.year;
+final month = now.month;
+final day = now.day;
+final today = '$year.$month.$day';
+
+
+
+List<Mistake> dailyMistake = List();
+
+// void dayMistake() {
+//   dailyMistake = List();
+
+//   for(var mistake in )
+// }
 
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
   static const Color transparent = Color(0x00000000);
 
-  static const Color coreColor = Color(0xFF03A9F4);
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -86,7 +103,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     fontWeight: FontWeight.bold,
                   ),
                   todayColor: Colors.transparent,
-                  selectedColor: coreColor,
+                  selectedColor: kCoreColor,
                   selectedStyle: TextStyle(
                     fontSize: 19.0,
                     color: Colors.white,
@@ -94,7 +111,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 ),
                 headerStyle: HeaderStyle(
                   formatButtonDecoration: BoxDecoration(
-                    color: Color(0xFF5f80f4),
+                    color: kCoreColor,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   formatButtonShowsNext: false,
@@ -103,7 +120,8 @@ class _CalendarPageState extends State<CalendarPage> {
                 onDaySelected: (date, events) {
                   setState(() {
                     _selectedEvents = events;
-                    print(date);
+                    print(today);
+                    print(dailyMistake.length);
                   });
                 },
               ),
