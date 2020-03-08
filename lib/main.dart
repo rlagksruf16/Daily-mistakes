@@ -1,3 +1,4 @@
+import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'pages/mainPage.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         CalendarPage.id: (context) => CalendarPage(),
         StatisticPage.id: (context) => StatisticPage(),
         SettingPage.id: (context) => SettingPage(),
+        // MistakeModifyPage.id: (context) => MistakeModifyPage(),
 
         
       },
