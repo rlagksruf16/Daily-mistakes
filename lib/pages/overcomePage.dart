@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/components/CustomActionButton.dart';
+import 'package:daily_mistakes/components/CustomAppBar.dart';
+import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
+import 'package:daily_mistakes/pages/mainPage.dart';
+
+
 
 const CardColour = Colors.white;
 List<Mistake> overcomeMistakes = [
@@ -69,6 +75,20 @@ class _OvercomePageState extends State<OvercomePage> {
             ),
           ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CustomActionButton(
+        icon: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context)=>RegistrationScreen((newMistake){
+              setState(() {
+                mistakes.add(newMistake);
+              });
+            })
+          ));
+        },
+      ),
+      bottomNavigationBar: CustomAppBar(),
     );
   }
 }
