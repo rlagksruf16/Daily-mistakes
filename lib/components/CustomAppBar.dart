@@ -1,12 +1,10 @@
-import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
-import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
+import 'package:daily_mistakes/constants.dart';
 
-const mainColor = Color(0xFF5f80f4);
 const nonColor = Colors.grey;
 
 class CustomAppBar extends StatefulWidget {
@@ -47,12 +45,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.home,
-                          color: currentTab == 0 ? mainColor : nonColor,
+                          color: currentTab == 0 ? kCoreColor : nonColor,
                         ),
                         Text(
                           '홈',
                           style: TextStyle(
-                            color: currentTab == 0 ? mainColor : nonColor,
+                            color: currentTab == 0 ? kCoreColor : nonColor,
                           ),
                         ),
                       ],
@@ -72,12 +70,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.show_chart,
-                          color: currentTab == 1 ? mainColor : nonColor,
+                          color: currentTab == 1 ? kCoreColor : nonColor,
                         ),
                         Text(
                           '차트',
                           style: TextStyle(
-                            color: currentTab == 1 ? mainColor : nonColor,
+                            color: currentTab == 1 ? kCoreColor : nonColor,
                           ),
                         ),
                       ],
@@ -107,12 +105,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.calendar_today,
-                          color: currentTab == 2 ? mainColor : nonColor,
+                          color: currentTab == 2 ? kCoreColor : nonColor,
                         ),
                         Text(
                           '달력',
                           style: TextStyle(
-                            color: currentTab == 2 ? mainColor : nonColor,
+                            color: currentTab == 2 ? kCoreColor : nonColor,
                           ),
                         ),
                       ],
@@ -132,12 +130,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       children: <Widget>[
                         Icon(
                           Icons.delete,
-                          color: currentTab == 3 ? mainColor : nonColor,
+                          color: currentTab == 3 ? kCoreColor : nonColor,
                         ),
                         Text(
                           '극복',
                           style: TextStyle(
-                            color: currentTab == 3 ? mainColor : nonColor,
+                            color: currentTab == 3 ? kCoreColor : nonColor,
                           ),
                         ),
                       ],
