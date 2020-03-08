@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Mistake{
   final String name;
-  final Color colour;
+  Color colour;
   final String alertPeriod;
   int count;
   var countTime;
