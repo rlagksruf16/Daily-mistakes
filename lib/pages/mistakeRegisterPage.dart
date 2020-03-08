@@ -11,6 +11,8 @@ String mistakeAlert = '하루에 1번';
 Color mistakeColor;
 String mistakeName;
 
+
+
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
 
@@ -102,7 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
-              Container(
+              Container( //colorButtons
                 margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: Column(
                   children: <Widget>[
@@ -112,10 +114,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           //pink
                           onPress: (){
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFF7187)? null: Color(0xFFFF7187);
+                              mistakeColor = mistakeColor == Color(0xFFEC87C0)? null: Color(0xFFEC87C0);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFF7187)? Color(0x60FF7187) : Color(0xFFFF7187),
+                          buttonColor: mistakeColor == Color(0xFFEC87C0)? Color(0x60EC87C0) : Color(0xFFEC87C0),
                         ),
                         ColorButton(
                           //red
@@ -139,10 +141,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           //yellow
                           onPress: (){
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFFDF6F)? null: Color(0xFFFFDF6F);
+                              mistakeColor = mistakeColor == Color(0xFFFFCE54)? null: Color(0xFFFFCE54);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFFDF6F)? Color(0x60FFDF6F) : Color(0xFFFFDF6F),
+                          buttonColor: mistakeColor == Color(0xFFFFCE54)? Color(0x60FFCE54) : Color(0xFFFFCE54),
                         ),
                       ],
                     ),
@@ -161,10 +163,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           //lightBlue
                           onPress: (){
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF9CE8EE)? null: Color(0xFF9CE8EE);
+                              mistakeColor = mistakeColor == Color(0xFF4FC1E9)? null: Color(0xFF4FC1E9);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF9CE8EE)? Color(0x609CE8EE) : Color(0xFF9CE8EE),
+                          buttonColor: mistakeColor == Color(0xFF4FC1E9)? Color(0x604FC1E9) : Color(0xFF4FC1E9),
                         ),
                         ColorButton(
                           //blueAccent

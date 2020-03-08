@@ -10,12 +10,15 @@ import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/components/timer.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 int allCount = 0;
+
+
 Widget currentScreen = MainPage();
 
 List<Mistake> mistakes = List();
@@ -23,31 +26,6 @@ List<Mistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실�
 List<Mistake> overcomeMistakes = List();
 Comparator<Mistake> countComparator = (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
-void startTimer(Function moveMistake) {
-  Timer timer = new Timer.periodic(new Duration(seconds: 300), (time) {
-    for (var mistake in mistakes) {
-      if (mistake.count > 0) {
-        Duration difference = mistake.countTimeList[mistake.count]
-            .difference(mistake.countTimeList[mistake.count - 1]);
-        if (difference.inMinutes == 1) {
-          moveMistake(mistakes.indexOf(mistake));
-        }
-      }
-    }
-    print('Something');
-  });
-}
-
-/*
-startTimeout([int milliseconds]) {
-  var duration = Duration(minutes: 1);
-  return new Timer(duration, handleTimeout);
-}
-
-void handleTimeout() {  // callback function
-  
-}
-*/
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
@@ -68,10 +46,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    startTimer((int mistakeIndex) {
+    startTimer(mistakes, (int mistakeIndex) {
       setState(() {
         overcomeMistakes.add(mistakes[mistakeIndex]);
-        mistakes.removeAt(mistakeIndex);
+        mistakes.remove(mistakes[mistakeIndex]);
       });
     });
     return Scaffold(
@@ -126,11 +104,13 @@ class _MainPageState extends State<MainPage> {
                             todaysCount(DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                             sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
                           });
-                        });
+                        },
+                    );
                   },
                   itemCount: mistakes.length,
                 ),
               ),
+              
             ],
           ),
         ),
