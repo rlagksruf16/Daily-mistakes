@@ -14,11 +14,18 @@ double thursdayCount = 0;
 double fridayCount = 0;
 double saturdayCount = 0;
 double sundayCount = 0;
+double maxMistakes = 0;
 
-
-void todaysCount(int day){
-  if(day == 1){
-    if(sundayCount != 0){
+void todaysCount(int day) {
+  if (day == 1) {
+    if (sundayCount != 0 ||
+        mondayCount != 0 ||
+        tuesdayCount != 0 ||
+        wednesdayCount != 0 ||
+        thursdayCount != 0 ||
+        fridayCount != 0 ||
+        saturdayCount != 0) {
+      //매주 월요일 마다 갱신
       mondayCount = 0;
       tuesdayCount = 0;
       wednesdayCount = 0;
@@ -26,20 +33,42 @@ void todaysCount(int day){
       fridayCount = 0;
       saturdayCount = 0;
       sundayCount = 0;
+      maxMistakes = 0;
     }
     mondayCount++;
-  }else if(day == 2){
+    if (mondayCount >= maxMistakes) {
+      maxMistakes = mondayCount;
+    }
+  } else if (day == 2) {
     tuesdayCount++;
-  }else if(day == 3){
+    if (tuesdayCount >= maxMistakes) {
+      maxMistakes = tuesdayCount;
+    }
+  } else if (day == 3) {
     wednesdayCount++;
-  }else if(day == 4){
+    if (wednesdayCount >= maxMistakes) {
+      maxMistakes = wednesdayCount;
+    }
+  } else if (day == 4) {
     thursdayCount++;
-  }else if(day == 5){
+    if (thursdayCount >= maxMistakes) {
+      maxMistakes = thursdayCount;
+    }
+  } else if (day == 5) {
     fridayCount++;
-  }else if(day == 6){
+    if (fridayCount >= maxMistakes) {
+      maxMistakes = fridayCount;
+    }
+  } else if (day == 6) {
     saturdayCount++;
-  }else{
+    if (saturdayCount >= maxMistakes) {
+      maxMistakes = saturdayCount;
+    }
+  } else {
     sundayCount++;
+    if (sundayCount >= maxMistakes) {
+      maxMistakes = sundayCount;
+    }
   }
 }
 
@@ -75,17 +104,17 @@ class MistakesChartState extends State<MistakesChart> {
   void checkMonday() {
     if (nowWeekday == 1) {
       nowWeek = DateTime.now();
-    } else if(nowWeekday == 2){
+    } else if (nowWeekday == 2) {
       nowWeek = DateTime(date.year, date.month, date.day - 1);
-    } else if(nowWeekday == 3){
+    } else if (nowWeekday == 3) {
       nowWeek = DateTime(date.year, date.month, date.day - 2);
-    } else if(nowWeekday == 4){
+    } else if (nowWeekday == 4) {
       nowWeek = DateTime(date.year, date.month, date.day - 3);
-    } else if(nowWeekday == 5){
+    } else if (nowWeekday == 5) {
       nowWeek = DateTime(date.year, date.month, date.day - 4);
-    } else if(nowWeekday == 6){
+    } else if (nowWeekday == 6) {
       nowWeek = DateTime(date.year, date.month, date.day - 5);
-    } else{
+    } else {
       nowWeek = DateTime(date.year, date.month, date.day - 6);
     }
     durationweek = DateTime(nowWeek.year, nowWeek.month, nowWeek.day + 6);
@@ -199,7 +228,7 @@ class MistakesChartState extends State<MistakesChart> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            y: 20,
+            y: maxMistakes > 10 ? maxMistakes : 10,
             color: barBackgroundColor,
           ),
         ),
@@ -216,13 +245,16 @@ class MistakesChartState extends State<MistakesChart> {
           case 1:
             return makeGroupData(1, tuesdayCount, isTouched: i == touchedIndex);
           case 2:
-            return makeGroupData(2, wednesdayCount, isTouched: i == touchedIndex);
+            return makeGroupData(2, wednesdayCount,
+                isTouched: i == touchedIndex);
           case 3:
-            return makeGroupData(3, thursdayCount, isTouched: i == touchedIndex);
+            return makeGroupData(3, thursdayCount,
+                isTouched: i == touchedIndex);
           case 4:
             return makeGroupData(4, fridayCount, isTouched: i == touchedIndex);
           case 5:
-            return makeGroupData(5, saturdayCount, isTouched: i == touchedIndex);
+            return makeGroupData(5, saturdayCount,
+                isTouched: i == touchedIndex);
           case 6:
             return makeGroupData(6, sundayCount, isTouched: i == touchedIndex);
           default:
@@ -317,7 +349,8 @@ class MistakesChartState extends State<MistakesChart> {
     );
   }
 
-  BarChartData randomData() { //요일 별 어떤 실수를 한 건지 색으로 표현
+  BarChartData randomData() {
+    //요일 별 어떤 실수를 한 건지 색으로 표현
     //재생 버튼 눌렀을 때
     return BarChartData(
       barTouchData: const BarTouchData(
@@ -361,34 +394,55 @@ class MistakesChartState extends State<MistakesChart> {
       barGroups: List.generate(7, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, 15,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return mondayCount != 0
+                ? makeGroupData(
+                    0, Random().nextInt(mondayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
 
           case 1:
-            return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return tuesdayCount != 0
+                ? makeGroupData(
+                    1, Random().nextInt(tuesdayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           case 2:
-            return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return wednesdayCount != 0
+                ? makeGroupData(
+                    2, Random().nextInt(wednesdayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           case 3:
-            return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return thursdayCount != 0
+                ? makeGroupData(
+                    3, Random().nextInt(thursdayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           case 4:
-            return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return fridayCount != 0
+                ? makeGroupData(
+                    4, Random().nextInt(fridayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           case 5:
-            return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return saturdayCount != 0
+                ? makeGroupData(
+                    5, Random().nextInt(saturdayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           case 6:
-            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
+            return sundayCount != 0
+                ? makeGroupData(
+                    6, Random().nextInt(sundayCount.toInt()).toDouble(),
+                    barColor: widget.availableColors[
+                        Random().nextInt(widget.availableColors.length)])
+                : makeGroupData(0, 0, barColor: Colors.black);
           default:
             return null;
         }
@@ -398,7 +452,7 @@ class MistakesChartState extends State<MistakesChart> {
 
   Future<dynamic> refreshState() async {
     setState(() {});
-    await Future<dynamic>.delayed(animDuration + Duration(milliseconds: 50));
+    await Future<dynamic>.delayed(animDuration + Duration(milliseconds: 300));
     if (isPlaying) {
       refreshState();
     }

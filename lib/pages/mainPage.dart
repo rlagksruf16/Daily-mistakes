@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:daily_mistakes/pages/overcomePage.dart';
+import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
@@ -18,14 +20,14 @@ const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 int allCount = 0;
 
-
 Widget currentScreen = MainPage();
 
+Mistake mistake;
 List<Mistake> mistakes = List();
 List<Mistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
 List<Mistake> overcomeMistakes = List();
-Comparator<Mistake> countComparator = (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
-
+Comparator<Mistake> countComparator =
+    (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
@@ -93,24 +95,34 @@ class _MainPageState extends State<MainPage> {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return MistakeCard(
-                        mistakeName: mistakes[index].name,
-                        colour: mistakes[index].colour,
-                        count: mistakes[index].count,
-                        countCallBack: () {
-                          setState(() {
-                            mistakes[index].countTime = DateTime.now();
-                            mistakes[index].countUp();
-                            print(mistakes[index].countTimeList);
-                            todaysCount(DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                            sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
-                          });
-                        },
+                      mistakeName: mistakes[index].name,
+                      colour: mistakes[index].colour,
+                      count: mistakes[index].count,
+                      countCallBack: () {
+                        setState(() {
+                          mistakes[index].countTime = DateTime.now();
+                          mistakes[index].countUp();
+                          print(mistakes[index].countTimeList);
+                          todaysCount(
+                              DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                          sortedMistakes
+                              .sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                        });
+                      },
+                      onPressed: () {
+                        //실수 카드 수정기능. 실수 이름 클릭시 실행
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MistakeModifyPage(
+                                      beforeMistake: mistakes[index],
+                                    )));
+                      },
                     );
                   },
                   itemCount: mistakes.length,
                 ),
               ),
-              
             ],
           ),
         ),
