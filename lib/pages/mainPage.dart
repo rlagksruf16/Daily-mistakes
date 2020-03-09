@@ -12,13 +12,15 @@ import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
-import 'package:daily_mistakes/components/timer.dart';
+//import 'package:daily_mistakes/components/timer.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
 const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 int allCount = 0;
+
+int i=0;
 
 var now = new DateTime.now();
 
@@ -56,13 +58,34 @@ class _MainPageState extends State<MainPage> {
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
 
+  void startTimer(List<Mistake> mistakes, Function moveMistake) {
+  Timer timer = new Timer.periodic(Duration(seconds: 10), (time) => setState((){
+    for (var mistake in mistakes) {
+          if (mistake.count > 0) {
+            Duration differenceTime = mistake.countTimeList[mistake.count]
+                .difference(mistake.countTimeList[mistake.count - 1]);
+            if (differenceTime.inMinutes >= 1) {
+              print(differenceTime.inMinutes.toString());
+              overcomeMistakes.add(mistake);
+              mistakes.remove(mistake);
+              //moveMistake(mistakes.indexOf(mistake));
+            }
+          }
+        }
+        print('Something $i');
+        print(DateTime.now());
+        i++;
+      }
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     startTimer(mistakes, (int mistakeIndex) {
-      setState(() {
-        overcomeMistakes.add(mistakes[mistakeIndex]);
-        mistakes.remove(mistakes[mistakeIndex]);
-      });
+      //setState(() {
+      //  overcomeMistakes.add(mistakes[mistakeIndex]);
+      //  mistakes.remove(mistakes[mistakeIndex]);
+      //});
     });
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 246, 1),
