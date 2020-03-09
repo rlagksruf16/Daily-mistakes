@@ -1,10 +1,10 @@
+import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
-import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/constants.dart';
 
@@ -13,51 +13,43 @@ import 'package:daily_mistakes/constants.dart';
 // 캘린더 자체 밑에 카드 형식으로 count 수를 파악해서 몇개 증가했는지 보여주기
 // 날짜 가져오는건 성공
 
+// 애초에 리스트를 초기화하는 방법도 나쁘지않을듯
+
 var now = new DateTime.now();
 
+var count = 0;
+List<Mistake> todayMistake = [];
 
 final year = now.year;
 final month = now.month;
 final day = now.day;
 final today = '$year.$month.$day';
 
-
-
-List<Mistake> dailyMistake = List();
-
-// void dayMistake() {
-//   dailyMistake = List();
-
-//   for(var mistake in )
+// void CountMistakePerDay() {
+//   for (var i = 0; i < mistakes.length; i++) {
+//     // for (var j = 0; j < mistakes[i].countTimeList.length; j++) {
+//     if (mistakes[i].countTimeList.contains(today))
+//       // 있으면 리스트에 넣어주기
+//       count++;
+//     todayMistake.add(mistakes[i]);
+//   }
 // }
-
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
   static const Color transparent = Color(0x00000000);
-
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-
   CalendarController _calendarController;
-
-  Map<DateTime, List<dynamic>> _events;
-  TextEditingController _eventController;
-  List<dynamic> _selectedEvents;
-
-
 
   @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-    _eventController = TextEditingController();
-    _events = {};
-    _selectedEvents = [];
   }
 
   @override
@@ -87,14 +79,13 @@ class _CalendarPageState extends State<CalendarPage> {
                         fontSize: 30.0,
                         fontFamily: 'DoHyeon',
                         fontWeight: FontWeight.bold,
-                        ),
+                      ),
                       textAlign: TextAlign.left,
                     ),
                   ),
                 ],
               ),
               TableCalendar(
-                events: _events,
                 calendarController: _calendarController,
                 calendarStyle: CalendarStyle(
                   todayStyle: TextStyle(
@@ -115,95 +106,61 @@ class _CalendarPageState extends State<CalendarPage> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   formatButtonShowsNext: false,
-                  formatButtonTextStyle: TextStyle(color: Colors.white, fontSize: 15.0),
+                  formatButtonTextStyle:
+                      TextStyle(color: Colors.white, fontSize: 15.0),
                 ),
-                onDaySelected: (date, events) {
+                onDaySelected: (date, selectedMistake) {
                   setState(() {
-                    _selectedEvents = events;
-                    print(today);
-                    print(dailyMistake.length);
+                    todayMistake = List();
+                    // 해당 날짜를 클릭하면 해당 날짜에 해당하는 것만 뽑아야 된다
+                    final years = date.year;
+                    final months = date.month;
+                    final days = date.day;
+                    final sday = '$years.$months.$days'; // 선택한 날
+                    print(todayMistake.length);
+                    for (var i = 0; i < mistakes.length; i++) {
+                      if (mistakes[i].countTimeList.contains(sday)) {
+                        // 있으면 리스트에 넣어주기
+                        count++;
+                      todayMistake.add(mistakes[i]);
+                      }
+                    }
+                    
+                    print(todayMistake.length);
                   });
                 },
               ),
-              // Expanded(
-              //   child: ListView.builder(
-              //     itemBuilder: null,)
-              // ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: todayMistake.length == 0 ? 0 : todayMistake.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(todayMistake[index].name),
+                      // subtitle: Text(todayMistake[index].),
+                    );
+                  }
+                ),
+              ),
             ],
           ),
         ),
       ),
-      
-      // TableCalendar(calendarController: _calendarController,),
-      
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context)=>RegistrationScreen((newMistake){
-              setState(() {
-                mistakes.add(newMistake);
-              });
-            })
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RegistrationScreen((newMistake) {
+                        setState(() {
+                          mistakes.add(newMistake);
+                        });
+                      })));
         },
       ),
       bottomNavigationBar: CustomAppBar(),
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  _showAddDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: TextField(
-          controller: _eventController,
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('저장'),
-            onPressed: (){
-              if(_eventController.text.isEmpty) return;
-              setState(() {
-                if(_events[_calendarController.selectedDay] != null) {
-                  _events[_calendarController.selectedDay].add(_eventController.text);
-                }
-                else {
-                  _events[_calendarController.selectedDay] = [_eventController.text];
-                }
-                _eventController.clear();
-                Navigator.pop(context);
-              });
-              
-            },
-          )
-        ],
-      )
-    );
-  }
 }
-
-
