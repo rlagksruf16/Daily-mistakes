@@ -59,11 +59,11 @@ class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   void startTimer(List<Mistake> mistakes) {
-    Timer timer = Timer.periodic(Duration(seconds: 30), (time) => setState((){
+    Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
           for (var mistake in mistakes) {
             Duration differenceTime = DateTime.now()
                 .difference(mistake.countTest[mistake.count]);
-            if (differenceTime.inMinutes >= 1) {
+            if (differenceTime.inMinutes >= 5) {
               print(differenceTime.inMinutes.toString());
               overcomeMistakes.add(mistake);
               mistakes.remove(mistake);
