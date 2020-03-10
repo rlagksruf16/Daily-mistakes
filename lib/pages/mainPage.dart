@@ -58,35 +58,27 @@ class _MainPageState extends State<MainPage> {
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
 
-  void startTimer(List<Mistake> mistakes, Function moveMistake) {
-  Timer timer = new Timer.periodic(Duration(seconds: 10), (time) => setState((){
-    for (var mistake in mistakes) {
-          if (mistake.count > 0) {
-            Duration differenceTime = mistake.countTimeList[mistake.count]
-                .difference(mistake.countTimeList[mistake.count - 1]);
+  void startTimer(List<Mistake> mistakes) {
+    Timer timer = Timer.periodic(Duration(seconds: 30), (time) => setState((){
+          for (var mistake in mistakes) {
+            Duration differenceTime = DateTime.now()
+                .difference(mistake.countTest[mistake.count]);
             if (differenceTime.inMinutes >= 1) {
               print(differenceTime.inMinutes.toString());
               overcomeMistakes.add(mistake);
               mistakes.remove(mistake);
-              //moveMistake(mistakes.indexOf(mistake));
             }
           }
+          print('Something $i');
+          print(DateTime.now());
+          i++;
         }
-        print('Something $i');
-        print(DateTime.now());
-        i++;
-      }
     ));
   }
 
   @override
   Widget build(BuildContext context) {
-    startTimer(mistakes, (int mistakeIndex) {
-      //setState(() {
-      //  overcomeMistakes.add(mistakes[mistakeIndex]);
-      //  mistakes.remove(mistakes[mistakeIndex]);
-      //});
-    });
+    startTimer(mistakes);
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
@@ -133,9 +125,10 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: () {
                         setState(() {
-                          mistakes[index].countTime = today;
+                          mistakes[index].countTime = DateTime.now();
+                          //mistakes[index].countTime = today;
                           mistakes[index].countUp();
-                          print(mistakes[index].countTimeList);
+                          print('countTest ${mistakes[index].countTest}');
                           todaysCount(
                               DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                           sortedMistakes
