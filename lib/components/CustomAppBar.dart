@@ -38,7 +38,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = MainPage(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
-                      Navigator.pushNamed(context, MainPage.id);
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => MainPage(),
+                      ),);
+                      //Navigator.pushNamed(context, MainPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +65,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = StatisticPage(); // if user taps on this dashboard tab will be active
                         currentTab = 1;
                       });
-                      Navigator.pushNamed(context, StatisticPage.id);
+
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => StatisticPage(),
+                      ),);
+                      //Navigator.pushNamed(context,StatisticPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +103,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = CalendarPage(); // if user taps on this dashboard tab will be active
                         currentTab = 2;
                       });
-                      Navigator.pushNamed(context, CalendarPage.id);
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => CalendarPage(),
+                      ),);
+                      //Navigator.pushNamed(context, CalendarPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +130,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = OvercomePage(); // if user taps on this dashboard tab will be active
                         currentTab = 3;
                       });
-                      Navigator.pushNamed(context, OvercomePage.id);
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => OvercomePage(),
+                      ),);
+                      //Navigator.pushNamed(context, OvercomePage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
