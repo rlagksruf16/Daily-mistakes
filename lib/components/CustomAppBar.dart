@@ -8,6 +8,10 @@ import 'package:daily_mistakes/constants.dart';
 const nonColor = Colors.grey;
 
 class CustomAppBar extends StatefulWidget {
+  
+  CustomAppBar(this.controller);
+
+  ScrollController controller;
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
@@ -38,6 +42,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = MainPage(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
+                      if(widget.controller!=null){
+                        widget.controller.animateTo(
+                          0, 
+                          duration: Duration(seconds: 1),
+                          curve: Curves.easeIn,
+                        );
+                      }
                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => MainPage(),
                       ),);
                       //Navigator.pushNamed(context, MainPage.id);

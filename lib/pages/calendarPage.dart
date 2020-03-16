@@ -172,7 +172,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ));
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(null),
     );
   }
 }

@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/settingPage.dart';
-import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
-import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
@@ -29,8 +26,6 @@ final year = now.year;
 final month = now.month;
 final day = now.day;
 final today = '$year.$month.$day';
-
-
 
 Widget currentScreen = MainPage();
 
@@ -57,6 +52,8 @@ class _MainPageState extends State<MainPage> {
   //   MainPage(),
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
+  
+  final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
 
   void startTimer(List<Mistake> mistakes) {
     Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
@@ -78,7 +75,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    startTimer(mistakes);
+    try{
+      startTimer(mistakes);
+    }catch(e){
+      print('exception catch');
+    }
+    
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
@@ -118,6 +120,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: ListView.builder(
+                  controller: controller,
                   itemBuilder: (context, index) {
                     return MistakeCard(
                       mistakeName: mistakes[index].name,
@@ -180,7 +183,7 @@ class _MainPageState extends State<MainPage> {
           
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(controller),
     );
   }
 }

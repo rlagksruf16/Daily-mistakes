@@ -101,7 +101,7 @@ class _OvercomePageState extends State<OvercomePage> {
           ));
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(null),
     );
   }
 }
