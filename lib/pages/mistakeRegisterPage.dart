@@ -236,7 +236,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           Navigator.pushNamed(context, MainPage.id);
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(null),
     );
   }
 }

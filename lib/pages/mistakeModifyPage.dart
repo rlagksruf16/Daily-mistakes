@@ -272,7 +272,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
           Navigator.pushNamed(context, MainPage.id);
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(null),
     );
   }
 }

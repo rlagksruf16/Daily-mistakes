@@ -112,7 +112,7 @@ class _StatisticPageState extends State<StatisticPage> {
           ));
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(null),
     );
   }
 }
