@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/settingPage.dart';
-import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
-import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
@@ -29,8 +26,6 @@ final year = now.year;
 final month = now.month;
 final day = now.day;
 final today = '$year.$month.$day';
-
-
 
 Widget currentScreen = MainPage();
 
@@ -57,6 +52,8 @@ class _MainPageState extends State<MainPage> {
   //   MainPage(),
   // ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
+  
+  final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
 
   void startTimer(List<Mistake> mistakes) {
     Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
@@ -78,7 +75,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    startTimer(mistakes);
+    try{
+      startTimer(mistakes);
+    }catch(e){
+      print('exception catch');
+    }
+    
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
@@ -118,6 +120,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: ListView.builder(
+                  controller: controller,
                   itemBuilder: (context, index) {
                     return MistakeCard(
                       mistakeName: mistakes[index].name,
@@ -157,18 +160,30 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => RegistrationScreen((newMistake) {
-                        setState(() {
-                          mistakes.add(newMistake);
-                          sortedMistakes.add(newMistake);
-                        });
-                      })));
+          Navigator.of(context).push(PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen((newMistake) {
+                      setState(() {
+                        mistakes.add(newMistake);
+                        sortedMistakes.add(newMistake);
+                      });
+                    }),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              var begin = Offset(0.0, 1.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ));
+          
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(controller),
     );
   }
 }
