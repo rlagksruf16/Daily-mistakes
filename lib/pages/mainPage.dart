@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/settingPage.dart';
-import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/pages/calendarPage.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
-import 'package:daily_mistakes/pages/overcomePage.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/components/pushNotification.dart';
 //import 'package:daily_mistakes/components/timer.dart';
 
 const bottomContainerHeight = 80.0;
@@ -29,8 +27,6 @@ final year = now.year;
 final month = now.month;
 final day = now.day;
 final today = '$year.$month.$day';
-
-
 
 Widget currentScreen = MainPage();
 
@@ -58,7 +54,7 @@ class _MainPageState extends State<MainPage> {
   // ]; // to store nested tabs
   final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
-
+  
   void startTimer(List<Mistake> mistakes) {
     Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
           for (var mistake in mistakes) {
@@ -79,7 +75,13 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    startTimer(mistakes);
+    try{
+      startTimer(mistakes);
+      PushMessaging();
+    }catch(e){
+      print('exception catch');
+    }
+    
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(

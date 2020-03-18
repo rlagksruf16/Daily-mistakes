@@ -21,6 +21,8 @@ dependencies:
   sqflite: ^1.2.2+1
   path_provider: ^1.6.5
   path: ^1.6.4
+  firebase_messaging: ^6.0.12
+  flutter_local_notifications: ^1.2.2
 
 
 dev_dependencies:
@@ -29,6 +31,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - images/
   fonts:
     - family: DoHyeon
       fonts:
