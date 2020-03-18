@@ -8,6 +8,9 @@ import 'package:daily_mistakes/constants.dart';
 const nonColor = Colors.grey;
 
 class CustomAppBar extends StatefulWidget {
+  CustomAppBar(this.controller);
+  ScrollController controller;
+
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
@@ -38,7 +41,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = MainPage(); // if user taps on this dashboard tab will be active
                         currentTab = 0;
                       });
-                      Navigator.pushNamed(context, MainPage.id);
+                      if(widget.controller!=null){
+                        widget.controller.animateTo(
+                          0, 
+                          duration: Duration(seconds: 1),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => MainPage(),
+                      ),);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +74,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = StatisticPage(); // if user taps on this dashboard tab will be active
                         currentTab = 1;
                       });
-                      Navigator.pushNamed(context, StatisticPage.id);
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => StatisticPage(),
+                      ),);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +110,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = CalendarPage(); // if user taps on this dashboard tab will be active
                         currentTab = 2;
                       });
-                      Navigator.pushNamed(context, CalendarPage.id);
+                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => CalendarPage(),
+                      ),);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +136,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = OvercomePage(); // if user taps on this dashboard tab will be active
                         currentTab = 3;
                       });
-                      Navigator.pushNamed(context, OvercomePage.id);
+                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => OvercomePage(),
+                      ),);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

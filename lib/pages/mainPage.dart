@@ -56,6 +56,7 @@ class _MainPageState extends State<MainPage> {
   //   OvercomePage(),
   //   MainPage(),
   // ]; // to store nested tabs
+  final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
 
   void startTimer(List<Mistake> mistakes) {
@@ -118,6 +119,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: ListView.builder(
+                  controller: controller,
                   itemBuilder: (context, index) {
                     return MistakeCard(
                       mistakeName: mistakes[index].name,
@@ -157,18 +159,29 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => RegistrationScreen((newMistake) {
-                        setState(() {
-                          mistakes.add(newMistake);
-                          sortedMistakes.add(newMistake);
-                        });
-                      })));
+          Navigator.of(context).push(PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen((newMistake) {
+                      setState(() {
+                        mistakes.add(newMistake);
+                        sortedMistakes.add(newMistake);
+                      });
+                    }),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              var begin = Offset(0.0, 1.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ));
         },
       ),
-      bottomNavigationBar: CustomAppBar(),
+      bottomNavigationBar: CustomAppBar(controller),
     );
   }
 }
