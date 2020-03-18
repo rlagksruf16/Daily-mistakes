@@ -98,9 +98,9 @@ class _OvercomePageState extends State<OvercomePage> {
                 child: child,
               );
             },
-          ));
-        },
-      ),
+          ),
+        );
+      },),
       bottomNavigationBar: CustomAppBar(null),
     );
   }

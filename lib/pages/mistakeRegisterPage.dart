@@ -276,7 +276,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.home),
         onPressed: () {
-          Navigator.pushNamed(context, MainPage.id);
+          Navigator.of(context).push(PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              var begin = Offset(0.0, 1.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ));
         },
       ),
       bottomNavigationBar: CustomAppBar(null),

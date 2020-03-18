@@ -8,10 +8,9 @@ import 'package:daily_mistakes/constants.dart';
 const nonColor = Colors.grey;
 
 class CustomAppBar extends StatefulWidget {
-  
   CustomAppBar(this.controller);
-
   ScrollController controller;
+
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
@@ -51,7 +50,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       }
                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => MainPage(),
                       ),);
-                      //Navigator.pushNamed(context, MainPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -76,10 +74,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = StatisticPage(); // if user taps on this dashboard tab will be active
                         currentTab = 1;
                       });
-
                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => StatisticPage(),
                       ),);
-                      //Navigator.pushNamed(context,StatisticPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -114,9 +110,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         currentScreen = CalendarPage(); // if user taps on this dashboard tab will be active
                         currentTab = 2;
                       });
-                      Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => CalendarPage(),
+                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => CalendarPage(),
                       ),);
-                      //Navigator.pushNamed(context, CalendarPage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +138,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       });
                       Navigator.pushReplacement(context, PageRouteBuilder( pageBuilder: (context, animation1, animation2) => OvercomePage(),
                       ),);
-                      //Navigator.pushNamed(context, OvercomePage.id);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
