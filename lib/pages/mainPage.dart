@@ -9,6 +9,7 @@ import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/components/pushNotification.dart';
 //import 'package:daily_mistakes/components/timer.dart';
 
 const bottomContainerHeight = 80.0;
@@ -77,6 +78,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     try{
       startTimer(mistakes);
+      PushMessaging();
     }catch(e){
       print('exception catch');
     }
