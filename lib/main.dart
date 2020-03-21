@@ -1,3 +1,4 @@
+import 'package:daily_mistakes/components/localNotification.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
+import 'package:daily_mistakes/components/pushNotification.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MainPage.id,
       routes: {
+        LocalNotification.id: (context) => LocalNotification(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
         OvercomePage.id: (context) => OvercomePage(),
@@ -37,4 +40,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
