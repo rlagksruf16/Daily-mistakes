@@ -9,7 +9,7 @@ import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
-//import 'package:daily_mistakes/components/pushNotification.dart';
+import 'package:daily_mistakes/pages/loadingPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,8 +24,9 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      initialRoute: MainPage.id,
+      initialRoute: LoadingPage.id,
       routes: {
+        LoadingPage.id: (context) => LoadingPage(),
         LocalNotification.id: (context) => LocalNotification(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
