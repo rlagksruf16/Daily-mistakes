@@ -9,7 +9,7 @@ import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
-import 'package:daily_mistakes/components/pushNotification.dart';
+//import 'package:daily_mistakes/components/pushNotification.dart';
 
 void main() => runApp(MyApp());
 
