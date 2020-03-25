@@ -8,6 +8,7 @@ import 'dart:async';
 
 class Mistake{
   String name; //실수 카드 수정하려면 final을 지워야 해서 final 삭제.
+  int id;
   Color colour;
   String alertPeriod;
   int count;
@@ -15,7 +16,7 @@ class Mistake{
   List countTimeList = List();
   List countTest = List();
 
-  Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTime});
+  Mistake({this.name, this.id, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTime});
 
   void firstMistakeTime(){
     countTimeList.add(countTime);
@@ -31,6 +32,7 @@ class Mistake{
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'id': id,
       'colour': colour,
       'alertPeriod': alertPeriod,
       'count': count,
@@ -70,11 +72,12 @@ class DBHelper {
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE $TableName(
-            NAME TEXT PRIMARY KEY,
-            COLOUR TEXT,
-            ALERT_PERIOD TEXT,
-            COUNT INT,
-            COUNT_TIME_LIST TEXT,
+            name TEXT,
+            id 
+            colour TEXT,
+            alert_period TEXT,
+            count INT,
+            count_time_list TEXT,
           )
           ''');
       },
@@ -85,11 +88,29 @@ class DBHelper {
   //Create
   createData(Mistake mistake) async {
     final db = await database;
-    var res = await db.rawInsert('INSERT INTO $TableName(name) VALUES');
+    var res = await db.rawInsert('INSERT INTO $TableName(name) VALUES(?)', [mistake.name]);
+    return res;
   }
   //Delete
+  deleteMistake(Text name) async {
+    final db = await database;
+    var res = db.rawDelete('DELETE FROM $TableName Where name = ?',[name]);
+    return res;
+  }
+  
+  //Read
+  // getMistake(Text name) async{
+  //   final db = await database;
+  //   var res = await db.rawQuery('SELECT * FROM $TableName WHERE name = ?', [name]);
+  //   return res.isNotEmpty ? Mistake(name: res.first['name'], colour: res.first['color'])
+  // }
 
-  //edit
+  //Update
+  updateMistake(Mistake mistake) async {
+    final db = await database;
+    var res = db.rawUpdate('UPDATE $TableName SET name = ? WHERE = ?', [mistake.name, mistake.name]);
+    return res;
+  }
 
 
 }

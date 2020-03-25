@@ -226,7 +226,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: RoundedButton(
                   title: '실수 등록',
                   colour: Colors.grey[350],
-                  onPressed: () async {
+                  onPressed: () {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
                     } else if (mistakeColor == null) {
@@ -239,7 +239,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         countTime: DateTime.now(),
                       );
                       newMistake.firstMistakeTime();
-
+                      DBHelper().createData(newMistake);
                       if (mistakeAlert == '하루에 1번') {
                         alertOnes.add(newMistake);
                         alertSave(1);
