@@ -239,7 +239,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         countTime: DateTime.now(),
                       );
                       newMistake.firstMistakeTime();
-                      DBHelper().createData(newMistake);
+                      // DBHelper().createData(newMistake);
                       if (mistakeAlert == '하루에 1번') {
                         alertOnes.add(newMistake);
                         alertSave(1);
