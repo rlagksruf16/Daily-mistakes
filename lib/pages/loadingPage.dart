@@ -11,23 +11,23 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   @override
 
-  void initState(){
-    super.initState();
-    getData();
-  }
+  // void initState(){
+  //   super.initState();
+  //   getData();
+  // }
 
-  void getData() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context){
-      return MainPage();
-    }));
-  }
+  // void getData() async {
+  //   Navigator.push(context, MaterialPageRoute(builder: (context){
+  //     return MainPage();
+  //   }));
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitPouringHourglass(
-          color: Colors.white,
+        child: SpinKitCircle(
+          color: Colors.purple,
           size:100.0,
         ),
       ),

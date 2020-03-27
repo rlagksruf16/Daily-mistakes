@@ -83,7 +83,8 @@ class _MainPageState extends State<MainPage> {
     }
     
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 246, 1),
+      //backgroundColor: Color.fromRGBO(255, 255, 246, 1),
+      backgroundColor: Colors.white,
       body: Container(
         child: SafeArea(
           child: Column(
