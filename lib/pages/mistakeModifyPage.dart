@@ -238,14 +238,12 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                         name: mistakeName,
                         colour: mistakeColor,
                         alertPeriod: mistakeAlert,
-                        countTime: DateTime.now(),
                       );
                       modifiedMistake = newMistake;
                       // newMistake.firstMistakeTime();
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
-                      print(newMistake.countTime);
 
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';

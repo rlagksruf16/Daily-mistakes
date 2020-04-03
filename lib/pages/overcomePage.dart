@@ -10,8 +10,8 @@ import 'package:daily_mistakes/pages/mainPage.dart';
 
 const CardColour = Colors.white;
 List<Mistake> overcomeMistakes = [
-  Mistake(name: 'first overcome', colour: Color(0xFFF17171), alertPeriod: '하루에 3번', countTime: DateTime.now()),
-  Mistake(name: 'second overcome', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번', countTime: DateTime.now()),
+  Mistake(name: 'first overcome', colour: Color(0xFFF17171), alertPeriod: '하루에 3번'),
+  Mistake(name: 'second overcome', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번'),
 ];
 
 class OvercomePage extends StatefulWidget {
@@ -60,8 +60,8 @@ class _OvercomePageState extends State<OvercomePage> {
                         count: overcomeMistakes[index].count,
                         countCallBack: (){
                           setState(() {
-                            overcomeMistakes[index].countTime = DateTime.now();
-                            overcomeMistakes[index].countUp();
+                            //overcomeMistakes[index].countTime = DateTime.now();
+                            //overcomeMistakes[index].countUp();
                             print(overcomeMistakes[index].countTimeList);
                           });
                         }

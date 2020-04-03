@@ -211,9 +211,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         name: mistakeName,
                         colour: mistakeColor,
                         alertPeriod: mistakeAlert,
-                        countTime: DateTime.now(),
                       );
-                      newMistake.firstMistakeTime();
+                      var now = new DateTime.now();
+                      var year = now.year;
+                      var month = now.month;
+                      var day = now.day;
+                      var today = '$year.$month.$day';
+                      newMistake.countTimeList.add(today);
 
                       if (mistakeAlert == '하루에 1번') {
                         alertOnes.add(newMistake);
@@ -232,7 +236,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
-                      print(newMistake.countTime);
                       widget.addMistakeCallback(newMistake);
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';

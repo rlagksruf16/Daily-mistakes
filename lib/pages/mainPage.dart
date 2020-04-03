@@ -21,8 +21,6 @@ int allCount = 0;
 int i=0;
 
 var now = new DateTime.now();
-
-
 final year = now.year;
 final month = now.month;
 final day = now.day;
@@ -60,7 +58,6 @@ class _MainPageState extends State<MainPage> {
           mistakes.remove(mistake);
         }
       }
-      
       print('Something $i');
       print(DateTime.now());
       i++;
@@ -122,8 +119,8 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: () {
                         setState(() {
-                          mistakes[index].countTime = today;
-                          mistakes[index].countUp();
+                          mistakes[index].count += 1;
+                          mistakes[index].countTimeList.add(today);
                           print('countTimeList ${mistakes[index].countTimeList}');
                           todaysCount(
                               DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
