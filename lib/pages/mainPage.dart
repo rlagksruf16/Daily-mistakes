@@ -46,10 +46,11 @@ class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
   
   void startTimer(List<Mistake> mistakes) {
-    Timer timer = Timer.periodic(Duration(seconds: 10), (time) => setState((){
+    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState((){
       for (var mistake in mistakes) {
         List lastDay = mistake.countTimeList[mistake.count].split('.');
-        var lastTap = DateTime.parse("${lastDay[0]}-${lastDay[1]}-${lastDay[2]}");
+        var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
+        lastTap.add(Duration(hours: 9));
         print('TAP $lastTap');
         lastTap.toLocal();
        Duration differenceTime = DateTime.now().difference(lastTap);
