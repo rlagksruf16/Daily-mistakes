@@ -122,7 +122,7 @@ class _MainPageState extends State<MainPage> {
                         setState(() {
                           mistakes[index].count += 1;
                           mistakes[index].countTimeList.add(today);
-                          print('countTimeList ${mistakes[index].countTimeList}');
+                          // print('countTimeList ${mistakes[index].countTimeList}');
                           todaysCount(
                               DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                           sortedMistakes

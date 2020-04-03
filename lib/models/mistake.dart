@@ -8,7 +8,7 @@ class Mistake{
   int count;
   List countTimeList = List();
 
-  Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0});
+  Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTimeList});
 
   Map<String, dynamic> toMap() {
     return {

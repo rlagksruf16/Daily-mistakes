@@ -62,7 +62,7 @@ class _OvercomePageState extends State<OvercomePage> {
                           setState(() {
                             //overcomeMistakes[index].countTime = DateTime.now();
                             //overcomeMistakes[index].countUp();
-                            print(overcomeMistakes[index].countTimeList);
+                            // print(overcomeMistakes[index].countTimeList);
                           });
                         }
                       );

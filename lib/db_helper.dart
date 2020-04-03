@@ -22,7 +22,8 @@ initDB() async {
             colour TEXT,
             alertPeriod TEXT,
             count INTEGER,
-            countTime BLOB,
+            countTime TEXT,
+            countTimeList TEXT,
           )
         ''');
       },
