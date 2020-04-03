@@ -8,11 +8,21 @@ class Mistake{
   int count;
   List countTimeList = List();
 
-  Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTimeList});
+  Mistake({this.name, this.id, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTimeList});
+
+  factory Mistake.fromMap(Map<String, dynamic> json) => new Mistake(
+        name: json["name"],
+        id: json["id"],
+        colour: json["colour"],
+        alertPeriod: json["alertPeriod"],
+        count: json["count"],
+        countTimeList: json["countTimeList"],
+      );
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'id': id,
       'colour': colour,
       'alertPeriod': alertPeriod,
       'count': count,
