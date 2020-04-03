@@ -113,109 +113,83 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           //pink
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFEC87C0)
+                              mistakeColor = mistakeColor == Color(0xFFEEAEAF)
                                   ? null
-                                  : Color(0xFFEC87C0);
+                                  : Color(0xFFEEAEAF);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFEC87C0)
-                              ? Color(0x60EC87C0)
-                              : Color(0xFFEC87C0),
-                        ),
-                        ColorButton(
-                          //red
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFF17171)
-                                  ? null
-                                  : Color(0xFFF17171);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFFF17171)
-                              ? Color(0x60F17171)
-                              : Color(0xFFF17171),
+                          buttonColor: mistakeColor == Color(0xFFEEAEAF)
+                              ? Color(0x60EEAEAF)
+                              : Color(0xFFEEAEAF),
                         ),
                         ColorButton(
                           //orange
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFD9644)
+                              mistakeColor = mistakeColor == Color(0xFFFF986F)
                                   ? null
-                                  : Color(0xFFFD9644);
+                                  : Color(0xFFFF986F);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFD9644)
-                              ? Color(0x60FD9644)
-                              : Color(0xFFFD9644),
+                          buttonColor: mistakeColor == Color(0xFFFF986F)
+                              ? Color(0x60FF986F)
+                              : Color(0xFFFF986F),
                         ),
                         ColorButton(
-                          //yellow
+                          //green
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFFCE54)
+                              mistakeColor = mistakeColor == Color(0xFF95BB8B)
                                   ? null
-                                  : Color(0xFFFFCE54);
+                                  : Color(0xFF95BB8B);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFFCE54)
-                              ? Color(0x60FFCE54)
-                              : Color(0xFFFFCE54),
+                          buttonColor: mistakeColor == Color(0xFF95BB8B)
+                              ? Color(0x6095BB8B)
+                              : Color(0xFF95BB8B),
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         ColorButton(
-                          //green
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF57C9AE)
-                                  ? null
-                                  : Color(0xFF57C9AE);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFF57C9AE)
-                              ? Color(0x6057C9AE)
-                              : Color(0xFF57C9AE),
-                        ),
-                        ColorButton(
                           //lightBlue
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF4FC1E9)
+                              mistakeColor = mistakeColor == Color(0xFF94C2DA)
                                   ? null
-                                  : Color(0xFF4FC1E9);
+                                  : Color(0xFF94C2DA);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF4FC1E9)
-                              ? Color(0x604FC1E9)
-                              : Color(0xFF4FC1E9),
+                          buttonColor: mistakeColor == Color(0xFF94C2DA)
+                              ? Color(0x6094C2DA)
+                              : Color(0xFF94C2DA),
                         ),
                         ColorButton(
                           //blueAccent
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF5D9CEC)
+                              mistakeColor = mistakeColor == Color(0xFF4371B2)
                                   ? null
-                                  : Color(0xFF5D9CEC);
+                                  : Color(0xFF4371B2);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF5D9CEC)
-                              ? Color(0x605D9CEC)
-                              : Color(0xFF5D9CEC),
+                          buttonColor: mistakeColor == Color(0xFF4371B2)
+                              ? Color(0x604371B2)
+                              : Color(0xFF4371B2),
                         ),
                         ColorButton(
                           //purple
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFD6BBFF)
+                              mistakeColor = mistakeColor == Color(0xFFC7A4D6)
                                   ? null
-                                  : Color(0xFFD6BBFF);
+                                  : Color(0xFFC7A4D6);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFD6BBFF)
-                              ? Color(0x60D6BBFF)
-                              : Color(0xFFD6BBFF),
+                          buttonColor: mistakeColor == Color(0xFFC7A4D6)
+                              ? Color(0x60C7A4D6)
+                              : Color(0xFFC7A4D6),
                         ),
                       ],
                     )

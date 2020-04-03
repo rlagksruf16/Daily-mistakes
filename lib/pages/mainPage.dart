@@ -48,16 +48,19 @@ class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
   
   void startTimer(List<Mistake> mistakes) {
-    Timer timer = Timer.periodic(Duration(seconds: 30), (time) => setState((){
+    Timer timer = Timer.periodic(Duration(seconds: 10), (time) => setState((){
       for (var mistake in mistakes) {
-        Duration differenceTime = DateTime.now()
-            .difference(mistake.countTest[mistake.count]);
-        if (mistakes.length!=0 && differenceTime.inMinutes >= 1) {
-          print(differenceTime.inMinutes.toString());
+        List lastDay = mistake.countTimeList[mistake.count].split('.');
+        var lastTap = DateTime.parse("${lastDay[0]}-${lastDay[1]}-${lastDay[2]}");
+        print('TAP $lastTap');
+        lastTap.toLocal();
+       Duration differenceTime = DateTime.now().difference(lastTap);
+        if (mistakes.length!=0 && differenceTime.inDays >= 1) {
           overcomeMistakes.add(mistake);
           mistakes.remove(mistake);
         }
       }
+      
       print('Something $i');
       print(DateTime.now());
       i++;
@@ -119,10 +122,9 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: () {
                         setState(() {
-                          mistakes[index].countTime = DateTime.now();
-                          //mistakes[index].countTime = today;
+                          mistakes[index].countTime = today;
                           mistakes[index].countUp();
-                          print('countTest ${mistakes[index].countTest}');
+                          print('countTimeList ${mistakes[index].countTimeList}');
                           todaysCount(
                               DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                           sortedMistakes

@@ -13,19 +13,16 @@ class Mistake{
   int count;
   var countTime;
   List countTimeList = List();
-  List countTest = List();
 
   Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTime});
 
   void firstMistakeTime(){
     countTimeList.add(countTime);
-    countTest.add(countTime);
   }
 
   void countUp(){
     count += 1;
     countTimeList.add(countTime);
-    countTest.add(countTime);
   }
 
   Map<String, dynamic> toMap() {
