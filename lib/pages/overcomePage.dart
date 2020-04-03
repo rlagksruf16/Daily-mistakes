@@ -42,7 +42,7 @@ class _OvercomePageState extends State<OvercomePage> {
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 30.0,
-                          fontFamily: 'DoHyeon',
+                          fontFamily: 'Title_Light',
                           fontWeight: FontWeight.bold,
                           ),
                         textAlign: TextAlign.left,

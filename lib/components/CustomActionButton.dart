@@ -8,7 +8,6 @@ class CustomActionButton extends StatelessWidget {
   final Icon icon;
   final Function onPressed;
 
-
   Widget build(BuildContext context) {
     return Container(
         height: 75.0,

@@ -43,7 +43,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30.0,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
@@ -56,7 +56,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '실수 이름 입력',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -71,7 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   decoration: InputDecoration(
                     labelText: "실수 이름을 입력하세요",
                     labelStyle: TextStyle(
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontSize: 15.0,
                         color: Colors.grey),
                   ),
@@ -82,7 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '알람 주기 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -96,7 +96,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '실수 색상 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -276,21 +276,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.home),
         onPressed: () {
-          Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              var begin = Offset(0.0, 1.0);
-              var end = Offset.zero;
-              var curve = Curves.ease;
-
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ));
+          Navigator.pop(context);
         },
       ),
       bottomNavigationBar: CustomAppBar(null),
@@ -322,7 +308,7 @@ class _DropeddownButtonState extends State<DropeddownButton> {
         style: TextStyle(
           color: Colors.grey,
           fontSize: 15.0,
-          fontFamily: 'DoHyeon',
+          fontFamily: 'Title_Light',
         ),
         onChanged: (String newValue) {
           setState(() {
@@ -371,7 +357,7 @@ class RoundedButton extends StatelessWidget {
           title,
           style: TextStyle(
             color: Colors.black,
-            fontFamily: 'DoHyeon',
+            fontFamily: 'Title_Light',
             fontSize: 20.0,
           ),
         ),

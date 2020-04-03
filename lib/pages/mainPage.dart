@@ -100,7 +100,7 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30.0,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
