@@ -44,46 +44,36 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // int currentTab = 0; // to keep track of active tab index
-  // final List<Widget> screens = [
-  //   CalendarPage(),
-  //   SettingPage(),
-  //   StatisticPage(),
-  //   OvercomePage(),
-  //   MainPage(),
-  // ]; // to store nested tabs
   final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
   
   void startTimer(List<Mistake> mistakes) {
-    Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
-          for (var mistake in mistakes) {
-            Duration differenceTime = DateTime.now()
-                .difference(mistake.countTest[mistake.count]);
-            if (differenceTime.inMinutes >= 5) {
-              print(differenceTime.inMinutes.toString());
-              overcomeMistakes.add(mistake);
-              mistakes.remove(mistake);
-            }
-          }
-          print('Something $i');
-          print(DateTime.now());
-          i++;
+    Timer timer = Timer.periodic(Duration(seconds: 30), (time) => setState((){
+      for (var mistake in mistakes) {
+        Duration differenceTime = DateTime.now()
+            .difference(mistake.countTest[mistake.count]);
+        if (mistakes.length!=0 && differenceTime.inMinutes >= 1) {
+          print(differenceTime.inMinutes.toString());
+          overcomeMistakes.add(mistake);
+          mistakes.remove(mistake);
         }
-    ));
+      }
+      print('Something $i');
+      print(DateTime.now());
+      i++;
+    })
+    );
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    startTimer(mistakes);
   }
 
   @override
   Widget build(BuildContext context) {
-    try{
-      startTimer(mistakes);
-      //PushMessaging();
-    }catch(e){
-      print('exception catch');
-    }
-    
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
         child: SafeArea(
           child: Column(

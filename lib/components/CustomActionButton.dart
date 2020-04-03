@@ -16,7 +16,7 @@ class CustomActionButton extends StatelessWidget {
           child: FloatingActionButton(
             child: icon,
             onPressed: onPressed,
-            backgroundColor: Color(0xFF5f80f4),
+            backgroundColor: Colors.blueGrey,
           ),
         ),
       );
