@@ -9,9 +9,6 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
 
-  
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +29,7 @@ class _SettingPageState extends State<SettingPage> {
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 30.0,
-                          fontFamily: 'DoHyeon',
+                          fontFamily: 'Title_Light',
                           fontWeight: FontWeight.bold,
                           ),
                         textAlign: TextAlign.left,

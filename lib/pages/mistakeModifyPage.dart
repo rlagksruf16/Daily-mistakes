@@ -43,7 +43,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30.0,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
@@ -56,7 +56,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: Text(
                   '실수 이름 입력',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -71,7 +71,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                   decoration: InputDecoration(
                     labelText: widget.beforeMistake.name,
                     labelStyle: TextStyle(
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontSize: 15.0,
                         color: Colors.grey),
                   ),
@@ -82,7 +82,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: Text(
                   '알람 주기 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -98,7 +98,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: Text(
                   '실수 색상 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -299,7 +299,7 @@ class _DropeddownButtonState extends State<DropeddownButton> {
         style: TextStyle(
           color: Colors.grey,
           fontSize: 15.0,
-          fontFamily: 'DoHyeon',
+          fontFamily: 'Title_Light',
         ),
         onChanged: (String newValue) {
           setState(() {
@@ -348,7 +348,7 @@ class RoundedButton extends StatelessWidget {
           title,
           style: TextStyle(
             color: Colors.black,
-            fontFamily: 'DoHyeon',
+            fontFamily: 'Title_Light',
             fontSize: 20.0,
           ),
         ),
