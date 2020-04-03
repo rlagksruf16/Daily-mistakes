@@ -6,17 +6,17 @@ class Mistake{
   Color colour;
   String alertPeriod;
   int count;
-  var countTime;
   List countTimeList = List();
 
-  Mistake({this.name, this.id, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTime});
+  Mistake({this.name, this.colour, this.alertPeriod='하루에 1번', this.count = 0});
 
-  void firstMistakeTime(){
-    countTimeList.add(countTime);
-  }
-
-  void countUp(){
-    count += 1;
-    countTimeList.add(countTime);
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'colour': colour,
+      'alertPeriod': alertPeriod,
+      'count': count,
+      'countTimeList': countTimeList,
+    };
   }
 }
