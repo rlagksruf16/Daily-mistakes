@@ -245,6 +245,28 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       print(mistakeAlert);
                       print(mistakeColor);
 
+                      setState(() {
+                        if (widget.beforeMistake.alertPeriod == '하루에 1번') {
+                          alert1.remove(widget.beforeMistake.name);
+                        } else if (widget.beforeMistake.alertPeriod== '하루에 2번') {
+                          alert2.remove(widget.beforeMistake);
+                        } else if (widget.beforeMistake.alertPeriod== '하루에 3번') {
+                          alert3.remove(widget.beforeMistake);
+                        } else if (widget.beforeMistake.alertPeriod== '하루에 5번') {
+                          alert5.remove(widget.beforeMistake);
+                        }
+
+                        if (mistakeAlert == '하루에 1번') {
+                          alert1.add(newMistake);
+                        } else if (mistakeAlert == '하루에 2번') {
+                          alert2.add(newMistake);
+                        } else if (mistakeAlert == '하루에 3번') {
+                          alert3.add(newMistake);
+                        } else if (mistakeAlert == '하루에 5번') {
+                          alert5.add(newMistake);
+                        }
+                      });
+
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
                       mistakeName = null;
@@ -301,7 +323,6 @@ class _DropeddownButtonState extends State<DropeddownButton> {
         ),
         onChanged: (String newValue) {
           setState(() {
-            // widget.firstvalue = newValue;
             mistakeAlert = newValue;
           });
         },

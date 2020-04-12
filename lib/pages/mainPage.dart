@@ -9,6 +9,7 @@ import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
+import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 //import 'package:daily_mistakes/components/pushNotification.dart';
 //import 'package:daily_mistakes/components/timer.dart';
 
@@ -34,6 +35,12 @@ List<Mistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실�
 List<Mistake> overcomeMistakes = List();
 Comparator<Mistake> countComparator =
     (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
+
+List<Mistake> alert1 = List();
+List<Mistake> alert2 = List();
+List<Mistake> alert3 = List();
+List<Mistake> alert5 = List();
+
 
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';

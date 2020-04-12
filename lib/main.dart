@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MainPage.id,
       routes: {
-        LocalNotification.id: (context) => LocalNotification(),
+        LocalNotifications.id: (context) => LocalNotifications(),
+        // HomePage.id: (context) => HomePage(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
         OvercomePage.id: (context) => OvercomePage(),
