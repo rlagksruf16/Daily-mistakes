@@ -6,11 +6,13 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
 import 'package:daily_mistakes/components/colorButton.dart';
-import 'package:daily_mistakes/components/localNotification.dart';
+// import 'package:daily_mistakes/components/localNotification.dart';
+import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 
 String mistakeAlert = '하루에 1번';
 Color mistakeColor;
 String mistakeName;
+
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -223,10 +225,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                child: RoundedButton(
+                child: ButtonWithNotifications(
                   title: '실수 등록',
                   colour: Colors.grey[350],
-                  onPressed: () async {
+                  onPressed: () {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
                     } else if (mistakeColor == null) {
@@ -240,19 +242,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       );
                       newMistake.firstMistakeTime();
 
-                      if (mistakeAlert == '하루에 1번') {
-                        alertOnes.add(newMistake);
-                        alertSave(1);
-                      } else if (mistakeAlert == '하루에 2번') {
-                        alertTwos.add(newMistake);
-                        alertSave(2);
-                      } else if (mistakeAlert == '하루에 3번') {
-                        alertThrees.add(newMistake);
-                        alertSave(3);
-                      } else if (mistakeAlert == '하루에 5번') {
-                        alertFives.add(newMistake);
-                        alertSave(5);
-                      }
+                      setState(() {
+                        if (mistakeAlert == '하루에 1번') {
+                          alert1.add(newMistake);
+                        } else if (mistakeAlert == '하루에 2번') {
+                          alert2.add(newMistake);
+                        } else if (mistakeAlert == '하루에 3번') {
+                          alert3.add(newMistake);
+                        } else if (mistakeAlert == '하루에 5번') {
+                          alert5.add(newMistake);
+                        }
+                      });
+
 
                       print(mistakeName);
                       print(mistakeAlert);
@@ -278,12 +279,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         onPressed: () {
           Navigator.of(context).push(PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               var begin = Offset(0.0, 1.0);
               var end = Offset.zero;
               var curve = Curves.ease;
 
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
               return SlideTransition(
                 position: animation.drive(tween),
