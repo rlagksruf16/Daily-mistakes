@@ -8,7 +8,6 @@ class CustomActionButton extends StatelessWidget {
   final Icon icon;
   final Function onPressed;
 
-
   Widget build(BuildContext context) {
     return Container(
         height: 75.0,
@@ -17,7 +16,7 @@ class CustomActionButton extends StatelessWidget {
           child: FloatingActionButton(
             child: icon,
             onPressed: onPressed,
-            backgroundColor: Color(0xFF5f80f4),
+            backgroundColor: Colors.blueGrey,
           ),
         ),
       );

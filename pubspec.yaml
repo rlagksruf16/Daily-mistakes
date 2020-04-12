@@ -47,6 +47,6 @@ flutter:
   assets:
     - images/
   fonts:
-    - family: DoHyeon
+    - family: Title_Light
       fonts:
-        - asset: fonts/DoHyeon-Regular.ttf
+        - asset: fonts/Title_Light.otf

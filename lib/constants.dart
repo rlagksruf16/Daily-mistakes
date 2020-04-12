@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-const kCoreColor = Color(0xFF5f80f4);
+const kCoreColor = Colors.blueGrey;

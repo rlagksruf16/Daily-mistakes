@@ -29,6 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: SafeArea(
           child: Column(
@@ -45,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30.0,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
@@ -58,7 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '실수 이름 입력',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -73,7 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   decoration: InputDecoration(
                     labelText: "실수 이름을 입력하세요",
                     labelStyle: TextStyle(
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontSize: 15.0,
                         color: Colors.grey),
                   ),
@@ -84,7 +85,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '알람 주기 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -98,7 +99,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Text(
                   '실수 색상 설정',
                   style: TextStyle(
-                    fontFamily: 'DoHyeon',
+                    fontFamily: 'Title_Light',
                     fontSize: 15.0,
                   ),
                 ),
@@ -114,109 +115,83 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           //pink
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFEC87C0)
+                              mistakeColor = mistakeColor == Color(0xFFEEAEAF)
                                   ? null
-                                  : Color(0xFFEC87C0);
+                                  : Color(0xFFEEAEAF);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFEC87C0)
-                              ? Color(0x60EC87C0)
-                              : Color(0xFFEC87C0),
-                        ),
-                        ColorButton(
-                          //red
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFF17171)
-                                  ? null
-                                  : Color(0xFFF17171);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFFF17171)
-                              ? Color(0x60F17171)
-                              : Color(0xFFF17171),
+                          buttonColor: mistakeColor == Color(0xFFEEAEAF)
+                              ? Color(0x60EEAEAF)
+                              : Color(0xFFEEAEAF),
                         ),
                         ColorButton(
                           //orange
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFD9644)
+                              mistakeColor = mistakeColor == Color(0xFFFF986F)
                                   ? null
-                                  : Color(0xFFFD9644);
+                                  : Color(0xFFFF986F);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFD9644)
-                              ? Color(0x60FD9644)
-                              : Color(0xFFFD9644),
+                          buttonColor: mistakeColor == Color(0xFFFF986F)
+                              ? Color(0x60FF986F)
+                              : Color(0xFFFF986F),
                         ),
                         ColorButton(
-                          //yellow
+                          //green
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFFCE54)
+                              mistakeColor = mistakeColor == Color(0xFF95BB8B)
                                   ? null
-                                  : Color(0xFFFFCE54);
+                                  : Color(0xFF95BB8B);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFFCE54)
-                              ? Color(0x60FFCE54)
-                              : Color(0xFFFFCE54),
+                          buttonColor: mistakeColor == Color(0xFF95BB8B)
+                              ? Color(0x6095BB8B)
+                              : Color(0xFF95BB8B),
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         ColorButton(
-                          //green
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF57C9AE)
-                                  ? null
-                                  : Color(0xFF57C9AE);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFF57C9AE)
-                              ? Color(0x6057C9AE)
-                              : Color(0xFF57C9AE),
-                        ),
-                        ColorButton(
                           //lightBlue
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF4FC1E9)
+                              mistakeColor = mistakeColor == Color(0xFF94C2DA)
                                   ? null
-                                  : Color(0xFF4FC1E9);
+                                  : Color(0xFF94C2DA);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF4FC1E9)
-                              ? Color(0x604FC1E9)
-                              : Color(0xFF4FC1E9),
+                          buttonColor: mistakeColor == Color(0xFF94C2DA)
+                              ? Color(0x6094C2DA)
+                              : Color(0xFF94C2DA),
                         ),
                         ColorButton(
                           //blueAccent
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF5D9CEC)
+                              mistakeColor = mistakeColor == Color(0xFF4371B2)
                                   ? null
-                                  : Color(0xFF5D9CEC);
+                                  : Color(0xFF4371B2);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF5D9CEC)
-                              ? Color(0x605D9CEC)
-                              : Color(0xFF5D9CEC),
+                          buttonColor: mistakeColor == Color(0xFF4371B2)
+                              ? Color(0x604371B2)
+                              : Color(0xFF4371B2),
                         ),
                         ColorButton(
                           //purple
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFD6BBFF)
+                              mistakeColor = mistakeColor == Color(0xFFC7A4D6)
                                   ? null
-                                  : Color(0xFFD6BBFF);
+                                  : Color(0xFFC7A4D6);
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFD6BBFF)
-                              ? Color(0x60D6BBFF)
-                              : Color(0xFFD6BBFF),
+                          buttonColor: mistakeColor == Color(0xFFC7A4D6)
+                              ? Color(0x60C7A4D6)
+                              : Color(0xFFC7A4D6),
                         ),
                       ],
                     )
@@ -238,9 +213,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         name: mistakeName,
                         colour: mistakeColor,
                         alertPeriod: mistakeAlert,
-                        countTime: DateTime.now(),
                       );
-                      newMistake.firstMistakeTime();
+                      var now = new DateTime.now();
+                      var year = now.year;
+                      var month = now.month;
+                      var day = now.day;
+                      var today = '$year.$month.$day';
+                      newMistake.countTimeList.add(today);
 
                       setState(() {
                         if (mistakeAlert == '하루에 1번') {
@@ -258,7 +237,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
-                      print(newMistake.countTime);
                       widget.addMistakeCallback(newMistake);
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
@@ -277,23 +255,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.home),
         onPressed: () {
-          Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              var begin = Offset(0.0, 1.0);
-              var end = Offset.zero;
-              var curve = Curves.ease;
-
-              var tween =
-                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ));
+          Navigator.pop(context);
         },
       ),
       bottomNavigationBar: CustomAppBar(null),
@@ -325,7 +287,7 @@ class _DropeddownButtonState extends State<DropeddownButton> {
         style: TextStyle(
           color: Colors.grey,
           fontSize: 15.0,
-          fontFamily: 'DoHyeon',
+          fontFamily: 'Title_Light',
         ),
         onChanged: (String newValue) {
           setState(() {
@@ -374,7 +336,7 @@ class RoundedButton extends StatelessWidget {
           title,
           style: TextStyle(
             color: Colors.black,
-            fontFamily: 'DoHyeon',
+            fontFamily: 'Title_Light',
             fontSize: 20.0,
           ),
         ),

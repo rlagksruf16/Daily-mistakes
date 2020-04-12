@@ -6,20 +6,27 @@ class Mistake{
   Color colour;
   String alertPeriod;
   int count;
-  var countTime;
   List countTimeList = List();
-  List countTest = List();
 
-  Mistake({this.name, this.id, this.colour, this.alertPeriod='하루에 1번', this.count = 0, this.countTime});
+  Mistake({this.name, this.id, this.colour, this.alertPeriod='하루에 1번', this.count = 0, });
 
-  void firstMistakeTime(){
-    countTimeList.add(countTime);
-    countTest.add(countTime);
-  }
+  factory Mistake.fromMap(Map<String, dynamic> json) => new Mistake(
+        name: json["name"],
+        id: json["id"],
+        colour: json["colour"],
+        alertPeriod: json["alertPeriod"],
+        count: json["count"],
+        // countTimeList: json["countTimeList"],
+      );
 
-  void countUp(){
-    count += 1;
-    countTimeList.add(countTime);
-    countTest.add(countTime);
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'id': id,
+      'colour': colour,
+      'alertPeriod': alertPeriod,
+      'count': count,
+      'countTimeList': countTimeList,
+    };
   }
 }

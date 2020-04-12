@@ -5,7 +5,7 @@ import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:daily_mistakes/constants.dart';
 
-const nonColor = Colors.grey;
+Color nonColor = Colors.grey[400];
 
 class CustomAppBar extends StatefulWidget {
   CustomAppBar(this.controller);
@@ -34,7 +34,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   MaterialButton(
-
                     minWidth: barWidth,
                     onPressed: () {
                       setState(() {
@@ -62,6 +61,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           '홈',
                           style: TextStyle(
                             color: currentTab == 0 ? kCoreColor : nonColor,
+                            fontFamily: 'Title_Light',
                           ),
                         ),
                       ],
@@ -88,6 +88,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           '차트',
                           style: TextStyle(
                             color: currentTab == 1 ? kCoreColor : nonColor,
+                            fontFamily: 'Title_Light',
                           ),
                         ),
                       ],
@@ -124,6 +125,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           '달력',
                           style: TextStyle(
                             color: currentTab == 2 ? kCoreColor : nonColor,
+                            fontFamily: 'Title_Light',
                           ),
                         ),
                       ],
@@ -150,6 +152,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           '극복',
                           style: TextStyle(
                             color: currentTab == 3 ? kCoreColor : nonColor,
+                            fontFamily: 'Title_Light',
                           ),
                         ),
                       ],

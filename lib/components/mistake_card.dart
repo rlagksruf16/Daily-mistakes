@@ -18,7 +18,8 @@ class MistakeCard extends StatelessWidget {
 
   static const mainTextStyle = TextStyle(
     fontSize: 25.0,
-    fontFamily: 'DoHyeon',
+    fontFamily: 'Title_Light',
+    //fontWeight: FontWeight.bold,
     color: Color(0xFFfdfdfd),
   );
 

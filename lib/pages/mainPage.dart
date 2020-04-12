@@ -22,8 +22,6 @@ int allCount = 0;
 int i=0;
 
 var now = new DateTime.now();
-
-
 final year = now.year;
 final month = now.month;
 final day = now.day;
@@ -51,46 +49,39 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // int currentTab = 0; // to keep track of active tab index
-  // final List<Widget> screens = [
-  //   CalendarPage(),
-  //   SettingPage(),
-  //   StatisticPage(),
-  //   OvercomePage(),
-  //   MainPage(),
-  // ]; // to store nested tabs
   final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
   
   void startTimer(List<Mistake> mistakes) {
-    Timer timer = Timer.periodic(Duration(seconds: 300), (time) => setState((){
-          for (var mistake in mistakes) {
-            Duration differenceTime = DateTime.now()
-                .difference(mistake.countTest[mistake.count]);
-            if (differenceTime.inMinutes >= 5) {
-              print(differenceTime.inMinutes.toString());
-              overcomeMistakes.add(mistake);
-              mistakes.remove(mistake);
-            }
-          }
-          print('Something $i');
-          print(DateTime.now());
-          i++;
+    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState((){
+      for (var mistake in mistakes) {
+        List lastDay = mistake.countTimeList[mistake.count].split('.');
+        var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
+        lastTap.add(Duration(hours: 9));
+        print('TAP $lastTap');
+        lastTap.toLocal();
+       Duration differenceTime = DateTime.now().difference(lastTap);
+        if (mistakes.length!=0 && differenceTime.inDays >= 1) {
+          overcomeMistakes.add(mistake);
+          mistakes.remove(mistake);
         }
-    ));
+      }
+      print('Something $i');
+      print(DateTime.now());
+      i++;
+    })
+    );
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    startTimer(mistakes);
   }
 
   @override
   Widget build(BuildContext context) {
-    // try{
-    //   startTimer(mistakes);
-    //   //PushMessaging();
-    // }catch(e){
-    //   print('exception catch');
-    // }
-    
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 255, 246, 1),
       body: Container(
         child: SafeArea(
           child: Column(
@@ -107,7 +98,7 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 30.0,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,
@@ -136,10 +127,9 @@ class _MainPageState extends State<MainPage> {
                       count: mistakes[index].count,
                       countCallBack: () {
                         setState(() {
-                          mistakes[index].countTime = DateTime.now();
-                          //mistakes[index].countTime = today;
-                          mistakes[index].countUp();
-                          print('countTest ${mistakes[index].countTest}');
+                          mistakes[index].count += 1;
+                          mistakes[index].countTimeList.add(today);
+                          // print('countTimeList ${mistakes[index].countTimeList}');
                           todaysCount(
                               DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                           sortedMistakes

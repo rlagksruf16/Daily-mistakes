@@ -148,7 +148,7 @@ class MistakesChartState extends State<MistakesChart> {
                     '일주일 간 실수 통계',
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DoHyeon',
+                      fontFamily: 'Title_Light',
                       fontSize: 24,
                     ),
                   ),
@@ -161,7 +161,7 @@ class MistakesChartState extends State<MistakesChart> {
                         formatDate(durationweek, [yyyy, '_', mm, '_', dd]),
                     style: TextStyle(
                         color: Colors.white70,
-                        fontFamily: 'DoHyeon',
+                        fontFamily: 'Title_Light',
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -295,7 +295,7 @@ class MistakesChartState extends State<MistakesChart> {
               }
               return BarTooltipItem(
                   weekDay + '\n' + (rod.y.toInt() - 1).toString() + '번',
-                  TextStyle(color: Colors.yellow, fontFamily: 'DoHyeon'));
+                  TextStyle(color: Colors.yellow, fontFamily: 'Title_Light'));
             }),
         touchCallback: (barTouchResponse) {
           //손댔는지 확인
