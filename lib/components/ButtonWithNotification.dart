@@ -1,4 +1,3 @@
-import 'package:daily_mistakes/components/localNotification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -111,7 +110,7 @@ int idNum = 0;
   Future<void> alertAtMidnight(String name, int i) async {
     //새벽 2시
     //매일 정해진 시각에 알림
-    var time = Time(3, 28, 0);
+    var time = Time(2, 0, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$name channel id', '$name channel name', '$name description');
 
@@ -129,7 +128,7 @@ int idNum = 0;
   Future<void> alertAtTenClock(String name, int i) async {
     //저녁 10시
     //매일 정해진 시각에 알림
-    var time = Time(3, 27, 0);
+    var time = Time(22, 0, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$name channel id', '$name channel name', '$name description');
 
@@ -147,7 +146,7 @@ int idNum = 0;
   Future<void> alertAtMorning(String name, int i) async {
     //아침9시
     //매일 정해진 시각에 알림
-    var time = Time(3, 26, 0);
+    var time = Time(9, 0, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$name channel id', '$name channel name', '$name description');
 
@@ -165,7 +164,7 @@ int idNum = 0;
   Future<void> alertAtSixClock(String name, int i) async {
     //저녁 6시
     //매일 정해진 시각에 알림
-    var time = Time(4, 34, 0);
+    var time = Time(18, 0, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$name channel id', '$name channel name', '$name description');
 
@@ -183,7 +182,7 @@ int idNum = 0;
   Future<void> alertAtLunch(String name, int i) async {
     //점심 12시
     //매일 정해진 시각에 알림
-    var time = Time(4, 33, 0);
+    var time = Time(12, 0, 0);
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
             '$name channel ID', '$name Channel title', '$name channel body',);
