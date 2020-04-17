@@ -1,4 +1,3 @@
-import 'package:daily_mistakes/components/localNotification.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: MainPage.id,
       routes: {
-        LocalNotifications.id: (context) => LocalNotifications(),
         // HomePage.id: (context) => HomePage(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
