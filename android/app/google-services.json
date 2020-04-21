@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "491514932842",
-    "firebase_url": "https://daily-mistakes.firebaseio.com",
-    "project_id": "daily-mistakes",
-    "storage_bucket": "daily-mistakes.appspot.com"
+    "project_number": "50491240387",
+    "firebase_url": "https://mistakes-1edff.firebaseio.com",
+    "project_id": "mistakes-1edff",
+    "storage_bucket": "mistakes-1edff.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:491514932842:android:aaad9099989929a47ae413",
+        "mobilesdk_app_id": "1:50491240387:android:be99d2329242d377359776",
         "android_client_info": {
-          "package_name": "com.example.daily_mistakes"
+          "package_name": "com.dschufs.daily_mistakes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "491514932842-upv82di61o23sle5cgvjeaj4ruqgrbfr.apps.googleusercontent.com",
+          "client_id": "50491240387-3eau610fr7m4lkq6ip44hkgvetj6f5tj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBnEcBxkyC0aDr7jNqyYC6nc0RR_eQczUk"
+          "current_key": "AIzaSyDae_R8rdpx1XXwS8S3lo3wHiUEpXIh7Qc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "491514932842-upv82di61o23sle5cgvjeaj4ruqgrbfr.apps.googleusercontent.com",
+              "client_id": "50491240387-3eau610fr7m4lkq6ip44hkgvetj6f5tj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
