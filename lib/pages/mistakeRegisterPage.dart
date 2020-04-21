@@ -6,11 +6,13 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
 import 'package:daily_mistakes/components/colorButton.dart';
-import 'package:daily_mistakes/components/localNotification.dart';
+// import 'package:daily_mistakes/components/localNotification.dart';
+import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 
 String mistakeAlert = '하루에 1번';
 Color mistakeColor;
 String mistakeName;
+
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -198,10 +200,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
-                child: RoundedButton(
+                child: ButtonWithNotifications(
                   title: '실수 등록',
                   colour: Colors.grey[350],
-                  onPressed: () async {
+                  onPressed: () {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
                     } else if (mistakeColor == null) {
@@ -219,19 +221,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       var today = '$year.$month.$day';
                       newMistake.countTimeList.add(today);
 
-                      if (mistakeAlert == '하루에 1번') {
-                        alertOnes.add(newMistake);
-                        alertSave(1);
-                      } else if (mistakeAlert == '하루에 2번') {
-                        alertTwos.add(newMistake);
-                        alertSave(2);
-                      } else if (mistakeAlert == '하루에 3번') {
-                        alertThrees.add(newMistake);
-                        alertSave(3);
-                      } else if (mistakeAlert == '하루에 5번') {
-                        alertFives.add(newMistake);
-                        alertSave(5);
-                      }
+                      setState(() {
+                        if (mistakeAlert == '하루에 1번') {
+                          alert1.add(newMistake);
+                        } else if (mistakeAlert == '하루에 2번') {
+                          alert2.add(newMistake);
+                        } else if (mistakeAlert == '하루에 3번') {
+                          alert3.add(newMistake);
+                        } else if (mistakeAlert == '하루에 5번') {
+                          alert5.add(newMistake);
+                        }
+                      });
+
 
                       print(mistakeName);
                       print(mistakeAlert);
