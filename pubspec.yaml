@@ -45,7 +45,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/
+    - assets/
   fonts:
     - family: Title_Light
       fonts:

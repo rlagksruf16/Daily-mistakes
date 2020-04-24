@@ -1,4 +1,5 @@
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
+import 'package:daily_mistakes/pages/startPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:flutter/material.dart';
 import 'pages/mainPage.dart';
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      initialRoute: MainPage.id,
+      initialRoute: StartPage.id,
       routes: {
-        // HomePage.id: (context) => HomePage(),
+        StartPage.id: (context) => StartPage(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
         OvercomePage.id: (context) => OvercomePage(),
