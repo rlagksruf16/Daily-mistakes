@@ -1,3 +1,4 @@
+import 'package:daily_mistakes/pages/loadingPage.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:daily_mistakes/pages/startPage.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
@@ -9,7 +10,7 @@ import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
-//import 'package:daily_mistakes/components/pushNotification.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         //backgroundColor: Colors.yellow,
-        
+
         primarySwatch: Colors.blue,
       ),
-      initialRoute: StartPage.id,
+      initialRoute: LoadingPage.id,
       routes: {
+        LoadingPage.id: (context) => LoadingPage(),
         StartPage.id: (context) => StartPage(),
         MainPage.id: (context) => MainPage(),
         // RegistrationScreen.id: (context) => RegistrationScreen(),
@@ -34,8 +36,6 @@ class MyApp extends StatelessWidget {
         StatisticPage.id: (context) => StatisticPage(),
         SettingPage.id: (context) => SettingPage(),
         // MistakeModifyPage.id: (context) => MistakeModifyPage(),
-
-        
       },
     );
   }

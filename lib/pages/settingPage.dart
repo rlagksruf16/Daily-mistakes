@@ -8,37 +8,35 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         color: Colors.white,
         child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 20.0),
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        '환경설정',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30.0,
-                          fontFamily: 'Title_Light',
-                          fontWeight: FontWeight.bold,
-                          ),
-                        textAlign: TextAlign.left,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 20.0),
+                    margin: EdgeInsets.all(10.0),
+                    child: Text(
+                      '환경설정',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30.0,
+                        fontFamily: 'Title_Light',
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.left,
                     ),
-                    
-                  ],
-                ),
-                /*
+                  ),
+                ],
+              ),
+              /*
                 Container(
                   child: MistakeCard(
                     colour: CardColour,
@@ -51,9 +49,9 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 
                 */
-              ],      
-            ),
+            ],
           ),
+        ),
       ),
     );
   }
