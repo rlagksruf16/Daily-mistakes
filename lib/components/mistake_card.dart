@@ -94,7 +94,6 @@ class RoundIconButton extends StatelessWidget {
       shape: CircleBorder(),
 
       elevation: 0.0,
-      //단색으로 지정? 투명도로 카드색깔 비추게? -> 그러면 카드마다 +색깔 달라짐
       fillColor: Color.fromRGBO(128, 128, 128, 0),
     );
   }
