@@ -11,7 +11,9 @@ import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 //import 'package:daily_mistakes/components/pushNotification.dart';
-//import 'package:daily_mistakes/components/timer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
@@ -51,7 +53,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
-  
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+
   void startTimer(List<Mistake> mistakes) {
     Timer timer = Timer.periodic(Duration(days: 1), (time) => setState((){
       for (var mistake in mistakes) {
@@ -118,36 +122,73 @@ class _MainPageState extends State<MainPage> {
                 ],
               ),
               Expanded(
-                child: ListView.builder(
-                  controller: controller,
-                  itemBuilder: (context, index) {
-                    return MistakeCard(
-                      mistakeName: mistakes[index].name,
-                      colour: mistakes[index].colour,
-                      count: mistakes[index].count,
-                      countCallBack: () {
-                        setState(() {
-                          mistakes[index].count += 1;
-                          mistakes[index].countTimeList.add(today);
-                          // print('countTimeList ${mistakes[index].countTimeList}');
-                          todaysCount(
-                              DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                          sortedMistakes
-                              .sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
-                        });
-                      },
-                      onPressed: () {
-                        //실수 카드 수정기능. 실수 이름 클릭시 실행
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MistakeModifyPage(
-                                      beforeMistake: mistakes[index],
-                                    )));
-                      },
-                    );
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _firestore
+                      .collection('mistakes')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data.documents.length,
+                        itemBuilder: (context, index) {
+                          final mistakeInfo = snapshot.data.documents[index];
+                          final mistakeName = mistakeInfo.data['name'];
+                          final colour = Color(int.parse(mistakeInfo.data['colour'], radix: 16));
+                          final mistakeCount = mistakeInfo.data['count'];
+                          return MistakeCard(
+                            mistakeName: mistakeName,
+                            colour: colour,
+                            count: mistakeCount,
+                            countCallBack: () async {
+                              try {
+                                await _firestore
+                                  .collection('mistakes')
+                                  .document(mistakeInfo.data['IDnum'])
+                                  .updateData({
+                                    'count': mistakeCount + 1,
+                                  });
+                              }catch(e){
+                                print(e.toString());
+                              }
+                              try {
+                                await _firestore
+                                  .collection('mistakes')
+                                  .document(mistakeInfo.data['IDnum'])
+                                  .collection('countTimeList')
+                                  .document((mistakeCount+1).toString())
+                                  .setData({
+                                    'date': today,
+                                  });
+                              }catch(e){
+                                print(e.toString());
+                              }
+                              setState(() {
+                                mistakes[index].count += 1;
+                                mistakes[index].countTimeList.add(today);
+                                // print('countTimeList ${mistakes[index].countTimeList}');
+                                todaysCount(
+                                    DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                                sortedMistakes
+                                    .sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                              });
+                            },
+                            onPressed: () {
+                              //실수 카드 수정기능. 실수 이름 클릭시 실행
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MistakeModifyPage(
+                                        beforeMistakeInfo: mistakeInfo,
+                                )));
+                            },
+                          );
+                        },
+                        
+                      );
+                    } else {
+                      return Center(child:Text("No Mistakes!"),);
+                    }
                   },
-                  itemCount: mistakes.length,
                 ),
               ),
             ],
@@ -158,13 +199,9 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
+          var docNum = (Random().nextInt(10000) + 1).toString();
           Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen((newMistake) {
-                      setState(() {
-                        mistakes.add(newMistake);
-                        sortedMistakes.add(newMistake);
-                      });
-                    }),
+            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen(docNum),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               var begin = Offset(0.0, 1.0);
               var end = Offset.zero;

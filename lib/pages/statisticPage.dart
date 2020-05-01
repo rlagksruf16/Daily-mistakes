@@ -6,6 +6,7 @@ import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:daily_mistakes/models/mistake.dart';
+import 'dart:math';
 
 List<Mistake> bestMistakes = List();
 List<Color> colorList = List();
@@ -90,13 +91,9 @@ class _StatisticPageState extends State<StatisticPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
+          var docNum = (Random().nextInt(10000) + 1).toString();
           Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen((newMistake) {
-                      setState(() {
-                        mistakes.add(newMistake);
-                        sortedMistakes.add(newMistake);
-                      });
-                    }),
+            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen(docNum),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               var begin = Offset(0.0, 1.0);
               var end = Offset.zero;

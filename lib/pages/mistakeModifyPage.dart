@@ -5,25 +5,31 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
 import 'package:daily_mistakes/components/colorButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 //실수 카드 수정은 -> 실수 이름, 실수 알람주기, 실수 컬러만 변경.
 
 String mistakeAlert = '하루에 1번';
-Color mistakeColor;
+String mistakeColor;
 String mistakeName;
 Mistake modifiedMistake;
 
 class MistakeModifyPage extends StatefulWidget {
   static const String id = 'modify_screen';
 
-  final Mistake beforeMistake;
+  final DocumentSnapshot beforeMistakeInfo;
 
-  MistakeModifyPage({@required this.beforeMistake});
+  MistakeModifyPage({@required this.beforeMistakeInfo});
 
   @override
   _MistakeModifyPageState createState() => _MistakeModifyPageState();
 }
 
 class _MistakeModifyPageState extends State<MistakeModifyPage> {
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +75,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                     mistakeName = value;
                   },
                   decoration: InputDecoration(
-                    labelText: widget.beforeMistake.name,
+                    labelText: widget.beforeMistakeInfo.data['name'],
                     labelStyle: TextStyle(
                         fontFamily: 'Title_Light',
                         fontSize: 15.0,
@@ -90,7 +96,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
               Container(
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: DropeddownButton(
-                  firstvalue: widget.beforeMistake.alertPeriod,
+                  firstvalue: widget.beforeMistakeInfo.data['alertPeriod'],
                 ),
               ),
               Container(
@@ -114,109 +120,83 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                           //pink
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFEC87C0)
+                              mistakeColor = mistakeColor == "FFEEAEAF"
                                   ? null
-                                  : Color(0xFFEC87C0);
+                                  : "FFEEAEAF";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFEC87C0)
-                              ? Color(0x60EC87C0)
-                              : Color(0xFFEC87C0),
-                        ),
-                        ColorButton(
-                          //red
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFF17171)
-                                  ? null
-                                  : Color(0xFFF17171);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFFF17171)
-                              ? Color(0x60F17171)
-                              : Color(0xFFF17171),
+                          buttonColor: mistakeColor == "FFEEAEAF"
+                              ? Color(0x60EEAEAF)
+                              : Color(0xFFEEAEAF),
                         ),
                         ColorButton(
                           //orange
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFD9644)
+                              mistakeColor = mistakeColor == "FFFF986F"
                                   ? null
-                                  : Color(0xFFFD9644);
+                                  : "FFFF986F";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFD9644)
-                              ? Color(0x60FD9644)
-                              : Color(0xFFFD9644),
+                          buttonColor: mistakeColor == "FFFF986F"
+                              ? Color(0x60FF986F)
+                              : Color(0xFFFF986F),
                         ),
                         ColorButton(
-                          //yellow
+                          //green
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFFFCE54)
+                              mistakeColor = mistakeColor == "FF95BB8B"
                                   ? null
-                                  : Color(0xFFFFCE54);
+                                  : "FF95BB8B";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFFFCE54)
-                              ? Color(0x60FFCE54)
-                              : Color(0xFFFFCE54),
+                          buttonColor: mistakeColor == "FF95BB8B"
+                              ? Color(0x6095BB8B)
+                              : Color(0xFF95BB8B),
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         ColorButton(
-                          //green
-                          onPress: () {
-                            setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF57C9AE)
-                                  ? null
-                                  : Color(0xFF57C9AE);
-                            });
-                          },
-                          buttonColor: mistakeColor == Color(0xFF57C9AE)
-                              ? Color(0x6057C9AE)
-                              : Color(0xFF57C9AE),
-                        ),
-                        ColorButton(
                           //lightBlue
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF4FC1E9)
+                              mistakeColor = mistakeColor == "FF94C2DA"
                                   ? null
-                                  : Color(0xFF4FC1E9);
+                                  : "FF94C2DA";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF4FC1E9)
-                              ? Color(0x604FC1E9)
-                              : Color(0xFF4FC1E9),
+                          buttonColor: mistakeColor == "FF94C2DA"
+                              ? Color(0x6094C2DA)
+                              : Color(0xFF94C2DA),
                         ),
                         ColorButton(
                           //blueAccent
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFF5D9CEC)
+                              mistakeColor = mistakeColor == "FF4371B2"
                                   ? null
-                                  : Color(0xFF5D9CEC);
+                                  : "FF4371B2";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFF5D9CEC)
-                              ? Color(0x605D9CEC)
-                              : Color(0xFF5D9CEC),
+                          buttonColor: mistakeColor == "FF4371B2"
+                              ? Color(0x604371B2)
+                              : Color(0xFF4371B2),
                         ),
                         ColorButton(
                           //purple
                           onPress: () {
                             setState(() {
-                              mistakeColor = mistakeColor == Color(0xFFD6BBFF)
+                              mistakeColor = mistakeColor == "FFC7A4D6"
                                   ? null
-                                  : Color(0xFFD6BBFF);
+                                  : "FFC7A4D6";
                             });
                           },
-                          buttonColor: mistakeColor == Color(0xFFD6BBFF)
-                              ? Color(0x60D6BBFF)
-                              : Color(0xFFD6BBFF),
+                          buttonColor: mistakeColor == "FFC7A4D6"
+                              ? Color(0x60C7A4D6)
+                              : Color(0xFFC7A4D6),
                         ),
                       ],
                     )
@@ -228,7 +208,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: RoundedButton(
                   title: '실수 수정',
                   colour: Colors.grey[350],
-                  onPressed: () {
+                  onPressed: () async {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
                     } else if (mistakeColor == null) {
@@ -236,7 +216,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                     } else {
                       var newMistake = Mistake(
                         name: mistakeName,
-                        colour: mistakeColor,
+                        colour: Color(int.parse(mistakeColor,radix: 16)),
                         alertPeriod: mistakeAlert,
                       );
                       modifiedMistake = newMistake;
@@ -244,8 +224,21 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
-
+                      try {
+                        await _firestore
+                          .collection('mistakes')
+                          .document(widget.beforeMistakeInfo.data['IDnum'])
+                          .updateData({
+                            'name': mistakeName,
+                            'colour': mistakeColor,
+                            'alertPeriod': mistakeAlert,
+                          });
+                      }catch(e){
+                        print(e.toString());
+                      }
+/*
                       setState(() {
+                        
                         if (widget.beforeMistake.alertPeriod == '하루에 1번') {
                           alert1.remove(widget.beforeMistake.name);
                         } else if (widget.beforeMistake.alertPeriod== '하루에 2번') {
@@ -267,15 +260,17 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                         }
                       });
 
+                      
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
                       mistakeName = null;
 
                       widget.beforeMistake.name = modifiedMistake.name;
                       widget.beforeMistake.colour = modifiedMistake.colour;
-                      widget.beforeMistake.alertPeriod =
-                          modifiedMistake.alertPeriod;
+                      widget.beforeMistake.alertPeriod = modifiedMistake.alertPeriod;
+                      */
                       Navigator.pop(context);
+                      
                     }
                   },
                 ),

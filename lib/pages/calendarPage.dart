@@ -7,6 +7,7 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/constants.dart';
+import 'dart:math';
 
 // 클릭추가에 따라 날짜 저장된 리스트를 불러와 비교하는 것을 만들어야 함
 // 만약 비교해서 있으면 캘린더 당일 날짜 밑에 보여주고
@@ -150,13 +151,9 @@ class _CalendarPageState extends State<CalendarPage> {
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.add),
         onPressed: () {
+          var docNum = (Random().nextInt(10000) + 1).toString();
           Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen((newMistake) {
-                      setState(() {
-                        mistakes.add(newMistake);
-                        sortedMistakes.add(newMistake);
-                      });
-                    }),
+            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen(docNum),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               var begin = Offset(0.0, 1.0);
               var end = Offset.zero;
