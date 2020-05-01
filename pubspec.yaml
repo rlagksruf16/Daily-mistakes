@@ -25,6 +25,8 @@ dependencies:
   cloud_firestore: ^0.13.5
   flutter_spinkit: ^4.1.2+1
   google_sign_in: ^4.4.4
+  email_validator: ^1.0.0
+  modal_progress_hud: ^0.1.3
 
 
 

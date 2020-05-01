@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
+import 'package:daily_mistakes/pages/signUp.dart';
+
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingPage extends StatefulWidget {
@@ -19,7 +21,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     if (_seen) {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new MainPage()));
+          new MaterialPageRoute(builder: (context) => new SignUpPage()));
     } else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
