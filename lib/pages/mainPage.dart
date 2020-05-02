@@ -57,6 +57,8 @@ class _MainPageState extends State<MainPage> {
   final PageStorageBucket bucket = PageStorageBucket();
   FirebaseUser loggedInUser;
   String currentEmail;
+  DocumentSnapshot snapshot;
+  String currentName;
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
 
@@ -66,6 +68,13 @@ class _MainPageState extends State<MainPage> {
       if (user != null) {
         loggedInUser = user;
         currentEmail = loggedInUser.email;
+        snapshot = await _firestore
+            .collection('Accounts')
+            .document(currentEmail)
+            .get();
+        setState(() {
+          currentName = snapshot.data['name'];
+        });
       }
     } catch (e) {
       print(e);
