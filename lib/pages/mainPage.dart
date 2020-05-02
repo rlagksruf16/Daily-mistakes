@@ -169,7 +169,6 @@ class _MainPageState extends State<MainPage> {
                                 print('aaaaa');
                                 todaysCount(
                                     DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                                sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
                               });
                             },
                             onPressed: () {
