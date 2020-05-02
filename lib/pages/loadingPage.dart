@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
+import 'package:daily_mistakes/pages/signUp.dart';
+import 'package:daily_mistakes/pages/login.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,7 +46,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     if (_seen) {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new MainPage()));
+          new MaterialPageRoute(builder: (context) => new LoginScreen()));
     } else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
