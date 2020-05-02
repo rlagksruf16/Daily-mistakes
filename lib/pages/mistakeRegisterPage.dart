@@ -285,7 +285,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
                       mistakeName = null;
-                      Navigator.pop(context);
+                      await Navigator.pop(context);
                     }
                   },
                 ),
