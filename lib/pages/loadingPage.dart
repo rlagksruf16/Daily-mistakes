@@ -4,6 +4,9 @@ import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:daily_mistakes/models/simpleMistake.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoadingPage extends StatefulWidget {
   static const String id = 'loading_page';
@@ -31,16 +34,30 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState() {
     super.initState();
     new Timer(new Duration(milliseconds: 400), () {
+      makeSortedList();
       checkFirstSeen();
-      // getData();
     });
   }
 
-  // void getData() {
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-  //     return MainPage();
-  //   }));
-  // }
+   void makeSortedList() async{
+    final _firestore = Firestore.instance;
+    final _auth = FirebaseAuth.instance;
+    await _firestore.collection('mistakes').getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f){
+        setState(() {
+           sortedMistakes.add(SimpleMistake(
+            name: f.data['name'],
+            colour: Color(int.parse(f.data['colour'],radix: 16)),
+            count: f.data['count'],
+          ));
+        });
+      });
+    });
+    setState(() {
+      sortedMistakes.sort(countComparator);
+    });
+   }
 
   Widget build(BuildContext context) {
     return Scaffold(

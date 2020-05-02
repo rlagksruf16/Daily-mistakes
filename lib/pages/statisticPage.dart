@@ -5,10 +5,10 @@ import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
-import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'dart:math';
 
-List<Mistake> bestMistakes = List();
+List<SimpleMistake> bestMistakes = List();
 List<Color> colorList = List();
 Map<String, double> dataMap = Map();
 
@@ -16,23 +16,22 @@ void bestMistakesChart() {
   bestMistakes = List();
   colorList = List();
   dataMap = Map();
-  if (sortedMistakes.length <= 4) {
-    if (sortedMistakes.isEmpty) {
-      colorList.add(Colors.blueGrey[200]);
-      dataMap.putIfAbsent("No Data", () => 1);
-    }
-    for (var mistake in sortedMistakes) {
-      bestMistakes.add(mistake);
-      colorList.add(mistake.colour);
-    }
-  } else {
-    for (int i = 0; i < 4; i++) {
+  if (sortedMistakes.isEmpty) {
+    colorList.add(Colors.blueGrey[200]);
+    dataMap.putIfAbsent("No Data", () => 1);
+  }
+  else{
+    for (int i = 0; i < sortedMistakes.length; i++) {
+      print('$i ${sortedMistakes[i].name}');
       bestMistakes.add(sortedMistakes[i]);
       colorList.add(sortedMistakes[i].colour);
+      if(i==3){
+        break;
+      }
     }
   }
-  bestMistakes.forEach((Mistake mistakes) {
-    print('${mistakes.name}');
+  bestMistakes.forEach((SimpleMistake mistakes) {
+    //print('${mistakes.name}');
   });
 }
 

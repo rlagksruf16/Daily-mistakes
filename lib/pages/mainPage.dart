@@ -7,7 +7,7 @@ import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
-import 'package:daily_mistakes/models/mistake.dart';
+import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 //import 'package:daily_mistakes/components/pushNotification.dart';
@@ -31,17 +31,14 @@ final today = '$year.$month.$day';
 
 Widget currentScreen = MainPage();
 
-Mistake mistake;
-List<Mistake> mistakes = List();
-List<Mistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
-List<Mistake> overcomeMistakes = List();
-Comparator<Mistake> countComparator =
+List<SimpleMistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
+Comparator<SimpleMistake> countComparator =
     (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
-List<Mistake> alert1 = List();
-List<Mistake> alert2 = List();
-List<Mistake> alert3 = List();
-List<Mistake> alert5 = List();
+List<SimpleMistake> alert1 = List();
+List<SimpleMistake> alert2 = List();
+List<SimpleMistake> alert3 = List();
+List<SimpleMistake> alert5 = List();
 
 
 class MainPage extends StatefulWidget {
@@ -56,20 +53,34 @@ class _MainPageState extends State<MainPage> {
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
 
-  void startTimer(List<Mistake> mistakes) {
+  void startTimer() {
     Timer timer = Timer.periodic(Duration(days: 1), (time) => setState((){
-      for (var mistake in mistakes) {
-        List lastDay = mistake.countTimeList[mistake.count].split('.');
-        var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
-        lastTap.add(Duration(hours: 9));
-        print('TAP $lastTap');
-        lastTap.toLocal();
-       Duration differenceTime = DateTime.now().difference(lastTap);
-        if (mistakes.length!=0 && differenceTime.inDays >= 1) {
-          overcomeMistakes.add(mistake);
-          mistakes.remove(mistake);
+      StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('mistakes').snapshots(), 
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final mistakes = snapshot.data.documents;
+            for (var mistake in mistakes) {
+              _firestore.collection('mistakes').document(mistake.data['IDnum']).collection('countTimeList').document(mistake.data['count']).get().then((DocumentSnapshot ds) {
+                List lastDay = ds.data['date'].split('.');
+                var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
+                lastTap.add(Duration(hours: 9));
+                lastTap.toLocal();
+                Duration differenceTime = DateTime.now().difference(lastTap);
+             if (differenceTime.inDays >= 1) {
+               _firestore.collection('overcomeMistakes').document(mistake.data['IDnum']).setData({
+                 'name': mistake.data['name'],
+                 'count': 0,
+                 'colour': mistake.data['colour'],
+                 'alertPeriod': mistake.data['alertPeriod'],
+                 'IDnum': mistake.data['IDnum'],
+               });
+               _firestore.collection('mistakes').document(mistake.documentID).delete();
+              }
+              });
+          }
         }
-      }
+        });
       print('Something $i');
       print(DateTime.now());
       i++;
@@ -80,7 +91,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState(){
     super.initState();
-    startTimer(mistakes);
+    startTimer();
   }
 
   @override
@@ -140,36 +151,25 @@ class _MainPageState extends State<MainPage> {
                             colour: colour,
                             count: mistakeCount,
                             countCallBack: () async {
-                              try {
-                                await _firestore
-                                  .collection('mistakes')
-                                  .document(mistakeInfo.data['IDnum'])
-                                  .updateData({
-                                    'count': mistakeCount + 1,
-                                  });
-                              }catch(e){
-                                print(e.toString());
-                              }
-                              try {
-                                await _firestore
-                                  .collection('mistakes')
-                                  .document(mistakeInfo.data['IDnum'])
-                                  .collection('countTimeList')
-                                  .document((mistakeCount+1).toString())
-                                  .setData({
-                                    'date': today,
-                                  });
-                              }catch(e){
-                                print(e.toString());
-                              }
+                              await _firestore
+                                .collection('mistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .updateData({
+                                  'count': mistakeCount + 1,
+                              });
+                              await _firestore
+                                .collection('mistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .collection('countTimeList')
+                                .document((mistakeCount+1).toString())
+                                .setData({
+                                  'date': today,
+                              });
                               setState(() {
-                                mistakes[index].count += 1;
-                                mistakes[index].countTimeList.add(today);
-                                // print('countTimeList ${mistakes[index].countTimeList}');
+                                print('aaaaa');
                                 todaysCount(
                                     DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                                sortedMistakes
-                                    .sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                                sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
                               });
                             },
                             onPressed: () {
