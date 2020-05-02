@@ -140,11 +140,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore
-                      .collection('Accounts')
-                      .document(currentEmail)
-                      .collection('mistakes')
-                      .snapshots(),
+                  stream: _firestore.collection('Accounts').document(currentEmail).collection('mistakes').snapshots(),
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
                       return ListView.builder(
@@ -178,10 +174,10 @@ class _MainPageState extends State<MainPage> {
                                 .setData({
                                   'date': today,
                               });
-                              setState(() {
-                                todaysCount(
-                                    DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                              });
+                              // setState(() {
+                              //   todaysCount(
+                              //       DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                              // });
                             },
                             onPressed: () {
                               //실수 카드 수정기능. 실수 이름 클릭시 실행
