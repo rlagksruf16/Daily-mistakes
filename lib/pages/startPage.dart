@@ -1,7 +1,7 @@
 import 'package:daily_mistakes/main.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:daily_mistakes/pages/login.dart';
 
 changeBuffer() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -53,7 +53,7 @@ class _StartPageState extends State<StartPage> {
                       // if (infoCheck == true) {
                       //   // Navigator.pushNamed(context, MainPage.id);
                         Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(builder: (context) => new MainPage())
+                          new MaterialPageRoute(builder: (context) => new LoginScreen())
                         );
                      // }
                     } else {
