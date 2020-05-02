@@ -20,7 +20,9 @@ class _OvercomePageState extends State<OvercomePage> {
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
-  String currentEmail;
+  String currentEmail;  
+  DocumentSnapshot snapshot;
+  String currentName;
 
   void getCurrentUser() async {
     try {
@@ -28,6 +30,13 @@ class _OvercomePageState extends State<OvercomePage> {
       if (user != null) {
         loggedInUser = user;
         currentEmail = loggedInUser.email;
+        snapshot = await _firestore
+            .collection('Accounts')
+            .document(currentEmail)
+            .get();
+        setState(() {
+          currentName = snapshot.data['name'];
+        });
       }
     } catch (e) {
       print(e);
@@ -72,6 +81,8 @@ class _OvercomePageState extends State<OvercomePage> {
                 Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
                       .collection('overcomeMistakes')
                       .snapshots(),
                   builder: (context, snapshot) {
