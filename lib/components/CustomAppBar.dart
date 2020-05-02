@@ -20,6 +20,28 @@ class CustomAppBar extends StatefulWidget {
 
 class _CustomAppBarState extends State<CustomAppBar> {
   double barWidth = 70;
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+  String currentEmail;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState(){
+    getCurrentUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +100,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 MaterialButton(
                   minWidth: barWidth,
                   onPressed: () async {
-                    final _firestore = Firestore.instance;
-                    final _auth = FirebaseAuth.instance;
+                    
                     await _firestore
-                        .collection('mistakes')
-                        .getDocuments()
-                        .then((QuerySnapshot snapshot) {
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .getDocuments()
+                      .then((QuerySnapshot snapshot) {
                       snapshot.documents.forEach((f) {
                         setState(() {
                           sortedMistakes.add(SimpleMistake(

@@ -9,7 +9,7 @@ import 'package:daily_mistakes/components/colorButton.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:daily_mistakes/models/simpleMistake.dart';
 
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
@@ -29,7 +29,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+  String currentEmail;
 
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState(){
+    getCurrentUser();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,6 +238,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       var day = now.day;
                       var today = '$year.$month.$day';
                       await _firestore
+                        .collection('Accounts')
+                        .document(currentEmail)
                         .collection('mistakes')
                         .document(widget.docNum)
                         .setData({
@@ -229,6 +250,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           'count': 0,
                         });
                       await _firestore
+                        .collection('Accounts')
+                        .document(currentEmail)
                         .collection('mistakes')
                         .document(widget.docNum)
                         .collection('countTimeList')
@@ -249,13 +272,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         }
                       });
                       */
+                      setState(() {
+                        sortedMistakes.add(SimpleMistake(
+                          name: mistakeName,
+                          colour: Color(int.parse(mistakeColor, radix: 16)),
+                          count: 0,
+                        ));
+                      });
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
                       mistakeName = null;
-                      Navigator.pop(context);
+                      await Navigator.pop(context);
                     }
                   },
                 ),

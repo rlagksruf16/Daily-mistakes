@@ -50,11 +50,26 @@ class _CalendarPageState extends State<CalendarPage> {
   CalendarController _calendarController;
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
+    FirebaseUser loggedInUser;
+  String currentEmail;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
-  void initState() {
-    super.initState();
+  void initState(){
+    getCurrentUser();
     _calendarController = CalendarController();
+    super.initState();
   }
 
   @override
@@ -123,10 +138,12 @@ class _CalendarPageState extends State<CalendarPage> {
                   setState(() {
                     todayMistake = List();
                   });
-                  await _firestore.collection('mistakes').getDocuments().then((QuerySnapshot snapshot) {
+                  await _firestore.collection('Accounts')
+                        .document(currentEmail).collection('mistakes').getDocuments().then((QuerySnapshot snapshot) {
                     snapshot.documents.forEach((m){
                       for (var i = 0; i < m.data['count']; i++){
-                        _firestore.collection('mistakes').document(m.data['IDnum']).collection('countTimeList').document(i.toString()).get().then(
+                        _firestore.collection('Accounts')
+                        .document(currentEmail).collection('mistakes').document(m.data['IDnum']).collection('countTimeList').document(i.toString()).get().then(
                           (DocumentSnapshot ds) {
                             if(ds.data['date']==sday){
                               if(todayMistake.length!=0){

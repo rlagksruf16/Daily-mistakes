@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
+import 'package:daily_mistakes/pages/mainPage.dart';
 import 'dart:async';
 import 'dart:math';
 
@@ -121,7 +122,6 @@ class MistakesChartState extends State<MistakesChart> {
   @override
   void initState() {
     checkMonday();
-    bestMistakesChart();
     super.initState();
   }
 

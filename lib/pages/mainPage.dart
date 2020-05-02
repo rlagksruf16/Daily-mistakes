@@ -55,63 +55,54 @@ class _MainPageState extends State<MainPage> {
   final ScrollController controller =
       ScrollController(); //홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
+  FirebaseUser loggedInUser;
+  String currentEmail;
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
 
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void startTimer() {
-    Timer timer = Timer.periodic(
-        Duration(days: 1),
-        (time) => setState(() {
-              StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('mistakes').snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final mistakes = snapshot.data.documents;
-                      for (var mistake in mistakes) {
-                        _firestore
-                            .collection('mistakes')
-                            .document(mistake.data['IDnum'])
-                            .collection('countTimeList')
-                            .document(mistake.data['count'])
-                            .get()
-                            .then((DocumentSnapshot ds) {
-                          List lastDay = ds.data['date'].split('.');
-                          var lastTap = DateTime.utc(int.parse(lastDay[0]),
-                              int.parse(lastDay[1]), int.parse(lastDay[2]));
-                          lastTap.add(Duration(hours: 9));
-                          lastTap.toLocal();
-                          Duration differenceTime =
-                              DateTime.now().difference(lastTap);
-                          if (differenceTime.inDays >= 1) {
-                            _firestore
-                                .collection('overcomeMistakes')
-                                .document(mistake.data['IDnum'])
-                                .setData({
-                              'name': mistake.data['name'],
-                              'count': 0,
-                              'colour': mistake.data['colour'],
-                              'alertPeriod': mistake.data['alertPeriod'],
-                              'IDnum': mistake.data['IDnum'],
-                            });
-                            _firestore
-                                .collection('mistakes')
-                                .document(mistake.documentID)
-                                .delete();
-                          }
-                        });
-                      }
-                    }
-                  });
-              print('Something $i');
-              print(DateTime.now());
-              i++;
-            }));
+    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState(() async {
+      await _firestore.collection('Accounts').document(currentEmail).collection('mistakes').getDocuments().then((QuerySnapshot snapshot) {
+        snapshot.documents.forEach((m){
+          _firestore.collection('Accounts').document(currentEmail).collection('mistakes').document(m.data['IDnum']).collection('countTimeList').document(m.data['count']).get().then((DocumentSnapshot ds) async {
+            List lastDay = ds.data['date'].split('.');
+            var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
+            lastTap.add(Duration(hours: 9));
+            lastTap.toLocal();
+            Duration differenceTime = DateTime.now().difference(lastTap);
+            if (differenceTime.inDays >= 1) {
+              _firestore.collection('Accounts').document(currentEmail).collection('overcomeMistakes').document(m.data['IDnum']).setData({
+                'name': m.data['name'],
+                'count': 0,
+                'colour': m.data['colour'],
+                'alertPeriod': m.data['alertPeriod'],
+                'IDnum': m.data['IDnum'],
+              });
+              await _firestore.collection('Accounts').document(currentEmail).collection('mistakes').document(m.data['IDnum']).delete();
+            }
+          });
+        });
+    });
+    }));
   }
 
   @override
-  void initState() {
-    super.initState();
+  void initState(){
+    getCurrentUser();
     startTimer();
+    super.initState();
   }
 
   @override
@@ -154,9 +145,13 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('mistakes').snapshots(),
+                  stream: _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .snapshots(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
+                  if (snapshot.hasData) {
                       return ListView.builder(
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
@@ -165,24 +160,29 @@ class _MainPageState extends State<MainPage> {
                           final colour = Color(
                               int.parse(mistakeInfo.data['colour'], radix: 16));
                           final mistakeCount = mistakeInfo.data['count'];
+                         
                           return MistakeCard(
                             mistakeName: mistakeName,
                             colour: colour,
                             count: mistakeCount,
                             countCallBack: () async {
                               await _firestore
-                                  .collection('mistakes')
-                                  .document(mistakeInfo.data['IDnum'])
-                                  .updateData({
-                                'count': mistakeCount + 1,
+                                .collection('Accounts')
+                                .document(currentEmail)
+                                .collection('mistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .updateData({
+                                  'count': mistakeCount + 1,
                               });
                               await _firestore
-                                  .collection('mistakes')
-                                  .document(mistakeInfo.data['IDnum'])
-                                  .collection('countTimeList')
-                                  .document((mistakeCount + 1).toString())
-                                  .setData({
-                                'date': today,
+                                .collection('Accounts')
+                                .document(currentEmail)
+                                .collection('mistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .collection('countTimeList')
+                                .document((mistakeCount+1).toString())
+                                .setData({
+                                  'date': today,
                               });
                               todaysCount(DateTime.now().weekday);
                               // setState(() {
