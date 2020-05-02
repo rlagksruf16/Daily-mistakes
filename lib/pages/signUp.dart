@@ -184,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 onPressed: () {
                                   Navigator.pushNamed(context, LoginScreen.id);
                                 },
-                                padding: EdgeInsets.only(left: 90.0),
+                                padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   '로그인',
                                   style: TextStyle(

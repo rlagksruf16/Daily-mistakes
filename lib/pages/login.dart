@@ -179,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 0.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Theme(
                                     data: ThemeData(
@@ -212,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Navigator.pushNamed(
                                             context, SignUpPage.id);
                                       },
-                                      padding: EdgeInsets.only(left: 90.0),
+                                      padding: EdgeInsets.only(left: 60.0),
                                       child: Text(
                                         '회원가입',
                                         style: TextStyle(
