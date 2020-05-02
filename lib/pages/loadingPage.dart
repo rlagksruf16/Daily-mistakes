@@ -6,9 +6,6 @@ import 'dart:async';
 import 'package:daily_mistakes/pages/signUp.dart';
 import 'package:daily_mistakes/pages/login.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:daily_mistakes/models/simpleMistake.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoadingPage extends StatefulWidget {
   static const String id = 'loading_page';

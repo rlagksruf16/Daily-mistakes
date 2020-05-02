@@ -13,7 +13,7 @@ List<Color> colorList = List();
 Map<String, double> dataMap = Map();
 
 void bestMistakesChart() {
-  bestMistakes = List();
+  bestMistakes.clear();
   colorList = List();
   dataMap = Map();
   if (sortedMistakes.isEmpty) {
