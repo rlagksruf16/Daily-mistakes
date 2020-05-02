@@ -147,6 +147,7 @@ class _MainPageState extends State<MainPage> {
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
                           final mistakeInfo = snapshot.data.documents[index];
+                          print(mistakeInfo.data['name']);
                           final mistakeName = mistakeInfo.data['name'];
                           final colour = Color(int.parse(mistakeInfo.data['colour'], radix: 16));
                           final mistakeCount = mistakeInfo.data['count'];
