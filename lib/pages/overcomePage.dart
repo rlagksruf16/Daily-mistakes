@@ -19,6 +19,26 @@ class OvercomePage extends StatefulWidget {
 class _OvercomePageState extends State<OvercomePage> {
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+  String currentEmail;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState(){
+    getCurrentUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +88,24 @@ class _OvercomePageState extends State<OvercomePage> {
                             colour: colour,
                             count: mistakeCount,
                             countCallBack: () async {
-                              await _firestore.collection('mistakes').document(mistakeInfo.data['IDnum']).setData({
+                              await _firestore
+                              .collection('Accounts')
+                              .document(currentEmail)
+                              .collection('mistakes')
+                              .document(mistakeInfo.data['IDnum'])
+                              .setData({
                                 'name': mistakeInfo.data['name'],
                                 'count': 0,
                                 'colour': mistakeInfo.data['colour'],
                                 'alertPeriod': mistakeInfo.data['alertPeriod'],
                                 'IDnum': mistakeInfo.data['IDnum'],
                               });
-                              await _firestore.collection('overcomeMistakes').document(mistakeInfo.data['IDnum']).delete();
+                              await _firestore
+                              .collection('Accounts')
+                              .document(currentEmail)
+                              .collection('overcomeMistakes')
+                              .document(mistakeInfo.data['IDnum'])
+                              .delete();
                               setState(()  {
                                 print('aaaaaa');
                                 todaysCount(
