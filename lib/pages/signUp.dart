@@ -49,6 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         )),
+                    SizedBox(height: 10.0),
                     Container(
                       //이메일 입력
                       height: 550,

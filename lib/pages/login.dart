@@ -80,11 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
         // 로그인
                     Text('로그인',
                         style: TextStyle(
-                          fontSize: 50.0,
+                          fontSize: 40.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         )),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 10.0),
         //이메일 입력
                     Container(
                       height: 550,
