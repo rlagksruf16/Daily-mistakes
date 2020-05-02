@@ -147,7 +147,6 @@ class _MainPageState extends State<MainPage> {
                       .snapshots(),
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                     print('???');
                       return ListView.builder(
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
