@@ -1,7 +1,6 @@
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'calendarPage.dart';
-import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
@@ -219,8 +218,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       var month = now.month;
                       var day = now.day;
                       var today = '$year.$month.$day';
-                      
-
                       await _firestore
                         .collection('mistakes')
                         .document(widget.docNum)
@@ -231,15 +228,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           'alertPeriod': mistakeAlert,
                           'count': 0,
                         });
-                      
-                      var newMistake = Mistake(
-                        name: mistakeName,
-                        colour: Color(int.parse(mistakeColor,radix: 16)),
-                        alertPeriod: mistakeAlert,
-                      );
-                      
-                      newMistake.countTimeList.add(today);
-
                       await _firestore
                         .collection('mistakes')
                         .document(widget.docNum)
@@ -248,7 +236,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         .setData({
                           'date': today,
                         });
-
+/*
                       setState(() {
                         if (mistakeAlert == '하루에 1번') {
                           alert1.add(newMistake);
@@ -260,6 +248,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           alert5.add(newMistake);
                         }
                       });
+                      */
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
