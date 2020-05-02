@@ -8,7 +8,6 @@ import 'pages/mistakeRegisterPage.dart';
 import 'pages/overcomePage.dart';
 import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
-import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daily_mistakes/pages/login.dart';

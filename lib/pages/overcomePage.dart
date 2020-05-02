@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
-import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
+import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'dart:math';
-
-
-const CardColour = Colors.white;
-List<Mistake> overcomeMistakes = [
-  Mistake(name: 'first overcome', colour: Color(0xFFF17171), alertPeriod: '하루에 3번'),
-  Mistake(name: 'second overcome', colour: Color(0xFFFFDF6F), alertPeriod: '하루에 5번'),
-];
 
 class OvercomePage extends StatefulWidget {
   static const String id = 'overcome_page';
@@ -22,6 +17,9 @@ class OvercomePage extends StatefulWidget {
 }
 
 class _OvercomePageState extends State<OvercomePage> {
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,23 +50,48 @@ class _OvercomePageState extends State<OvercomePage> {
                   ],
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return MistakeCard(
-                        mistakeName: overcomeMistakes[index].name,
-                        colour: CardColour,
-                        count: overcomeMistakes[index].count,
-                        countCallBack: (){
-                          setState(() {
-                            //overcomeMistakes[index].countTime = DateTime.now();
-                            //overcomeMistakes[index].countUp();
-                            // print(overcomeMistakes[index].countTimeList);
-                          });
-                        }
+                  child: StreamBuilder<QuerySnapshot>(
+                  stream: _firestore
+                      .collection('overcomeMistakes')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data.documents.length,
+                        itemBuilder: (context, index) {
+                          final mistakeInfo = snapshot.data.documents[index];
+                          final mistakeName = mistakeInfo.data['name'];
+                          final colour = Color(int.parse(mistakeInfo.data['colour'], radix: 16));
+                          final mistakeCount = mistakeInfo.data['count'];
+                          return MistakeCard(
+                            mistakeName: mistakeName,
+                            colour: colour,
+                            count: mistakeCount,
+                            countCallBack: () async {
+                              await _firestore.collection('mistakes').document(mistakeInfo.data['IDnum']).setData({
+                                'name': mistakeInfo.data['name'],
+                                'count': 0,
+                                'colour': mistakeInfo.data['colour'],
+                                'alertPeriod': mistakeInfo.data['alertPeriod'],
+                                'IDnum': mistakeInfo.data['IDnum'],
+                              });
+                              await _firestore.collection('overcomeMistakes').document(mistakeInfo.data['IDnum']).delete();
+                              setState(()  {
+                                todaysCount(
+                                    DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                                sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                              });
+                            },
+                            onPressed: () {},
+                          );
+                        },
+                        
                       );
-                    },
-                    itemCount: overcomeMistakes.length,
-                  ),
+                    } else {
+                      return Center(child:Text("No Mistakes!"),);
+                    }
+                  },
+                ),
                 ),
                 
               ],      
