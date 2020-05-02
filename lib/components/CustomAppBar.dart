@@ -59,7 +59,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               children: <Widget>[
                 MaterialButton(
                   minWidth: barWidth,
-                  onPressed: () {
+                  onPressed: () async{
                     setState(() {
                       currentScreen =
                           MainPage(); // if user taps on this dashboard tab will be active
@@ -72,7 +72,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         curve: Curves.easeIn,
                       );
                     }
-                    Navigator.pushReplacement(
+                    await Navigator.pushReplacement(
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
