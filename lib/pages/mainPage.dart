@@ -54,38 +54,29 @@ class _MainPageState extends State<MainPage> {
   final _auth = FirebaseAuth.instance;
 
   void startTimer() {
-    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState((){
-      StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('mistakes').snapshots(), 
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final mistakes = snapshot.data.documents;
-            for (var mistake in mistakes) {
-              _firestore.collection('mistakes').document(mistake.data['IDnum']).collection('countTimeList').document(mistake.data['count']).get().then((DocumentSnapshot ds) {
-                List lastDay = ds.data['date'].split('.');
-                var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
-                lastTap.add(Duration(hours: 9));
-                lastTap.toLocal();
-                Duration differenceTime = DateTime.now().difference(lastTap);
-             if (differenceTime.inDays >= 1) {
-               _firestore.collection('overcomeMistakes').document(mistake.data['IDnum']).setData({
-                 'name': mistake.data['name'],
-                 'count': 0,
-                 'colour': mistake.data['colour'],
-                 'alertPeriod': mistake.data['alertPeriod'],
-                 'IDnum': mistake.data['IDnum'],
-               });
-               _firestore.collection('mistakes').document(mistake.documentID).delete();
-              }
+    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState(() async {
+      await _firestore.collection('mistakes').getDocuments().then((QuerySnapshot snapshot) {
+        snapshot.documents.forEach((m){
+          _firestore.collection('mistakes').document(m.data['IDnum']).collection('countTimeList').document(m.data['count']).get().then((DocumentSnapshot ds) async {
+            List lastDay = ds.data['date'].split('.');
+            var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
+            lastTap.add(Duration(hours: 9));
+            lastTap.toLocal();
+            Duration differenceTime = DateTime.now().difference(lastTap);
+            if (differenceTime.inDays >= 1) {
+              _firestore.collection('overcomeMistakes').document(m.data['IDnum']).setData({
+                'name': m.data['name'],
+                'count': 0,
+                'colour': m.data['colour'],
+                'alertPeriod': m.data['alertPeriod'],
+                'IDnum': m.data['IDnum'],
               });
-          }
-        }
+              await _firestore.collection('mistakes').document(m.data['IDnum']).delete();
+            }
+          });
         });
-      print('Something $i');
-      print(DateTime.now());
-      i++;
-    })
-    );
+    });
+    }));
   }
 
   @override
@@ -166,10 +157,10 @@ class _MainPageState extends State<MainPage> {
                                   'date': today,
                               });
                               setState(() {
-                                print('aaaaa');
                                 todaysCount(
                                     DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                                 sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
+                                print(sortedMistakes[0].name);
                               });
                             },
                             onPressed: () {

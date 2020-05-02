@@ -12,28 +12,7 @@ List<SimpleMistake> bestMistakes = List();
 List<Color> colorList = List();
 Map<String, double> dataMap = Map();
 
-void bestMistakesChart() {
-  bestMistakes = List();
-  colorList = List();
-  dataMap = Map();
-  if (sortedMistakes.isEmpty) {
-    colorList.add(Colors.blueGrey[200]);
-    dataMap.putIfAbsent("No Data", () => 1);
-  }
-  else{
-    for (int i = 0; i < sortedMistakes.length; i++) {
-      print('$i ${sortedMistakes[i].name}');
-      bestMistakes.add(sortedMistakes[i]);
-      colorList.add(sortedMistakes[i].colour);
-      if(i==3){
-        break;
-      }
-    }
-  }
-  bestMistakes.forEach((SimpleMistake mistakes) {
-    //print('${mistakes.name}');
-  });
-}
+
 
 class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
@@ -43,6 +22,36 @@ class StatisticPage extends StatefulWidget {
 }
 
 class _StatisticPageState extends State<StatisticPage> {
+  void bestMistakesChart() {
+    bestMistakes = List();
+    colorList = List();
+    dataMap = Map();
+    if (sortedMistakes.isEmpty) {
+      colorList.add(Colors.blueGrey[200]);
+      dataMap.putIfAbsent("No Data", () => 1);
+    }
+    else{
+      for (int i = 0; i < sortedMistakes.length; i++) {
+        print('$i ${sortedMistakes[i].name}');
+        setState(() { 
+          bestMistakes.add(sortedMistakes[i]);
+          colorList.add(sortedMistakes[i].colour);
+          
+        });
+       
+        if(i==3){
+          break;
+        }
+      }
+    }
+  }
+  @override
+  void initState() {
+    bestMistakesChart();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

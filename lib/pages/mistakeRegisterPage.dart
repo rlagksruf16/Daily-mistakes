@@ -9,7 +9,7 @@ import 'package:daily_mistakes/components/colorButton.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:daily_mistakes/models/simpleMistake.dart';
 
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
@@ -249,6 +249,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         }
                       });
                       */
+                      setState(() {
+                        sortedMistakes.add(SimpleMistake(
+                          name: mistakeName,
+                          colour: Color(int.parse(mistakeColor, radix: 16)),
+                          count: 0,
+                        ));
+                      });
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
