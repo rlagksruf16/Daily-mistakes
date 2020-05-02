@@ -229,7 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10)),
-                                                content: Text("Success"),
+                                                content: Text("회원가입 성공했어요 ^^ "),
                                                 actions: <Widget>[
                                                   new FlatButton(
                                                     onPressed: () {
