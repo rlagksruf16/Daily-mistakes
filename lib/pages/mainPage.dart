@@ -145,17 +145,14 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore
-                      .collection('Accounts')
-                      .document(currentEmail)
-                      .collection('mistakes')
-                      .snapshots(),
+                  stream: _firestore.collection('Accounts').document(currentEmail).collection('mistakes').snapshots(),
                   builder: (context, snapshot) {
                   if (snapshot.hasData) {
                       return ListView.builder(
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
                           final mistakeInfo = snapshot.data.documents[index];
+                          print(mistakeInfo.data['name']);
                           final mistakeName = mistakeInfo.data['name'];
                           final colour = Color(
                               int.parse(mistakeInfo.data['colour'], radix: 16));
@@ -184,11 +181,9 @@ class _MainPageState extends State<MainPage> {
                                 .setData({
                                   'date': today,
                               });
-                              todaysCount(DateTime.now().weekday);
                               // setState(() {
-                              //   print('aaaaa');
-                              //   todaysCount(DateTime.now()
-                              //       .weekday); //요일별로 총 실수횟수 저장을 위해 사용
+                              //   todaysCount(
+                              //       DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
                               // });
                             },
                             onPressed: () {

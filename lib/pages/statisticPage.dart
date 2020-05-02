@@ -22,7 +22,7 @@ class StatisticPage extends StatefulWidget {
 
 class _StatisticPageState extends State<StatisticPage> {
   void bestMistakesChart() {
-    bestMistakes = List();
+    bestMistakes.clear();
     colorList = List();
     dataMap = Map();
     if (sortedMistakes.isEmpty) {
@@ -46,7 +46,9 @@ class _StatisticPageState extends State<StatisticPage> {
   }
   @override
   void initState() {
+    sortedMistakes.sort(countComparator);
     bestMistakesChart();
+    
     super.initState();
   }
 

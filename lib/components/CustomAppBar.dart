@@ -59,7 +59,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               children: <Widget>[
                 MaterialButton(
                   minWidth: barWidth,
-                  onPressed: () {
+                  onPressed: () async{
                     setState(() {
                       currentScreen =
                           MainPage(); // if user taps on this dashboard tab will be active
@@ -72,7 +72,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         curve: Curves.easeIn,
                       );
                     }
-                    Navigator.pushReplacement(
+                    await Navigator.pushReplacement(
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
@@ -100,13 +100,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 MaterialButton(
                   minWidth: barWidth,
                   onPressed: () async {
-                    
+                    setState(() {
+                      sortedMistakes.clear();
+                    });
                     await _firestore
                       .collection('Accounts')
                       .document(currentEmail)
-                      .collection('mistakes')
-                      .getDocuments()
-                      .then((QuerySnapshot snapshot) {
+                        .collection('mistakes')
+                        .getDocuments()
+                        .then((QuerySnapshot snapshot) {
                       snapshot.documents.forEach((f) {
                         setState(() {
                           sortedMistakes.add(SimpleMistake(
@@ -119,12 +121,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       });
                     });
                     setState(() {
-                      sortedMistakes.sort(countComparator);
                       currentScreen =
                           StatisticPage(); // if user taps on this dashboard tab will be active
                       currentTab = 1;
                     });
-                    Navigator.pushReplacement(
+                    await Navigator.pushReplacement(
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation1, animation2) =>
