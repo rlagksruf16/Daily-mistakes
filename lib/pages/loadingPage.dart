@@ -35,22 +35,25 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
+    makeSortedList();
+    
     new Timer(new Duration(milliseconds: 400), () {
-      makeSortedList();
       checkFirstSeen();
     });
   }
 
-   void makeSortedList() async{
+  void makeSortedList() async {
     final _firestore = Firestore.instance;
     final _auth = FirebaseAuth.instance;
-    await _firestore.collection('mistakes').getDocuments()
+    await _firestore
+        .collection('mistakes')
+        .getDocuments()
         .then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach((f){
+      snapshot.documents.forEach((f) {
         setState(() {
-           sortedMistakes.add(SimpleMistake(
+          sortedMistakes.add(SimpleMistake(
             name: f.data['name'],
-            colour: Color(int.parse(f.data['colour'],radix: 16)),
+            colour: Color(int.parse(f.data['colour'], radix: 16)),
             count: f.data['count'],
           ));
         });
@@ -59,7 +62,7 @@ class _LoadingPageState extends State<LoadingPage> {
     setState(() {
       sortedMistakes.sort(countComparator);
     });
-   }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
