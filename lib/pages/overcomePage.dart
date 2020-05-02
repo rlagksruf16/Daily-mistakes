@@ -75,11 +75,7 @@ class _OvercomePageState extends State<OvercomePage> {
                                 'alertPeriod': mistakeInfo.data['alertPeriod'],
                                 'IDnum': mistakeInfo.data['IDnum'],
                               });
-                              try{
-                                await _firestore.collection('overcomeMistakes').document(mistakeInfo.data['IDnum']).delete();
-                              }catch(e){
-                                print(e.toString());
-                              }
+                              await _firestore.collection('overcomeMistakes').document(mistakeInfo.data['IDnum']).delete();
                               setState(()  {
                                 todaysCount(
                                     DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
