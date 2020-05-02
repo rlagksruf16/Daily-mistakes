@@ -10,7 +10,7 @@ import 'package:daily_mistakes/components/containerBox.dart';
 import 'package:daily_mistakes/pages/signUp.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const id = 'Login_page';
+  static const String id = 'loginScreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -75,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+        //빈공간 
                     SizedBox(height: 50.0),
+        // 로그인
                     Text('로그인',
                         style: TextStyle(
                           fontSize: 50.0,
@@ -83,9 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.black,
                         )),
                     SizedBox(height: 30.0),
-                    //이메일 입력
+        //이메일 입력
                     Container(
-                      height: 500,
+                      height: 550,
                       child: ContainerBox(
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,10 +129,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 email = value;
                               },
                             ),
+            // 빈 공간
                             SizedBox(
-                              height: 40.0,
+                              height: 30.0,
                             ),
-                            // 비밀번호
+            // 비밀번호
                             Text(
                               '비밀번호',
                               style: TextStyle(
@@ -168,10 +171,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
+        // 빈 공간 
                             SizedBox(
-                              height: 30.0,
+                              height: 20.0,
                             ),
-                            //자동 로그인 체크
+        //자동 로그인 체크
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 0.0),
                               child: Row(
