@@ -58,6 +58,7 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState() {
     super.initState();
     makeSortedList();
+    
     new Timer(new Duration(milliseconds: 400), () {
       checkFirstSeen();
     });
