@@ -1,6 +1,5 @@
 import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:daily_mistakes/models/mistake.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
@@ -13,7 +12,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
 String mistakeName;
-Mistake modifiedMistake;
 
 class MistakeModifyPage extends StatefulWidget {
   static const String id = 'modify_screen';
@@ -214,12 +212,6 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                     } else if (mistakeColor == null) {
                       alertPopup(context, 2);
                     } else {
-                      var newMistake = Mistake(
-                        name: mistakeName,
-                        colour: Color(int.parse(mistakeColor,radix: 16)),
-                        alertPeriod: mistakeAlert,
-                      );
-                      modifiedMistake = newMistake;
                       // newMistake.firstMistakeTime();
                       print(mistakeName);
                       print(mistakeAlert);
@@ -264,10 +256,6 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       mistakeColor = null;
                       mistakeAlert = '하루에 1번';
                       mistakeName = null;
-
-                      widget.beforeMistake.name = modifiedMistake.name;
-                      widget.beforeMistake.colour = modifiedMistake.colour;
-                      widget.beforeMistake.alertPeriod = modifiedMistake.alertPeriod;
                       */
                       Navigator.pop(context);
                       

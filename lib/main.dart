@@ -8,10 +8,10 @@ import 'pages/mistakeRegisterPage.dart';
 import 'pages/overcomePage.dart';
 import 'pages/calendarPage.dart';
 import 'pages/statisticPage.dart';
-import 'package:daily_mistakes/models/mistake.dart';
 import 'pages/settingPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:daily_mistakes/pages/login.dart';
+import 'package:daily_mistakes/pages/signUp.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -35,6 +35,9 @@ class MyApp extends StatelessWidget {
         CalendarPage.id: (context) => CalendarPage(),
         StatisticPage.id: (context) => StatisticPage(),
         SettingPage.id: (context) => SettingPage(),
+        LoginScreen.id: (context) => LoginScreen(),
+        SignUpPage.id: (context) => SignUpPage(),
+
         // MistakeModifyPage.id: (context) => MistakeModifyPage(),
       },
     );
