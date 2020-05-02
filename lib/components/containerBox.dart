@@ -26,6 +26,10 @@ class ContainerBox extends StatelessWidget {
         ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
+        border: Border.all(
+          color: Colors.blueGrey,
+          width: 2.0,
+        )
       ),
     );
   }
