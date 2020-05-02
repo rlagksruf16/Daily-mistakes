@@ -27,6 +27,26 @@ class MistakeModifyPage extends StatefulWidget {
 class _MistakeModifyPageState extends State<MistakeModifyPage> {
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+  String currentEmail;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        currentEmail = loggedInUser.email;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState(){
+    getCurrentUser();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -218,6 +238,8 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       print(mistakeColor);
                       try {
                         await _firestore
+                          .collection('Accounts')
+                          .document(currentEmail)
                           .collection('mistakes')
                           .document(widget.beforeMistakeInfo.data['IDnum'])
                           .updateData({

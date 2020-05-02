@@ -18,6 +18,28 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
+  void makeSortedList() async{
+    final _firestore = Firestore.instance;
+    final _auth = FirebaseAuth.instance;
+    await _firestore.collection('mistakes').getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f){
+        setState(() {
+           sortedMistakes.add(SimpleMistake(
+            name: f.data['name'],
+            colour: Color(int.parse(f.data['colour'],radix: 16)),
+            count: f.data['count'],
+          ));
+        });
+      });
+    });
+    if(sortedMistakes.length > 0){
+      setState(() {
+        sortedMistakes.sort(countComparator);
+      });
+    }
+  }
+
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
