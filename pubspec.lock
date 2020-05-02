@@ -71,7 +71,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
-<<<<<<< HEAD
   email_validator:
     dependency: "direct main"
     description:
@@ -79,7 +78,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-=======
   fake_async:
     dependency: transitive
     description:
@@ -87,7 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
->>>>>>> 182c78b9f082cf9f47657bb204fce308e3318028
   firebase:
     dependency: transitive
     description:
