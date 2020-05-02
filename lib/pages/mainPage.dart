@@ -9,6 +9,7 @@ import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:daily_mistakes/components/pushNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -223,10 +224,7 @@ class _MainPageState extends State<MainPage> {
                                   .setData({
                                 'date': today,
                               });
-                              // setState(() {
-                              //   todaysCount(
-                              //       DateTime.now().weekday); //요일별로 총 실수횟수 저장을 위해 사용
-                              // });
+                              todaysCount(DateTime.now().weekday);
                             },
                             onPressed: () {
                               //실수 카드 수정기능. 실수 이름 클릭시 실행
