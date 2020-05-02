@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
-import 'package:daily_mistakes/pages/settingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
@@ -14,6 +13,8 @@ import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:daily_mistakes/pages/login.dart';
 
 const bottomContainerHeight = 80.0;
 const CardColour = Colors.blue;
@@ -21,7 +22,7 @@ const bottomContainerColour = Colors.yellow;
 int currentTab = 0;
 int allCount = 0;
 
-int i=0;
+int i = 0;
 
 var now = new DateTime.now();
 final year = now.year;
@@ -31,7 +32,8 @@ final today = '$year.$month.$day';
 
 Widget currentScreen = MainPage();
 
-List<SimpleMistake> sortedMistakes = List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
+List<SimpleMistake> sortedMistakes =
+    List(); //통계 페이지에서 많이 한 실수들을 순서대로 표시하기 위해 사용
 Comparator<SimpleMistake> countComparator =
     (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
@@ -40,7 +42,6 @@ List<SimpleMistake> alert2 = List();
 List<SimpleMistake> alert3 = List();
 List<SimpleMistake> alert5 = List();
 
-
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
   @override
@@ -48,7 +49,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final ScrollController controller = ScrollController();//홈버튼 누르면 맨 위로 이동하기 위해 사용
+  final ScrollController controller =
+      ScrollController(); //홈버튼 누르면 맨 위로 이동하기 위해 사용
   final PageStorageBucket bucket = PageStorageBucket();
   FirebaseUser loggedInUser;
   String currentEmail;
@@ -77,33 +79,60 @@ class _MainPageState extends State<MainPage> {
   }
 
   void startTimer() {
-    Timer timer = Timer.periodic(Duration(days: 1), (time) => setState(() async {
-      await _firestore.collection('Accounts').document(currentEmail).collection('mistakes').getDocuments().then((QuerySnapshot snapshot) {
-        snapshot.documents.forEach((m){
-          _firestore.collection('Accounts').document(currentEmail).collection('mistakes').document(m.data['IDnum']).collection('countTimeList').document(m.data['count']).get().then((DocumentSnapshot ds) async {
-            List lastDay = ds.data['date'].split('.');
-            var lastTap = DateTime.utc(int.parse(lastDay[0]),int.parse(lastDay[1]),int.parse(lastDay[2]));
-            lastTap.add(Duration(hours: 9));
-            lastTap.toLocal();
-            Duration differenceTime = DateTime.now().difference(lastTap);
-            if (differenceTime.inDays >= 1) {
-              _firestore.collection('Accounts').document(currentEmail).collection('overcomeMistakes').document(m.data['IDnum']).setData({
-                'name': m.data['name'],
-                'count': 0,
-                'colour': m.data['colour'],
-                'alertPeriod': m.data['alertPeriod'],
-                'IDnum': m.data['IDnum'],
+    Timer timer = Timer.periodic(
+        Duration(days: 1),
+        (time) => setState(() async {
+              await _firestore
+                  .collection('Accounts')
+                  .document(currentEmail)
+                  .collection('mistakes')
+                  .getDocuments()
+                  .then((QuerySnapshot snapshot) {
+                snapshot.documents.forEach((m) {
+                  _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .document(m.data['IDnum'])
+                      .collection('countTimeList')
+                      .document(m.data['count'])
+                      .get()
+                      .then((DocumentSnapshot ds) async {
+                    List lastDay = ds.data['date'].split('.');
+                    var lastTap = DateTime.utc(int.parse(lastDay[0]),
+                        int.parse(lastDay[1]), int.parse(lastDay[2]));
+                    lastTap.add(Duration(hours: 9));
+                    lastTap.toLocal();
+                    Duration differenceTime =
+                        DateTime.now().difference(lastTap);
+                    if (differenceTime.inDays >= 1) {
+                      _firestore
+                          .collection('Accounts')
+                          .document(currentEmail)
+                          .collection('overcomeMistakes')
+                          .document(m.data['IDnum'])
+                          .setData({
+                        'name': m.data['name'],
+                        'count': 0,
+                        'colour': m.data['colour'],
+                        'alertPeriod': m.data['alertPeriod'],
+                        'IDnum': m.data['IDnum'],
+                      });
+                      await _firestore
+                          .collection('Accounts')
+                          .document(currentEmail)
+                          .collection('mistakes')
+                          .document(m.data['IDnum'])
+                          .delete();
+                    }
+                  });
+                });
               });
-              await _firestore.collection('Accounts').document(currentEmail).collection('mistakes').document(m.data['IDnum']).delete();
-            }
-          });
-        });
-    });
-    }));
+            }));
   }
 
   @override
-  void initState(){
+  void initState() {
     getCurrentUser();
     startTimer();
     super.initState();
@@ -137,11 +166,16 @@ class _MainPageState extends State<MainPage> {
                   Container(
                     child: FlatButton(
                       child: Icon(
-                        Icons.settings,
+                        Icons.exit_to_app,
                         size: 30.0,
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, SettingPage.id);
+                      onPressed: () async {
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        _auth.signOut();
+                        Navigator.pushReplacementNamed(context, LoginScreen.id);
+                        prefs.setBool('autoLogin', false);
+                        prefs.setStringList('ID', ['', '']);
                       },
                     ),
                   ),
@@ -149,40 +183,45 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('Accounts').document(currentEmail).collection('mistakes').snapshots(),
+                  stream: _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .snapshots(),
                   builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                    if (snapshot.hasData) {
                       return ListView.builder(
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
                           final mistakeInfo = snapshot.data.documents[index];
                           print(mistakeInfo.data['name']);
                           final mistakeName = mistakeInfo.data['name'];
-                          final colour = Color(int.parse(mistakeInfo.data['colour'], radix: 16));
+                          final colour = Color(
+                              int.parse(mistakeInfo.data['colour'], radix: 16));
                           final mistakeCount = mistakeInfo.data['count'];
-                         
+
                           return MistakeCard(
                             mistakeName: mistakeName,
                             colour: colour,
                             count: mistakeCount,
                             countCallBack: () async {
                               await _firestore
-                                .collection('Accounts')
-                                .document(currentEmail)
-                                .collection('mistakes')
-                                .document(mistakeInfo.data['IDnum'])
-                                .updateData({
-                                  'count': mistakeCount + 1,
+                                  .collection('Accounts')
+                                  .document(currentEmail)
+                                  .collection('mistakes')
+                                  .document(mistakeInfo.data['IDnum'])
+                                  .updateData({
+                                'count': mistakeCount + 1,
                               });
                               await _firestore
-                                .collection('Accounts')
-                                .document(currentEmail)
-                                .collection('mistakes')
-                                .document(mistakeInfo.data['IDnum'])
-                                .collection('countTimeList')
-                                .document((mistakeCount+1).toString())
-                                .setData({
-                                  'date': today,
+                                  .collection('Accounts')
+                                  .document(currentEmail)
+                                  .collection('mistakes')
+                                  .document(mistakeInfo.data['IDnum'])
+                                  .collection('countTimeList')
+                                  .document((mistakeCount + 1).toString())
+                                  .setData({
+                                'date': today,
                               });
                               // setState(() {
                               //   todaysCount(
@@ -195,15 +234,16 @@ class _MainPageState extends State<MainPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MistakeModifyPage(
-                                        beforeMistakeInfo: mistakeInfo,
-                                )));
+                                            beforeMistakeInfo: mistakeInfo,
+                                          )));
                             },
                           );
                         },
-                        
                       );
                     } else {
-                      return Center(child:Text("No Mistakes!"),);
+                      return Center(
+                        child: Text("No Mistakes!"),
+                      );
                     }
                   },
                 ),
@@ -218,13 +258,16 @@ class _MainPageState extends State<MainPage> {
         onPressed: () {
           var docNum = (Random().nextInt(10000) + 1).toString();
           Navigator.of(context).push(PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => RegistrationScreen(docNum),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                RegistrationScreen(docNum),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               var begin = Offset(0.0, 1.0);
               var end = Offset.zero;
               var curve = Curves.ease;
 
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
               return SlideTransition(
                 position: animation.drive(tween),
