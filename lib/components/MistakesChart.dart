@@ -3,70 +3,93 @@ import 'package:date_format/date_format.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:daily_mistakes/pages/statisticPage.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:math';
 
-double mondayCount = 0;
-double tuesdayCount = 0;
-double wednesdayCount = 0;
-double thursdayCount = 0;
-double fridayCount = 0;
-double saturdayCount = 0;
-double sundayCount = 0;
-double maxMistakes = 0;
+double mondayCount = 0.0;
+double tuesdayCount = 0.0;
+double wednesdayCount = 0.0;
+double thursdayCount = 0.0;
+double fridayCount = 0.0;
+double saturdayCount = 0.0;
+double sundayCount = 0.0;
+double maxMistakes = 0.0;
 
-void todaysCount(int day) {
+Future todaysCount(int day) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   if (day == 1) {
-    if (sundayCount != 0 ||
-        mondayCount != 0 ||
-        tuesdayCount != 0 ||
-        wednesdayCount != 0 ||
-        thursdayCount != 0 ||
-        fridayCount != 0 ||
-        saturdayCount != 0) {
+    if (prefs.getDouble('sundayCount') != 0 ||
+        prefs.getDouble('mondayCount') != 0 ||
+        prefs.getDouble('tuesdayCount') != 0 ||
+        prefs.getDouble('wednesdayCount') != 0 ||
+        prefs.getDouble('thursdayCount') != 0 ||
+        prefs.getDouble('fridayCount') != 0 ||
+        prefs.getDouble('saturdayCount') != 0) {
       //매주 월요일 마다 갱신
-      mondayCount = 0;
-      tuesdayCount = 0;
-      wednesdayCount = 0;
-      thursdayCount = 0;
-      fridayCount = 0;
-      saturdayCount = 0;
-      sundayCount = 0;
-      maxMistakes = 0;
+      await prefs.setDouble('mondayCount', 0.0);
+      await prefs.setDouble('tuesdayCount', 0.0);
+      await prefs.setDouble('wednesdayCount', 0.0);
+      await prefs.setDouble('thursdayCount', 0.0);
+      await prefs.setDouble('fridayCount', 0.0);
+      await prefs.setDouble('saturdayCount', 0.0);
+      await prefs.setDouble('sundayCount', 0.0);
+      await prefs.setDouble('maxMistakes', 0.0);
     }
-    mondayCount++;
-    if (mondayCount >= maxMistakes) {
+    mondayCount = (prefs.getDouble('mondayCount') ?? 0) + 1.0;
+    await prefs.setDouble('mondayCount', mondayCount);
+
+    if (mondayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = mondayCount;
+      await prefs.setDouble('maxMistakes', mondayCount);
     }
   } else if (day == 2) {
-    tuesdayCount++;
-    if (tuesdayCount >= maxMistakes) {
+    tuesdayCount = (prefs.getDouble('tuesdayCount') ?? 0) + 1.0;
+    await prefs.setDouble('tuesdayCount', tuesdayCount);
+
+    if (tuesdayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = tuesdayCount;
+      await prefs.setDouble('maxMistakes', tuesdayCount);
     }
   } else if (day == 3) {
-    wednesdayCount++;
-    if (wednesdayCount >= maxMistakes) {
+    wednesdayCount = (prefs.getDouble('wednesdayCount') ?? 0) + 1.0;
+    await prefs.setDouble('wednesdayCount', wednesdayCount);
+
+    if (wednesdayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = wednesdayCount;
+      await prefs.setDouble('maxMistakes', wednesdayCount);
     }
   } else if (day == 4) {
-    thursdayCount++;
-    if (thursdayCount >= maxMistakes) {
+    thursdayCount = (prefs.getDouble('thursdayCount') ?? 0) + 1.0;
+    await prefs.setDouble('thursdayCount', thursdayCount);
+
+    if (thursdayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = thursdayCount;
+      await prefs.setDouble('maxMistakes', thursdayCount);
     }
   } else if (day == 5) {
-    fridayCount++;
-    if (fridayCount >= maxMistakes) {
+    fridayCount = (prefs.getDouble('fridayCount') ?? 0) + 1.0;
+    await prefs.setDouble('fridayCount', fridayCount);
+
+    if (fridayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = fridayCount;
+      await prefs.setDouble('maxMistakes', fridayCount);
     }
   } else if (day == 6) {
-    saturdayCount++;
-    if (saturdayCount >= maxMistakes) {
+    saturdayCount = (prefs.getDouble('saturdayCount') ?? 0) + 1.0;
+    await prefs.setDouble('saturdayCount', saturdayCount);
+
+    if (saturdayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = saturdayCount;
+      await prefs.setDouble('maxMistakes', saturdayCount);
     }
   } else {
-    sundayCount++;
-    if (sundayCount >= maxMistakes) {
+    sundayCount = (prefs.getDouble('sundayCount') ?? 0) + 1.0;
+    await prefs.setDouble('sundayCount', sundayCount);
+
+    if (sundayCount >= prefs.getDouble('maxMistakes')) {
       maxMistakes = sundayCount;
+      await prefs.setDouble('maxMistakes', sundayCount);
     }
   }
 }
@@ -119,9 +142,23 @@ class MistakesChartState extends State<MistakesChart> {
     durationweek = DateTime(nowWeek.year, nowWeek.month, nowWeek.day + 6);
   }
 
+  Future weekdaySetstate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    mondayCount = (prefs.getDouble('mondayCount') ?? 0.0);
+    tuesdayCount = (prefs.getDouble('tuesdayCount') ?? 0.0);
+    wednesdayCount = (prefs.getDouble('wednesdayCount') ?? 0.0);
+    thursdayCount = (prefs.getDouble('thursdayCount') ?? 0.0);
+    fridayCount = (prefs.getDouble('fridayCount') ?? 0.0);
+    saturdayCount = (prefs.getDouble('saturdayCount') ?? 0.0);
+    sundayCount = (prefs.getDouble('sundayCount'));
+    maxMistakes = (prefs.getDouble('maxMistakes') ?? 0.0);
+    print(prefs.getDouble('sundayCount'));
+  }
+
   @override
   void initState() {
     checkMonday();
+    weekdaySetstate();
     super.initState();
   }
 

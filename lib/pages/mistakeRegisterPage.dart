@@ -272,13 +272,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         }
                       });
                       */
-                      setState(() {
-                        sortedMistakes.add(SimpleMistake(
-                          name: mistakeName,
-                          colour: Color(int.parse(mistakeColor, radix: 16)),
-                          count: 0,
-                        ));
-                      });
+
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);

@@ -13,7 +13,6 @@ List<Color> colorList = List();
 Map<String, double> dataMap = Map();
 
 
-
 class StatisticPage extends StatefulWidget {
   static const String id = 'static_screen';
 
