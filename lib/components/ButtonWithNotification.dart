@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:daily_mistakes/pages/mainPage.dart';
-import 'package:daily_mistakes/models/alertMistake.dart';
 
 List<String> alert1 = List();
 List<String> alert2 = List();
@@ -286,26 +284,6 @@ int idNum = 0;
       for(int m = 0; m < alert5.length; m++) {
         alertAtMidnight(alert5[m], m);
       }
-
-      // for (int i = 0; i < widget.alertFives.length; i++) {
-      //   await alertAtLunch(widget.alertFives[i].name, i);
-      // }
-      // for (int j = 0; j < widget.alertFives.length; j++) {
-      //   await alertAtSixClock(
-      //       widget.alertFives[j].name, j + widget.alertFives.length);
-      // }
-      // for (int k = 0; k < widget.alertFives.length; k++) {
-      //   await alertAtMorning(
-      //       widget.alertFives[k].name, k + widget.alertFives.length * 2);
-      // }
-      // for (int l = 0; l < widget.alertFives.length; l++) {
-      //   await alertAtTenClock(
-      //       widget.alertFives[l].name, l + widget.alertFives.length * 3);
-      // }
-      // for (int m = 0; m < widget.alertFives.length; m++) {
-      //   await alertAtMidnight(
-      //       widget.alertFives[m].name, m + widget.alertFives.length * 4);
-      // }
     }
 }
   

@@ -30,7 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        // backgroundColor: Colors.blueGrey,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: Container(

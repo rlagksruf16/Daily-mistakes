@@ -2,19 +2,15 @@ import 'dart:async';
 import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
-import 'package:daily_mistakes/pages/mistakeModifyPage.dart' as Mod;
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'package:daily_mistakes/components/MistakesChart.dart';
-import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:daily_mistakes/components/pushNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daily_mistakes/pages/login.dart';
 
 const bottomContainerHeight = 80.0;
@@ -73,64 +69,10 @@ class _MainPageState extends State<MainPage> {
       print(e);
     }
   }
-
-  void startTimer() {
-    Timer timer = Timer.periodic(
-        Duration(days: 1),
-        (time) => setState(() async {
-              await _firestore
-                  .collection('Accounts')
-                  .document(currentEmail)
-                  .collection('mistakes')
-                  .getDocuments()
-                  .then((QuerySnapshot snapshot) {
-                snapshot.documents.forEach((m) {
-                  _firestore
-                      .collection('Accounts')
-                      .document(currentEmail)
-                      .collection('mistakes')
-                      .document(m.data['IDnum'])
-                      .collection('countTimeList')
-                      .document(m.data['count'])
-                      .get()
-                      .then((DocumentSnapshot ds) async {
-                    List lastDay = ds.data['date'].split('.');
-                    var lastTap = DateTime.utc(int.parse(lastDay[0]),
-                        int.parse(lastDay[1]), int.parse(lastDay[2]));
-                    lastTap.add(Duration(hours: 9));
-                    lastTap.toLocal();
-                    Duration differenceTime =
-                        DateTime.now().difference(lastTap);
-                    if (differenceTime.inDays >= 1) {
-                      _firestore
-                          .collection('Accounts')
-                          .document(currentEmail)
-                          .collection('overcomeMistakes')
-                          .document(m.data['IDnum'])
-                          .setData({
-                        'name': m.data['name'],
-                        'count': 0,
-                        'colour': m.data['colour'],
-                        'alertPeriod': m.data['alertPeriod'],
-                        'IDnum': m.data['IDnum'],
-                      });
-                      await _firestore
-                          .collection('Accounts')
-                          .document(currentEmail)
-                          .collection('mistakes')
-                          .document(m.data['IDnum'])
-                          .delete();
-                    }
-                  });
-                });
-              });
-            }));
-  }
-
+  
   @override
   void initState() {
     getCurrentUser();
-    startTimer();
     super.initState();
   }
 

@@ -7,8 +7,6 @@ import 'package:daily_mistakes/components/colorButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//실수 카드 수정은 -> 실수 이름, 실수 알람주기, 실수 컬러만 변경.
-
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
 String mistakeName;
@@ -226,13 +224,13 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: RoundedButton(
                   title: '실수 수정',
                   colour: Colors.grey[350],
+                  textColor: Colors.black,
                   onPressed: () async {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
                     } else if (mistakeColor == null) {
                       alertPopup(context, 2);
                     } else {
-                      // newMistake.firstMistakeTime();
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
@@ -250,38 +248,37 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       }catch(e){
                         print(e.toString());
                       }
-/*
-                      setState(() {
-                        
-                        if (widget.beforeMistake.alertPeriod == '하루에 1번') {
-                          alert1.remove(widget.beforeMistake.name);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 2번') {
-                          alert2.remove(widget.beforeMistake);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 3번') {
-                          alert3.remove(widget.beforeMistake);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 5번') {
-                          alert5.remove(widget.beforeMistake);
-                        }
-
-                        if (mistakeAlert == '하루에 1번') {
-                          alert1.add(newMistake);
-                        } else if (mistakeAlert == '하루에 2번') {
-                          alert2.add(newMistake);
-                        } else if (mistakeAlert == '하루에 3번') {
-                          alert3.add(newMistake);
-                        } else if (mistakeAlert == '하루에 5번') {
-                          alert5.add(newMistake);
-                        }
-                      });
-
-                      
-                      mistakeColor = null;
-                      mistakeAlert = '하루에 1번';
-                      mistakeName = null;
-                      */
                       Navigator.pop(context);
-                      
                     }
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+                child: RoundedButton(
+                  title: '실수 극복',
+                  colour: Colors.red,
+                  textColor: Colors.white,
+                  onPressed: () async {
+                    await _firestore
+                    .collection('Accounts')
+                    .document(currentEmail)
+                    .collection('overcomeMistakes')
+                    .document(widget.beforeMistakeInfo.data['IDnum'])
+                    .setData({
+                      'name': widget.beforeMistakeInfo.data['name'],
+                      'count': 0,
+                      'colour': widget.beforeMistakeInfo.data['colour'],
+                      'alertPeriod': widget.beforeMistakeInfo.data['alertPeriod'],
+                      'IDnum': widget.beforeMistakeInfo.data['IDnum'],
+                    });
+                    await _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .document(widget.beforeMistakeInfo.data['IDnum'])
+                      .delete();
+                    Navigator.pop(context);
                   },
                 ),
               ),
@@ -289,7 +286,6 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
           ),
         ),
       ),
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.home),
@@ -351,12 +347,14 @@ class RoundedButton extends StatelessWidget {
   RoundedButton({
     this.title,
     this.colour,
+    this.textColor,
     @required this.onPressed,
   });
 
   final Color colour;
   final String title;
   final Function onPressed;
+  final textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +369,7 @@ class RoundedButton extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: textColor,
             fontFamily: 'Title_Light',
             fontSize: 20.0,
           ),

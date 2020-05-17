@@ -1,6 +1,4 @@
-import 'package:daily_mistakes/components/mistake_card.dart';
 import 'package:daily_mistakes/models/simpleMistake.dart';
-import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:daily_mistakes/pages/mistakeRegisterPage.dart';
@@ -11,13 +9,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// 클릭추가에 따라 날짜 저장된 리스트를 불러와 비교하는 것을 만들어야 함
-// 만약 비교해서 있으면 캘린더 당일 날짜 밑에 보여주고
-// 캘린더 자체 밑에 카드 형식으로 count 수를 파악해서 몇개 증가했는지 보여주기
-// 날짜 가져오는건 성공
-
-// 애초에 리스트를 초기화하는 방법도 나쁘지않을듯
-
 var now = new DateTime.now();
 
 var count_day = 0;
@@ -27,16 +18,6 @@ final year = now.year;
 final month = now.month;
 final day = now.day;
 final today = '$year.$month.$day';
-
-// void CountMistakePerDay() {
-//   for (var i = 0; i < mistakes.length; i++) {
-//     // for (var j = 0; j < mistakes[i].countTimeList.length; j++) {
-//     if (mistakes[i].countTimeList.contains(today))
-//       // 있으면 리스트에 넣어주기
-//       count++;
-//     todayMistake.add(mistakes[i]);
-//   }
-// }
 
 class CalendarPage extends StatefulWidget {
   static const String id = 'calendar_page';
@@ -185,7 +166,6 @@ class _CalendarPageState extends State<CalendarPage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(todayMistake[index].name),
-                      // subtitle: Text(todayMistake[index].),
                     );
                   }
                 ),
