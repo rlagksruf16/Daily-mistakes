@@ -1,13 +1,13 @@
 # 실수 마스터 (Mistake Master)
 > 실수 기록 어플.
 
-[![NPM Version][npm-image]][npm-url]
-
-매일매일 일어나는 여러분의 실수를 줄여주기 위한 앱입니다. 자주 발생하는 실수를 앱에 기록하여 실수를 줄여나갈 수 있도록 도와줍니다.
+<img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/main.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/addmistake.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/chart.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/overcome.png" width="25%">
 
 ![Flutter](https://img.shields.io/badge/Dart-Flutter-blue?logo=Flutter)
 ![MIT](https://img.shields.io/github/license/rlagksruf16/Daily-mistakes?label=license)
 ![Firebase](https://img.shields.io/badge/with-Firebase-yellow?logo=Firebase)
+
+매일매일 일어나는 여러분의 실수를 줄여주기 위한 앱입니다. 자주 발생하는 실수를 앱에 기록하여 실수를 줄여나갈 수 있도록 도와줍니다.
 
 ## Installation
 
