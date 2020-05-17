@@ -27,7 +27,8 @@ flutter run
 ```
 
 ## Release History
-
+* 0.1.2
+    * CHANGE: Fix debug error.
 * 0.1.0
     * The first proper release
     * CHANGE: Change btn to modify mistakes.
