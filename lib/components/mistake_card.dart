@@ -1,4 +1,3 @@
-import 'package:daily_mistakes/pages/mistakeModifyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,7 +18,6 @@ class MistakeCard extends StatelessWidget {
   static const mainTextStyle = TextStyle(
     fontSize: 25.0,
     fontFamily: 'Title_Light',
-    //fontWeight: FontWeight.bold,
     color: Color(0xFFfdfdfd),
   );
 
@@ -47,7 +45,7 @@ class MistakeCard extends StatelessWidget {
             ),
           ),
           RoundIconButton(
-            onPressed: countCallBack, //count++
+            onPressed: countCallBack, 
           ),
         ],
       ),

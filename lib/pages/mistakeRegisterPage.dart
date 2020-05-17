@@ -1,19 +1,13 @@
-import 'package:daily_mistakes/pages/mainPage.dart';
 import 'package:flutter/material.dart';
-import 'calendarPage.dart';
 import 'package:daily_mistakes/components/CustomActionButton.dart';
 import 'package:daily_mistakes/components/CustomAppBar.dart';
 import 'package:daily_mistakes/components/alertPopup.dart';
 import 'package:daily_mistakes/components/colorButton.dart';
-// import 'package:daily_mistakes/components/localNotification.dart';
 import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:daily_mistakes/models/simpleMistake.dart';
 import 'package:daily_mistakes/models/alertMistake.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
-import 'dart:math';
 
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
@@ -319,10 +313,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 }
 
 class DropeddownButton extends StatefulWidget {
-  // DropeddownButton({@required this.onChanged});
-
-  // final Function onChanged;
-
   @override
   _DropeddownButtonState createState() => _DropeddownButtonState();
 }

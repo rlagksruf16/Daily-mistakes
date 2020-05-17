@@ -61,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        // backgroundColor: Colors.blueGrey,
         body: ModalProgressHUD(
             inAsyncCall: showSpinner,
             color: Colors.white70,

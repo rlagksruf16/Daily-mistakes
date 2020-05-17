@@ -129,10 +129,6 @@ class BestMistakesChart extends StatefulWidget {
 }
 
 class _BestMistakesChartState extends State<BestMistakesChart> {
-  // Map<String, double> dataMap = Map();
-  //   sortedMistakes.forEach((Mistake mistakes) {
-  //   print('${mistakes.name} , ${mistakes.colour}');
-  // });
 
   @override
   void initState() {

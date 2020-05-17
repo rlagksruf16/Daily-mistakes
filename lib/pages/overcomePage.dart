@@ -136,7 +136,7 @@ class _OvercomePageState extends State<OvercomePage> {
                 ),
                 ),
                 
-              ],      
+              ],
             ),
           ),
       ),

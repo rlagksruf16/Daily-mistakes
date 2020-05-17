@@ -49,9 +49,6 @@ class _StartPageState extends State<StartPage> {
                 onTap: () async {
                   setState(() {
                     if (i == 17) {
-                      // changeBuffer();
-                      // if (infoCheck == true) {
-                      //   // Navigator.pushNamed(context, MainPage.id);
                         Navigator.of(context).pushReplacement(
                           new MaterialPageRoute(builder: (context) => new LoginScreen())
                         );

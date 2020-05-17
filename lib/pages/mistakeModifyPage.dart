@@ -7,8 +7,6 @@ import 'package:daily_mistakes/components/colorButton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//실수 카드 수정은 -> 실수 이름, 실수 알람주기, 실수 컬러만 변경.
-
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
 String mistakeName;
@@ -232,7 +230,6 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                     } else if (mistakeColor == null) {
                       alertPopup(context, 2);
                     } else {
-                      // newMistake.firstMistakeTime();
                       print(mistakeName);
                       print(mistakeAlert);
                       print(mistakeColor);
@@ -250,37 +247,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                       }catch(e){
                         print(e.toString());
                       }
-/*
-                      setState(() {
-                        
-                        if (widget.beforeMistake.alertPeriod == '하루에 1번') {
-                          alert1.remove(widget.beforeMistake.name);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 2번') {
-                          alert2.remove(widget.beforeMistake);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 3번') {
-                          alert3.remove(widget.beforeMistake);
-                        } else if (widget.beforeMistake.alertPeriod== '하루에 5번') {
-                          alert5.remove(widget.beforeMistake);
-                        }
-
-                        if (mistakeAlert == '하루에 1번') {
-                          alert1.add(newMistake);
-                        } else if (mistakeAlert == '하루에 2번') {
-                          alert2.add(newMistake);
-                        } else if (mistakeAlert == '하루에 3번') {
-                          alert3.add(newMistake);
-                        } else if (mistakeAlert == '하루에 5번') {
-                          alert5.add(newMistake);
-                        }
-                      });
-
-                      
-                      mistakeColor = null;
-                      mistakeAlert = '하루에 1번';
-                      mistakeName = null;
-                      */
                       Navigator.pop(context);
-                      
                     }
                   },
                 ),
