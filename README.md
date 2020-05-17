@@ -1,5 +1,4 @@
 # 실수 마스터 (Mistake Master)
-> 실수 기록 어플.
 ![Flutter](https://img.shields.io/badge/Dart-Flutter-blue?logo=Flutter)
 ![MIT](https://img.shields.io/github/license/rlagksruf16/Daily-mistakes?label=license)
 ![Firebase](https://img.shields.io/badge/with-Firebase-yellow?logo=Firebase)
