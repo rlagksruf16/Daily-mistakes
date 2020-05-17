@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:daily_mistakes/pages/mainPage.dart';
+import 'package:daily_mistakes/models/alertMistake.dart';
+
+List<String> alert1 = List();
+List<String> alert2 = List();
+List<String> alert3 = List();
+List<String> alert5 = List();
 
 
 class ButtonWithNotifications extends StatefulWidget {
@@ -230,55 +236,55 @@ int idNum = 0;
     int sixlen = 0;
     int morninglen = 0;
       for (int i = 0; i < alert1.length; i++) {
-        alertAtLunch(alert1[i].name, i);
+        alertAtLunch(alert1[i], i);
       }
       lunchlen = alert1.length;
       for (int i = 0; i < alert2.length; i++) {
-         alertAtLunch(alert2[i].name, i + lunchlen);
+         alertAtLunch(alert2[i], i + lunchlen);
       }
       lunchlen += alert2.length;
       for (int j = 0; j < alert2.length; j++) {
          alertAtSixClock(
-            alert2[j].name, j);
+            alert2[j], j);
       }
       sixlen = alert2.length;
 
       for (int i = 0; i < alert3.length; i++) {
-        alertAtLunch(alert3[i].name, i + lunchlen);
+        alertAtLunch(alert3[i], i + lunchlen);
       }
       lunchlen += alert3.length;
       for (int j = 0; j < alert3.length; j++) {
          alertAtSixClock(
-            alert3[j].name, j + sixlen);
+            alert3[j], j + sixlen);
       }
       sixlen += alert3.length;
       for (int k = 0; k < alert3.length; k++) {
          alertAtMorning(
-            alert3[k].name, k);
+            alert3[k], k);
       }
       morninglen = alert3.length;
 
       for(int i = 0; i < alert5.length; i++) {
-        alertAtLunch(alert5[i].name, i + lunchlen);
+        alertAtLunch(alert5[i], i + lunchlen);
       }
       lunchlen += alert5.length;
 
       for(int j = 0; j < alert5.length; j++) {
-        alertAtSixClock(alert5[j].name, j + sixlen);
+        alertAtSixClock(alert5[j], j + sixlen);
       }
       sixlen += alert5.length;
 
       for(int k = 0; k < alert5.length; k++) {
-        alertAtMorning(alert5[k].name, k + morninglen);
+        alertAtMorning(alert5[k], k + morninglen);
       }
       morninglen += alert5.length;
 
       for(int l = 0; l < alert5.length; l++) {
-        alertAtTenClock(alert5[l].name, l);
+        alertAtTenClock(alert5[l], l);
       }
 
       for(int m = 0; m < alert5.length; m++) {
-        alertAtMidnight(alert5[m].name, m);
+        alertAtMidnight(alert5[m], m);
       }
 
       // for (int i = 0; i < widget.alertFives.length; i++) {

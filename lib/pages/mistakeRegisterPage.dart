@@ -10,11 +10,14 @@ import 'package:daily_mistakes/components/ButtonWithNotification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:daily_mistakes/models/simpleMistake.dart';
+import 'package:daily_mistakes/models/alertMistake.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:math';
 
 String mistakeAlert = '하루에 1번';
 String mistakeColor;
 String mistakeName;
-
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -26,7 +29,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
@@ -45,10 +47,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   @override
-  void initState(){
+  void initState() {
     getCurrentUser();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -238,40 +241,54 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       var day = now.day;
                       var today = '$year.$month.$day';
                       await _firestore
-                        .collection('Accounts')
-                        .document(currentEmail)
-                        .collection('mistakes')
-                        .document(widget.docNum)
-                        .setData({
-                          'IDnum': widget.docNum,
-                          'name': mistakeName,
-                          'colour': mistakeColor,
-                          'alertPeriod': mistakeAlert,
-                          'count': 0,
-                        });
-                      await _firestore
-                        .collection('Accounts')
-                        .document(currentEmail)
-                        .collection('mistakes')
-                        .document(widget.docNum)
-                        .collection('countTimeList')
-                        .document('0')
-                        .setData({
-                          'date': today,
-                        });
-/*
-                      setState(() {
-                        if (mistakeAlert == '하루에 1번') {
-                          alert1.add(newMistake);
-                        } else if (mistakeAlert == '하루에 2번') {
-                          alert2.add(newMistake);
-                        } else if (mistakeAlert == '하루에 3번') {
-                          alert3.add(newMistake);
-                        } else if (mistakeAlert == '하루에 5번') {
-                          alert5.add(newMistake);
-                        }
+                          .collection('Accounts')
+                          .document(currentEmail)
+                          .collection('mistakes')
+                          .document(widget.docNum)
+                          .setData({
+                        'IDnum': widget.docNum,
+                        'name': mistakeName,
+                        'colour': mistakeColor,
+                        'alertPeriod': mistakeAlert,
+                        'count': 0,
                       });
-                      */
+                      await _firestore
+                          .collection('Accounts')
+                          .document(currentEmail)
+                          .collection('mistakes')
+                          .document(widget.docNum)
+                          .collection('countTimeList')
+                          .document('0')
+                          .setData({
+                        'date': today,
+                      });
+                      var newMistake = AlertMistake(
+                        name: mistakeName,
+                        alert: mistakeAlert,
+                      );
+
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      alert1 = (prefs.getStringList('alert1') ?? []);
+                      alert2 = (prefs.getStringList('alert2') ?? []);
+                      alert3 = (prefs.getStringList('alert3') ?? []);
+                      alert5 = (prefs.getStringList('alert5') ?? []);
+
+                      // setState(() {
+                        if (mistakeAlert == '하루에 1번') {
+                          alert1.add(newMistake.name);
+                          await prefs.setStringList("alert1", alert1);
+                        } else if (mistakeAlert == '하루에 2번') {
+                          alert2.add(newMistake.name);
+                          await prefs.setStringList("alert2", alert2);
+                        } else if (mistakeAlert == '하루에 3번') {
+                          alert3.add(newMistake.name);
+                          await prefs.setStringList("alert3", alert3);
+                        } else if (mistakeAlert == '하루에 5번') {
+                          alert5.add(newMistake.name);
+                          await prefs.setStringList("alert5", alert5);
+                        }
+                      // });
 
                       print(mistakeName);
                       print(mistakeAlert);

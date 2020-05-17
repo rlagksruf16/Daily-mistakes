@@ -38,11 +38,6 @@ List<SimpleMistake> sortedMistakes =
 Comparator<SimpleMistake> countComparator =
     (a, b) => b.count.compareTo(a.count); //내림차순 sort에 사용
 
-List<SimpleMistake> alert1 = List();
-List<SimpleMistake> alert2 = List();
-List<SimpleMistake> alert3 = List();
-List<SimpleMistake> alert5 = List();
-
 class MainPage extends StatefulWidget {
   static const String id = 'main_page';
   @override
