@@ -19,13 +19,13 @@ double maxMistakes = 0.0;
 Future todaysCount(int day) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (day == 1) {
-    if (prefs.getDouble('sundayCount') != 0 ||
-        prefs.getDouble('mondayCount') != 0 ||
-        prefs.getDouble('tuesdayCount') != 0 ||
-        prefs.getDouble('wednesdayCount') != 0 ||
-        prefs.getDouble('thursdayCount') != 0 ||
-        prefs.getDouble('fridayCount') != 0 ||
-        prefs.getDouble('saturdayCount') != 0) {
+    if ((prefs.getDouble('sundayCount') ?? 0) != 0 ||
+        (prefs.getDouble('mondayCount') ?? 0) != 0 ||
+        (prefs.getDouble('tuesdayCount') ?? 0) != 0 ||
+        (prefs.getDouble('wednesdayCount') ?? 0) != 0 ||
+        (prefs.getDouble('thursdayCount') ?? 0) != 0 ||
+        (prefs.getDouble('fridayCount') ?? 0) != 0 ||
+        (prefs.getDouble('saturdayCount') ?? 0) != 0) {
       //매주 월요일 마다 갱신
       await prefs.setDouble('mondayCount', 0.0);
       await prefs.setDouble('tuesdayCount', 0.0);
@@ -39,7 +39,7 @@ Future todaysCount(int day) async {
     mondayCount = (prefs.getDouble('mondayCount') ?? 0) + 1.0;
     await prefs.setDouble('mondayCount', mondayCount);
 
-    if (mondayCount >= prefs.getDouble('maxMistakes')) {
+    if (mondayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = mondayCount;
       await prefs.setDouble('maxMistakes', mondayCount);
     }
@@ -47,7 +47,7 @@ Future todaysCount(int day) async {
     tuesdayCount = (prefs.getDouble('tuesdayCount') ?? 0) + 1.0;
     await prefs.setDouble('tuesdayCount', tuesdayCount);
 
-    if (tuesdayCount >= prefs.getDouble('maxMistakes')) {
+    if (tuesdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = tuesdayCount;
       await prefs.setDouble('maxMistakes', tuesdayCount);
     }
@@ -55,7 +55,7 @@ Future todaysCount(int day) async {
     wednesdayCount = (prefs.getDouble('wednesdayCount') ?? 0) + 1.0;
     await prefs.setDouble('wednesdayCount', wednesdayCount);
 
-    if (wednesdayCount >= prefs.getDouble('maxMistakes')) {
+    if (wednesdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = wednesdayCount;
       await prefs.setDouble('maxMistakes', wednesdayCount);
     }
@@ -63,7 +63,7 @@ Future todaysCount(int day) async {
     thursdayCount = (prefs.getDouble('thursdayCount') ?? 0) + 1.0;
     await prefs.setDouble('thursdayCount', thursdayCount);
 
-    if (thursdayCount >= prefs.getDouble('maxMistakes')) {
+    if (thursdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = thursdayCount;
       await prefs.setDouble('maxMistakes', thursdayCount);
     }
@@ -71,7 +71,7 @@ Future todaysCount(int day) async {
     fridayCount = (prefs.getDouble('fridayCount') ?? 0) + 1.0;
     await prefs.setDouble('fridayCount', fridayCount);
 
-    if (fridayCount >= prefs.getDouble('maxMistakes')) {
+    if (fridayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = fridayCount;
       await prefs.setDouble('maxMistakes', fridayCount);
     }
@@ -79,7 +79,7 @@ Future todaysCount(int day) async {
     saturdayCount = (prefs.getDouble('saturdayCount') ?? 0) + 1.0;
     await prefs.setDouble('saturdayCount', saturdayCount);
 
-    if (saturdayCount >= prefs.getDouble('maxMistakes')) {
+    if (saturdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
       maxMistakes = saturdayCount;
       await prefs.setDouble('maxMistakes', saturdayCount);
     }
@@ -87,7 +87,7 @@ Future todaysCount(int day) async {
     sundayCount = (prefs.getDouble('sundayCount') ?? 0) + 1.0;
     await prefs.setDouble('sundayCount', sundayCount);
 
-    if (sundayCount >= prefs.getDouble('maxMistakes')) {
+    if (sundayCount >= prefs.getDouble('maxMistakes') ?? 0.0) {
       maxMistakes = sundayCount;
       await prefs.setDouble('maxMistakes', sundayCount);
     }
@@ -150,7 +150,7 @@ class MistakesChartState extends State<MistakesChart> {
     thursdayCount = (prefs.getDouble('thursdayCount') ?? 0.0);
     fridayCount = (prefs.getDouble('fridayCount') ?? 0.0);
     saturdayCount = (prefs.getDouble('saturdayCount') ?? 0.0);
-    sundayCount = (prefs.getDouble('sundayCount'));
+    sundayCount = (prefs.getDouble('sundayCount') ?? 0.0);
     maxMistakes = (prefs.getDouble('maxMistakes') ?? 0.0);
     print(prefs.getDouble('sundayCount'));
   }
