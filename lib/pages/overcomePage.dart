@@ -100,23 +100,23 @@ class _OvercomePageState extends State<OvercomePage> {
                             count: mistakeCount,
                             countCallBack: () async {
                               await _firestore
-                              .collection('Accounts')
-                              .document(currentEmail)
-                              .collection('mistakes')
-                              .document(mistakeInfo.data['IDnum'])
-                              .setData({
-                                'name': mistakeInfo.data['name'],
-                                'count': 0,
-                                'colour': mistakeInfo.data['colour'],
-                                'alertPeriod': mistakeInfo.data['alertPeriod'],
-                                'IDnum': mistakeInfo.data['IDnum'],
-                              });
+                                .collection('Accounts')
+                                .document(currentEmail)
+                                .collection('mistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .setData({
+                                  'name': mistakeInfo.data['name'],
+                                  'count': 0,
+                                  'colour': mistakeInfo.data['colour'],
+                                  'alertPeriod': mistakeInfo.data['alertPeriod'],
+                                  'IDnum': mistakeInfo.data['IDnum'],
+                                });
                               await _firestore
-                              .collection('Accounts')
-                              .document(currentEmail)
-                              .collection('overcomeMistakes')
-                              .document(mistakeInfo.data['IDnum'])
-                              .delete();
+                                .collection('Accounts')
+                                .document(currentEmail)
+                                .collection('overcomeMistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .delete();
                               setState(()  {
                                 print('aaaaaa');
                                 todaysCount(
@@ -124,7 +124,14 @@ class _OvercomePageState extends State<OvercomePage> {
                                 sortedMistakes.sort(countComparator); //실수 횟수 별로 저장하기 위해 사용
                               });
                             },
-                            onPressed: () {},
+                            onPressed: () async {
+                              await _firestore
+                                .collection('Accounts')
+                                .document(currentEmail)
+                                .collection('overcomeMistakes')
+                                .document(mistakeInfo.data['IDnum'])
+                                .delete();
+                            },
                           );
                         },
                         
