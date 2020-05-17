@@ -1,7 +1,7 @@
 # 실수 마스터 (Mistake Master)
 > 실수 기록 어플.
 
-<img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/main.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/addmistake.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/chart.png" width="25%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/overcome.png" width="25%">
+<img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/main.png" width="30%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/addmistake.png" width="30%"> <img src="https://github.com/rlagksruf16/Daily-mistakes/blob/master/img/chart.png" width="30%">
 
 ![Flutter](https://img.shields.io/badge/Dart-Flutter-blue?logo=Flutter)
 ![MIT](https://img.shields.io/github/license/rlagksruf16/Daily-mistakes?label=license)
