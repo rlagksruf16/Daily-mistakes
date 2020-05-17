@@ -36,56 +36,64 @@ Future todaysCount(int day) async {
     }
     mondayCount = (prefs.getDouble('mondayCount') ?? 0) + 1.0;
     await prefs.setDouble('mondayCount', mondayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (mondayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+    if (mondayCount >= maxMistakes) {
       maxMistakes = mondayCount;
       await prefs.setDouble('maxMistakes', mondayCount);
     }
   } else if (day == 2) {
     tuesdayCount = (prefs.getDouble('tuesdayCount') ?? 0) + 1.0;
     await prefs.setDouble('tuesdayCount', tuesdayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (tuesdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+    if (tuesdayCount >= maxMistakes) {
       maxMistakes = tuesdayCount;
       await prefs.setDouble('maxMistakes', tuesdayCount);
     }
   } else if (day == 3) {
     wednesdayCount = (prefs.getDouble('wednesdayCount') ?? 0) + 1.0;
     await prefs.setDouble('wednesdayCount', wednesdayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (wednesdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+    if (wednesdayCount >= maxMistakes) {
       maxMistakes = wednesdayCount;
       await prefs.setDouble('maxMistakes', wednesdayCount);
     }
   } else if (day == 4) {
     thursdayCount = (prefs.getDouble('thursdayCount') ?? 0) + 1.0;
     await prefs.setDouble('thursdayCount', thursdayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (thursdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+    if (thursdayCount >= maxMistakes) {
       maxMistakes = thursdayCount;
       await prefs.setDouble('maxMistakes', thursdayCount);
     }
   } else if (day == 5) {
     fridayCount = (prefs.getDouble('fridayCount') ?? 0) + 1.0;
     await prefs.setDouble('fridayCount', fridayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (fridayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+
+    if (fridayCount >= maxMistakes) {
       maxMistakes = fridayCount;
       await prefs.setDouble('maxMistakes', fridayCount);
     }
   } else if (day == 6) {
     saturdayCount = (prefs.getDouble('saturdayCount') ?? 0) + 1.0;
     await prefs.setDouble('saturdayCount', saturdayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (saturdayCount >= prefs.getDouble('maxMistakes') ?? 0) {
+    if (saturdayCount >= maxMistakes) {
       maxMistakes = saturdayCount;
       await prefs.setDouble('maxMistakes', saturdayCount);
     }
   } else {
     sundayCount = (prefs.getDouble('sundayCount') ?? 0) + 1.0;
     await prefs.setDouble('sundayCount', sundayCount);
+    maxMistakes = prefs.getDouble('maxMistakes') ?? 0;
 
-    if (sundayCount >= prefs.getDouble('maxMistakes') ?? 0.0) {
+    if (sundayCount >= maxMistakes) {
       maxMistakes = sundayCount;
       await prefs.setDouble('maxMistakes', sundayCount);
     }
