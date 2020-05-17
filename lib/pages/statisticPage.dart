@@ -31,11 +31,9 @@ class _StatisticPageState extends State<StatisticPage> {
     }
     else{
       for (int i = 0; i < sortedMistakes.length; i++) {
-        print('$i ${sortedMistakes[i].name}');
         setState(() { 
           bestMistakes.add(sortedMistakes[i]);
           colorList.add(sortedMistakes[i].colour);
-          
         });
        
         if(i==3){
