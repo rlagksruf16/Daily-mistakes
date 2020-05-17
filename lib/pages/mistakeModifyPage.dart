@@ -224,6 +224,7 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                 child: RoundedButton(
                   title: '실수 수정',
                   colour: Colors.grey[350],
+                  textColor: Colors.black,
                   onPressed: () async {
                     if (mistakeName == null || mistakeName == '') {
                       alertPopup(context, 1);
@@ -252,11 +253,39 @@ class _MistakeModifyPageState extends State<MistakeModifyPage> {
                   },
                 ),
               ),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 30, 20, 10),
+                child: RoundedButton(
+                  title: '실수 극복',
+                  colour: Colors.red,
+                  textColor: Colors.white,
+                  onPressed: () async {
+                    await _firestore
+                    .collection('Accounts')
+                    .document(currentEmail)
+                    .collection('overcomeMistakes')
+                    .document(widget.beforeMistakeInfo.data['IDnum'])
+                    .setData({
+                      'name': widget.beforeMistakeInfo.data['name'],
+                      'count': 0,
+                      'colour': widget.beforeMistakeInfo.data['colour'],
+                      'alertPeriod': widget.beforeMistakeInfo.data['alertPeriod'],
+                      'IDnum': widget.beforeMistakeInfo.data['IDnum'],
+                    });
+                    await _firestore
+                      .collection('Accounts')
+                      .document(currentEmail)
+                      .collection('mistakes')
+                      .document(widget.beforeMistakeInfo.data['IDnum'])
+                      .delete();
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomActionButton(
         icon: Icon(Icons.home),
@@ -318,12 +347,14 @@ class RoundedButton extends StatelessWidget {
   RoundedButton({
     this.title,
     this.colour,
+    this.textColor,
     @required this.onPressed,
   });
 
   final Color colour;
   final String title;
   final Function onPressed;
+  final textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +369,7 @@ class RoundedButton extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: textColor,
             fontFamily: 'Title_Light',
             fontSize: 20.0,
           ),

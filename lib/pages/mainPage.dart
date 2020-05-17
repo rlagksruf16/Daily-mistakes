@@ -69,64 +69,10 @@ class _MainPageState extends State<MainPage> {
       print(e);
     }
   }
-
-  void startTimer() {
-    Timer timer = Timer.periodic(
-        Duration(days: 1),
-        (time) => setState(() async {
-              await _firestore
-                  .collection('Accounts')
-                  .document(currentEmail)
-                  .collection('mistakes')
-                  .getDocuments()
-                  .then((QuerySnapshot snapshot) {
-                snapshot.documents.forEach((m) {
-                  _firestore
-                      .collection('Accounts')
-                      .document(currentEmail)
-                      .collection('mistakes')
-                      .document(m.data['IDnum'])
-                      .collection('countTimeList')
-                      .document(m.data['count'])
-                      .get()
-                      .then((DocumentSnapshot ds) async {
-                    List lastDay = ds.data['date'].split('.');
-                    var lastTap = DateTime.utc(int.parse(lastDay[0]),
-                        int.parse(lastDay[1]), int.parse(lastDay[2]));
-                    lastTap.add(Duration(hours: 9));
-                    lastTap.toLocal();
-                    Duration differenceTime =
-                        DateTime.now().difference(lastTap);
-                    if (differenceTime.inDays >= 1) {
-                      _firestore
-                          .collection('Accounts')
-                          .document(currentEmail)
-                          .collection('overcomeMistakes')
-                          .document(m.data['IDnum'])
-                          .setData({
-                        'name': m.data['name'],
-                        'count': 0,
-                        'colour': m.data['colour'],
-                        'alertPeriod': m.data['alertPeriod'],
-                        'IDnum': m.data['IDnum'],
-                      });
-                      await _firestore
-                          .collection('Accounts')
-                          .document(currentEmail)
-                          .collection('mistakes')
-                          .document(m.data['IDnum'])
-                          .delete();
-                    }
-                  });
-                });
-              });
-            }));
-  }
-
+  
   @override
   void initState() {
     getCurrentUser();
-    startTimer();
     super.initState();
   }
 
